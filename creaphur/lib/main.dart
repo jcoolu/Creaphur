@@ -1,3 +1,4 @@
+import 'package:creaphur/screens/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -5,6 +6,15 @@ void main() {
   runApp(const MyApp());
 }
 
+/*
+Colors for reference:
+          Color(4285286399), - main purple
+          Color(4280877260), - dark purple
+          Color(4281059952), - main green
+          Color(4280125259), - dark green
+          Color(4289567231), - light purple
+          Color(4287227569), - light green
+*/
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -18,13 +28,13 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
           primary: Color(4285286399),
-          onPrimary: Color(4280877260),
+          onPrimary: Colors.white,
           secondary: Color(4281059952),
           onSecondary: Color(4280125259),
           error: Color(0xFFF32424),
           onError: Color(0xFFF32424),
           background: Color(0xFFF1F2F3),
-          onBackground: Color(0xFFFFFFFF),
+          onBackground: Colors.black,
           surface: Color(4285286399),
           onSurface: Color(4280877260),
           primaryContainer: Color(4289567231),
@@ -32,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const WelcomePage(),
     );
   }
 }
@@ -91,19 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -120,6 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
+        foregroundColor: Colors.white,
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

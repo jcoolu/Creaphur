@@ -1,3 +1,4 @@
+import 'package:creaphur/screens/dashboard.dart';
 import 'package:creaphur/widgets/forms/name_form.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,10 @@ class _WelcomePageState extends State<WelcomePage> {
 
   void handleNext(String value) {
     setState(() => name = value);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Dashboard()),
+    );
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:creaphur/screens/project.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
@@ -5,6 +6,13 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void createProject() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProjectScreen()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -30,7 +38,7 @@ class Dashboard extends StatelessWidget {
       ),
       floatingActionButton: ElevatedButton(
         child: Icon(Icons.add),
-        onPressed: null,
+        onPressed: createProject,
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(

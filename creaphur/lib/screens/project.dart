@@ -1,5 +1,4 @@
 import 'package:creaphur/screens/dashboard.dart';
-import 'package:creaphur/widgets/forms/name_form.dart';
 import 'package:flutter/material.dart';
 
 class ProjectScreen extends StatefulWidget {
@@ -24,22 +23,22 @@ class _ProjectScreenState extends State<ProjectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        leading: const IconButton(
           icon: Icon(Icons.menu),
           onPressed: null,
         ),
         title: const Text('Create Project'),
-        actions: [
+        actions: const [
           IconButton(
             icon: Icon(Icons.person_2_rounded),
             onPressed: null,
           ),
         ],
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Text(
                 'No projects found. Please click (+) below to create a new project.'),
           ),

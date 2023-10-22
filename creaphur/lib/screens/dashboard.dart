@@ -15,29 +15,28 @@ class Dashboard extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        leading: const IconButton(
           icon: Icon(Icons.menu),
           onPressed: null,
         ),
         title: const Text('Welcome, {Name}'),
-        actions: [
+        actions: const [
           IconButton(
             icon: Icon(Icons.person_2_rounded),
             onPressed: null,
           ),
         ],
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Text(
                 'No projects found. Please click (+) below to create a new project.'),
           ),
         ),
       ),
       floatingActionButton: ElevatedButton(
-        child: Icon(Icons.add),
         onPressed: createProject,
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -46,6 +45,7 @@ class Dashboard extends StatelessWidget {
             ),
           ),
         ),
+        child: const Icon(Icons.add),
       ),
     );
   }

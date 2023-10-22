@@ -25,7 +25,7 @@ class ProjectFormState extends State<ProjectForm> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Padding(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

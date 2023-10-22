@@ -27,18 +27,18 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
-          primary: Color(4285286399),
+          primary: Color(0xff6c47ff),
           onPrimary: Colors.white,
-          secondary: Color(4281059952),
+          secondary: Color(0xff2bca70),
           onSecondary: Colors.white,
           error: Color(0xFFF32424),
           onError: Color(0xFFF32424),
           background: Color(0xFFF1F2F3),
           onBackground: Colors.black,
           surface: Colors.white24,
-          onSurface: Color(4280877260),
-          primaryContainer: Color(4289567231),
-          secondaryContainer: Color(4287227569),
+          onSurface: Color(0xff2900cc),
+          primaryContainer: Color(0xffad99ff),
+          secondaryContainer: Color(0xff89e6b1),
           onPrimaryContainer: Colors.white,
         ),
         useMaterial3: true,
@@ -117,8 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
         foregroundColor: Colors.white,
+        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

@@ -12,4 +12,9 @@ class Profile {
 
   // to-do later
   String getMotivationQuote() => 'Keep  Moving Forward';
+
+  Profile.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
 }

@@ -3,8 +3,13 @@ class Expense {
   late String materialId;
   late String projectId;
   late double quantity;
-  late String quantityType;
 
-  Expense(this.id, this.materialId, this.projectId, this.quantity,
-      this.quantityType);
+  Expense(this.id, this.materialId, this.projectId, this.quantity);
+
+  Expense.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    materialId = json['materialId'];
+    projectId = json['projectId'];
+    quantity = json['quantity'];
+  }
 }

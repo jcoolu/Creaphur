@@ -9,4 +9,14 @@ class Project {
 
   Project(this.id, this.name, this.description, this.startDate, this.endDate,
       this.estCost, this.ownerId);
+
+  Project.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    description = json['description'];
+    startDate = json['startDate'];
+    endDate = json['endDate'];
+    estCost = json['estCost'];
+    ownerId = json['ownerId'];
+  }
 }

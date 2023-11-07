@@ -1,13 +1,43 @@
 import 'package:creaphur/models/default_model.dart';
 
 class TimeEntry extends DefaultModel {
-  late DateTime startTime;
-  late DateTime endTime;
-  late int duration;
-  late double costOfServices;
-  late String projectId;
+  final DateTime startTime;
+  final DateTime endTime;
+  final int duration;
+  final double costOfServices;
+  final String projectId;
 
-  TimeEntry(String id, String name, this.startTime, this.endTime, this.duration,
-      this.costOfServices, this.projectId)
-      : super(id, name);
+  TimeEntry(
+      {required String id,
+      required String name,
+      required this.startTime,
+      required this.endTime,
+      required this.duration,
+      required this.costOfServices,
+      required this.projectId})
+      : super(id: id, name: name);
+
+  factory TimeEntry.fromJson(Map<String, dynamic> json) {
+    return TimeEntry(
+      id: json['id'],
+      name: json['name'],
+      startTime: DateTime.parse(json['startTime']),
+      endTime: DateTime.parse(json['endTime']),
+      duration: json['duration'],
+      costOfServices: json['costOfServices'],
+      projectId: json['projectId'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'startTime': startTime.toIso8601String(),
+      'endTime': endTime.toIso8601String(),
+      'duration': duration,
+      'costOfServices': costOfServices,
+      'projectId': projectId,
+    };
+  }
 }

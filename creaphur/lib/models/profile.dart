@@ -1,7 +1,7 @@
 import 'package:creaphur/models/default_model.dart';
 
 class Profile extends DefaultModel {
-  Profile(String id, String name) : super(id, name);
+  Profile({required String id, required name}) : super(id: id, name: name);
 
   int getNumberOfProjects() => 0;
 

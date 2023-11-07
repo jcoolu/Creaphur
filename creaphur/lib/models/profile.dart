@@ -1,20 +1,20 @@
-class Profile {
-  late String id;
-  late String name;
+import 'package:creaphur/models/default_model.dart';
 
-  Profile(this.id, this.name);
+class Profile extends DefaultModel {
+  Profile(String id, String name) : super(id, name);
 
-  // to-do later
   int getNumberOfProjects() => 0;
 
-  //to-do later
   String getMaterialFunInfo() => 'You have used 3 yards of fabric';
 
-  // to-do later
-  String getMotivationQuote() => 'Keep  Moving Forward';
+  String getMotivationQuote() => 'Keep Moving Forward';
 
-  Profile.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
+  Profile.fromJson(Map<String, dynamic> json) : super.fromJson(json);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+    };
   }
 }

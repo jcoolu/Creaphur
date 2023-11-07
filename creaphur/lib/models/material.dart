@@ -16,11 +16,24 @@ class Material {
   Material.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'];
+    image = Image.network(json['image']);
     profileId = json['profileId'];
     quantity = json['quantity'];
     quantityType = json['quantityType'];
     costPer = json['costPer'];
     singleQuantity = json['singleQuantity'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image, // Assuming 'image' is an ImageProvider
+      'profileId': profileId,
+      'quantity': quantity,
+      'quantityType': quantityType,
+      'costPer': costPer,
+      'singleQuantity': singleQuantity,
+    };
   }
 }

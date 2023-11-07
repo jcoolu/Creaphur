@@ -1,8 +1,7 @@
+import 'package:creaphur/models/default_model.dart';
 import 'package:flutter/material.dart';
 
-class Material {
-  late String id;
-  late String name;
+class Material extends DefaultModel {
   late Image image;
   late String profileId;
   late double quantity;
@@ -10,19 +9,18 @@ class Material {
   late double costPer;
   late double singleQuantity;
 
-  Material(this.id, this.name, this.image, this.profileId, this.quantity,
-      this.quantityType, this.costPer, this.singleQuantity);
+  Material(String id, String name, this.image, this.profileId, this.quantity,
+      this.quantityType, this.costPer, this.singleQuantity)
+      : super(id, name);
 
-  Material.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    image = Image.network(json['image']);
-    profileId = json['profileId'];
-    quantity = json['quantity'];
-    quantityType = json['quantityType'];
-    costPer = json['costPer'];
-    singleQuantity = json['singleQuantity'];
-  }
+  Material.fromJson(Map<String, dynamic> json)
+      : image = Image.network(json['image']),
+        profileId = json['profileId'],
+        quantity = json['quantity'],
+        quantityType = json['quantityType'],
+        costPer = json['costPer'],
+        singleQuantity = json['singleQuantity'],
+        super(json['id'], json['name']);
 
   Map<String, dynamic> toJson() {
     return {

@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 
 Future<void> createTables(Database db) async {
   await db.execute('''
-    CREATE TABLE expenses (
+    CREATE TABLE Expense (
       id TEXT PRIMARY KEY,
       name TEXT,
       materialId TEXT,
@@ -12,7 +12,7 @@ Future<void> createTables(Database db) async {
   ''');
 
   await db.execute('''
-    CREATE TABLE materials (
+    CREATE TABLE Material (
       id TEXT PRIMARY KEY,
       name TEXT,
       image BLOB,
@@ -21,14 +21,14 @@ Future<void> createTables(Database db) async {
   ''');
 
   await db.execute('''
-    CREATE TABLE profiles (
+    CREATE TABLE Profile (
       id TEXT PRIMARY KEY,
       name TEXT
     )
   ''');
 
   await db.execute('''
-    CREATE TABLE projects (
+    CREATE TABLE Project (
       id TEXT PRIMARY KEY,
       name TEXT,
       description LONGTEXT,
@@ -40,7 +40,7 @@ Future<void> createTables(Database db) async {
   ''');
 
   await db.execute('''
-    CREATE TABLE timeEntries (
+    CREATE TABLE TimeEntry (
       id TEXT PRIMARY KEY,
       name TEXT,
       startDate DATETIME,

@@ -17,7 +17,7 @@ class Project extends DefaultModel {
       required this.ownerId})
       : super(id: id, name: name);
 
-  factory Project.fromJson(Map<String, dynamic> json) {
+  factory Project.fromMap(Map<String, dynamic> json) {
     return Project(
         id: json['id'],
         name: json['name'],
@@ -28,7 +28,7 @@ class Project extends DefaultModel {
         ownerId: json['ownerId']);
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,

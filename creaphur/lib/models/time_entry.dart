@@ -17,7 +17,7 @@ class TimeEntry extends DefaultModel {
       required this.projectId})
       : super(id: id, name: name);
 
-  factory TimeEntry.fromJson(Map<String, dynamic> json) {
+  factory TimeEntry.fromMap(Map<String, dynamic> json) {
     return TimeEntry(
       id: json['id'],
       name: json['name'],
@@ -29,7 +29,7 @@ class TimeEntry extends DefaultModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,

@@ -9,9 +9,9 @@ class Profile extends DefaultModel {
 
   String getMotivationQuote() => 'Keep Moving Forward';
 
-  Profile.fromJson(Map<String, dynamic> json) : super.fromJson(json);
+  Profile.fromMap(Map<String, dynamic> json) : super.fromMap(json);
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,

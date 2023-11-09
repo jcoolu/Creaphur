@@ -20,7 +20,7 @@ class Material extends DefaultModel {
       required this.singleQuantity})
       : super(id: id, name: name);
 
-  factory Material.fromJson(Map<String, dynamic> json) {
+  factory Material.fromMap(Map<String, dynamic> json) {
     return Material(
         id: json['id'],
         name: json['name'],
@@ -32,7 +32,7 @@ class Material extends DefaultModel {
         singleQuantity: json['singleQuantity']);
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,

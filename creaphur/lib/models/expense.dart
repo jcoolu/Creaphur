@@ -13,7 +13,7 @@ class Expense extends DefaultModel {
       required this.quantity})
       : super(id: id, name: name);
 
-  factory Expense.fromJson(Map<String, dynamic> json) {
+  factory Expense.fromMap(Map<String, dynamic> json) {
     return Expense(
       id: json['id'],
       name: json['name'],
@@ -23,7 +23,7 @@ class Expense extends DefaultModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,

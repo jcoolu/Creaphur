@@ -4,7 +4,7 @@ class DefaultModel {
 
   DefaultModel({required this.id, required this.name});
 
-  DefaultModel.fromJson(Map<String, dynamic> json)
+  DefaultModel.fromMap(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'];
 }

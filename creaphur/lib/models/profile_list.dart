@@ -19,4 +19,8 @@ class ProfileList extends DefaultModelList<Profile> {
   void updateAllProfiles(List<Profile> updatedProfiles) {
     updateAll(updatedProfiles);
   }
+
+  void addAllProfiles(List<Profile> profiles) {
+    addAll(profiles);
+  }
 }

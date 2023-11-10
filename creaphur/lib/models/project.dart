@@ -5,7 +5,7 @@ class Project extends DefaultModel {
   final DateTime startDate;
   final DateTime endDate;
   final double estCost;
-  final String ownerId;
+  final String profileId;
 
   Project(
       {required String id,
@@ -14,7 +14,7 @@ class Project extends DefaultModel {
       required this.startDate,
       required this.endDate,
       required this.estCost,
-      required this.ownerId})
+      required this.profileId})
       : super(id: id, name: name);
 
   factory Project.fromMap(Map<String, dynamic> json) {
@@ -25,7 +25,7 @@ class Project extends DefaultModel {
         startDate: DateTime.parse(json['startDate']),
         endDate: DateTime.parse(json['endDate']),
         estCost: json['estCost'],
-        ownerId: json['ownerId']);
+        profileId: json['profileId']);
   }
 
   Map<String, dynamic> toMap() {
@@ -36,7 +36,7 @@ class Project extends DefaultModel {
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
       'estCost': estCost,
-      'ownerId': ownerId,
+      'profileId': profileId,
     };
   }
 }

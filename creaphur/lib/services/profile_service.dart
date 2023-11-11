@@ -7,6 +7,7 @@ class ProfileService {
   static Future<void> addProfile(context, Profile profile) async {
     await ProfileHelper.addProfile(profile);
     Provider.of<ProfileList>(context, listen: false).add(profile);
+    Provider.of<Profile>(context, listen: false).selectProfile(profile);
   }
 
   static getProfiles(context) async {

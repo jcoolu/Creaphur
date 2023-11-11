@@ -1,5 +1,6 @@
 import 'package:creaphur/models/expense_list.dart';
 import 'package:creaphur/models/material_list.dart';
+import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/models/time_entry_list.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<Profile?>(create: (context) => null),
     ChangeNotifierProvider<ExpenseList>(create: (context) => ExpenseList([])),
     ChangeNotifierProvider<MaterialList>(create: (context) => MaterialList([])),
     ChangeNotifierProvider<ProjectList>(create: (context) => ProjectList([])),

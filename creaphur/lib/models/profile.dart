@@ -11,6 +11,12 @@ class Profile extends DefaultModel {
 
   Profile.fromMap(Map<String, dynamic> json) : super.fromMap(json);
 
+  void selectProfile(Profile profile) {
+    id = profile.id;
+    name = profile.name;
+    notifyListeners();
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

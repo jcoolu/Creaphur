@@ -1,11 +1,17 @@
+import 'package:creaphur/models/profile.dart';
+import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<Profile> profiles =
+        Provider.of<ProfileList>(context, listen: true).items;
+    Profile currentProfile = profiles.first;
     void createProject() {
       Navigator.push(
         context,
@@ -19,7 +25,7 @@ class Dashboard extends StatelessWidget {
           icon: Icon(Icons.menu),
           onPressed: null,
         ),
-        title: const Text('Welcome, {Name}'),
+        title: Text('Welcome, ${currentProfile.name}'),
         actions: const [
           IconButton(
             icon: Icon(Icons.person_2_rounded),

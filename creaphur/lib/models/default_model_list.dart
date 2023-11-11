@@ -37,11 +37,13 @@ class DefaultModelList<T extends DefaultModel> extends ChangeNotifier {
     for (var updatedItem in updatedItems) {
       add(updatedItem);
     }
+    notifyListeners();
   }
 
   void updateAll(List<T> updatedItems) {
     for (var updatedItem in updatedItems) {
       update(updatedItem);
     }
+    notifyListeners();
   }
 }

@@ -17,10 +17,11 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   String name = '';
 
-  void handleNext(String value) {
+  void handleNext(String value) async {
     setState(() => name = value);
     Profile profile = Profile(id: const Uuid().v4(), name: value);
-    ProfileService.addProfile(context, profile);
+
+    await ProfileService.addProfile(context, profile);
 
     Navigator.push(
       context,

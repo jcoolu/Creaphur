@@ -12,6 +12,6 @@ class ProfileService {
 
   static getProfiles(context) async {
     List<Profile> profiles = await ProfileHelper.getProfiles() ?? [];
-    Provider.of<ProfileList>(context).addAllProfiles(profiles);
+    Provider.of<ProfileList>(context, listen: false).addAllProfiles(profiles);
   }
 }

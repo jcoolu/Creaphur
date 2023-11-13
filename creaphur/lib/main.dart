@@ -4,8 +4,10 @@ import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/models/time_entry_list.dart';
+import 'package:creaphur/screens/dashboard.dart';
 import 'package:creaphur/screens/welcome.dart';
 import 'package:creaphur/common/theme.dart';
+import 'package:creaphur/services/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,10 +28,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<bool> hasProfiles() async {
+      await ProfileService.getProfiles(context);
+      return Provider.of<ProfileList>(context, listen: false).items.isNotEmpty;
+    }
+
     return MaterialApp(
       title: 'Creaphur',
       theme: appTheme(context),
-      home: const WelcomePage(),
+      home: FutureBuilder<bool>(
+        future: hasProfiles(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Show a loading indicator while the Future is in progress
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            // Show an error message if the Future completes with an error
+            return Text('Error: ${snapshot.error}');
+          } else {
+            if (snapshot.data == true) {
+              return const Dashboard();
+            }
+            return const WelcomePage();
+          }
+        },
+      ),
     );
   }
 }

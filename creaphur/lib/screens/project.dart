@@ -11,23 +11,22 @@ class ProjectScreen extends StatefulWidget {
 class _ProjectScreenState extends State<ProjectScreen> {
   String name = '';
 
-  void handleNext(String value) {
-    setState(() => name = value);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Dashboard()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    void handleBack() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Dashboard()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        leading: const IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: null,
+        leading: IconButton(
+          icon: const Icon(Icons.chevron_left),
+          onPressed: handleBack,
         ),
-        title: const Text('Create Project'),
+        title: const Text('New Project'),
         actions: const [
           IconButton(
             icon: Icon(Icons.person_2_rounded),

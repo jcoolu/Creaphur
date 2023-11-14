@@ -48,7 +48,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
               child: ProjectForm(
                 onChange: onChange,
                 project: Project(
-                    id: 'Default',
+                    id: '',
                     name: '',
                     profileId: currentProfile?.id ?? 'None',
                     startDate: DateTime.now(),

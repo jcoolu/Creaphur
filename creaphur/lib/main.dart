@@ -30,7 +30,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<bool> hasProfiles() async {
       await ProfileService.getProfiles(context);
-      return Provider.of<ProfileList>(context, listen: false).items.isNotEmpty;
+      Profile? currentProfile = Provider.of<Profile?>(context, listen: false);
+      List<Profile> profiles =
+          Provider.of<ProfileList>(context, listen: false).items;
+
+      bool containsProfiles = profiles.isNotEmpty;
+
+      if (containsProfiles && currentProfile == null) {
+        await ProfileService.setCurrent(context, profiles.first);
+      }
+      return containsProfiles;
     }
 
     return MaterialApp(

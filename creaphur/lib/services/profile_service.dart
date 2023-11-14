@@ -14,4 +14,8 @@ class ProfileService {
     List<Profile> profiles = await ProfileHelper.getProfiles() ?? [];
     Provider.of<ProfileList>(context, listen: false).addAllProfiles(profiles);
   }
+
+  static setCurrent(context, Profile profile) {
+    Provider.of<Profile?>(context, listen: false)?.selectProfile(profile);
+  }
 }

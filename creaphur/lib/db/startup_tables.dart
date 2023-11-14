@@ -35,8 +35,7 @@ Future<void> createTables(Database db) async {
       startDate DATETIME,
       endDate DATETIME,
       estCost DOUBLE,
-      ownerId TEXT,
-      expenseIds ARRAY,
+      ownerId TEXT
     )
   ''');
 

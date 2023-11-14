@@ -1,9 +1,16 @@
+import 'package:creaphur/models/expense_list.dart';
+import 'package:creaphur/models/project.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
+import 'package:provider/provider.dart';
 
 // Define a custom Form widget.
 class ProjectForm extends StatefulWidget {
   final Function onChange;
-  const ProjectForm({super.key, required this.onChange});
+  final Project project;
+  const ProjectForm({super.key, required this.onChange, required this.project});
 
   @override
   ProjectFormState createState() {
@@ -14,16 +21,17 @@ class ProjectForm extends StatefulWidget {
 // Define a corresponding State class.
 // This class holds data related to the form.
 class ProjectFormState extends State<ProjectForm> {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
+    List<MultiSelectItem> expenses =
+        Provider.of<ExpenseList>(context, listen: true)
+            .items
+            .where((e) => e.projectId == widget.project.id)
+            .map((e) => MultiSelectItem(e, e.name))
+            .toList();
+
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -35,6 +43,7 @@ class ProjectFormState extends State<ProjectForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  initialValue: widget.project.name,
                   decoration: const InputDecoration(
                     hintText: 'Project Name',
                     labelText: 'Name *',
@@ -48,6 +57,7 @@ class ProjectFormState extends State<ProjectForm> {
                   },
                 ),
                 TextFormField(
+                  initialValue: widget.project.description,
                   decoration: const InputDecoration(
                     hintText: 'Project Description',
                     labelText: 'Description',
@@ -58,6 +68,8 @@ class ProjectFormState extends State<ProjectForm> {
                   },
                 ),
                 TextFormField(
+                  // need to change to date time widget
+                  initialValue: widget.project.startDate.toString(),
                   decoration: const InputDecoration(
                     hintText: 'Projected Start Date for Project',
                     labelText: 'Projected Start Date *',
@@ -71,6 +83,8 @@ class ProjectFormState extends State<ProjectForm> {
                   },
                 ),
                 TextFormField(
+                  // need to change to date time widget
+                  initialValue: widget.project.endDate.toString(),
                   decoration: const InputDecoration(
                     hintText: 'Projected End Date for Project',
                     labelText: 'Projected End Date *',
@@ -84,6 +98,9 @@ class ProjectFormState extends State<ProjectForm> {
                   },
                 ),
                 TextFormField(
+                  initialValue: widget.project.estCost.toString(),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
                     hintText: 'Projected Cost for Project',
                     labelText: 'Projected Cost *',

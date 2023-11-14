@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 // Define a custom Form widget.
 class ProjectForm extends StatefulWidget {
-  final Function setName;
-  const ProjectForm({super.key, required this.setName});
+  final Function onChange;
+  const ProjectForm({super.key, required this.onChange});
 
   @override
   ProjectFormState createState() {
@@ -35,19 +35,64 @@ class ProjectFormState extends State<ProjectForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
-                  // The validator receives the text that the user has entered.
+                  decoration: const InputDecoration(
+                    hintText: 'Project Name',
+                    labelText: 'Name *',
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your name';
+                      return 'Please enter a name for your project';
                     }
-                    widget.setName(value);
+                    widget.onChange('name', value);
                     return null;
                   },
                 ),
                 TextFormField(
-                  // The validator receives the text that the user has entered.
+                  decoration: const InputDecoration(
+                    hintText: 'Project Description',
+                    labelText: 'Description',
+                  ),
                   validator: (value) {
-                    widget.setName(value);
+                    widget.onChange('description', value);
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: 'Projected Start Date for Project',
+                    labelText: 'Projected Start Date *',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a projected start date for your project';
+                    }
+                    widget.onChange('startDate', value);
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: 'Projected End Date for Project',
+                    labelText: 'Projected End Date *',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a projected end date for your project';
+                    }
+                    widget.onChange('endDate', value);
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: 'Projected Cost for Project',
+                    labelText: 'Projected Cost *',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a projected cost for your project';
+                    }
+                    widget.onChange('estCost', value);
                     return null;
                   },
                 ),
@@ -55,16 +100,9 @@ class ProjectFormState extends State<ProjectForm> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Saved Name')),
-                        );
-                      }
+                      if (_formKey.currentState!.validate()) {}
                     },
-                    child: const Text('Next'),
+                    child: const Text('Save'),
                   ),
                 ),
               ],

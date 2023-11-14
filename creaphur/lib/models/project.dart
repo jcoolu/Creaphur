@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:creaphur/models/default_model.dart';
 
 class Project extends DefaultModel {
@@ -6,6 +8,7 @@ class Project extends DefaultModel {
   final DateTime endDate;
   final double estCost;
   final String profileId;
+  final List<String> expenseIds;
 
   Project(
       {required String id,
@@ -14,7 +17,8 @@ class Project extends DefaultModel {
       required this.startDate,
       required this.endDate,
       required this.estCost,
-      required this.profileId})
+      required this.profileId,
+      required this.expenseIds})
       : super(id: id, name: name);
 
   factory Project.fromMap(Map<String, dynamic> json) {
@@ -25,7 +29,8 @@ class Project extends DefaultModel {
         startDate: DateTime.parse(json['startDate']),
         endDate: DateTime.parse(json['endDate']),
         estCost: json['estCost'],
-        profileId: json['profileId']);
+        profileId: json['profileId'],
+        expenseIds: json['expenseIds']);
   }
 
   Map<String, dynamic> toMap() {
@@ -37,6 +42,7 @@ class Project extends DefaultModel {
       'endDate': endDate.toIso8601String(),
       'estCost': estCost,
       'profileId': profileId,
+      'expenseIds': expenseIds,
     };
   }
 }

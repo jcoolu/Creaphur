@@ -1,6 +1,4 @@
-import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/services/profile_service.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/screens/dashboard.dart';

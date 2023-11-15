@@ -29,10 +29,8 @@ class _ProjectScreenState extends State<ProjectScreen> {
     }
 
     void handleChange(field, value) {
-      if (newProject == null) {
-        newProject = widget.project;
-      }
-      Map<String, dynamic> projectMap = newProject.toMap();
+      newProject ??= widget.project;
+      Map<String, dynamic> projectMap = newProject!.toMap();
       projectMap[field] = value.toString();
       setState(() => newProject = Project.fromMap(projectMap));
     }

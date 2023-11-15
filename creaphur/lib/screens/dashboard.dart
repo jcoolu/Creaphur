@@ -1,5 +1,6 @@
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
+import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +15,17 @@ class Dashboard extends StatelessWidget {
     Profile currentProfile = profiles.first;
     void createProject() {
       Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ProjectScreen()),
-      );
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProjectScreen(
+                project: Project(
+                    id: '',
+                    name: '',
+                    profileId: currentProfile.id,
+                    startDate: DateTime.now(),
+                    endDate: DateTime.now(),
+                    estCost: 0.00)),
+          ));
     }
 
     return Scaffold(

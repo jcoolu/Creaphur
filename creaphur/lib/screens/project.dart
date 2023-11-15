@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProjectScreen extends StatefulWidget {
-  const ProjectScreen({super.key});
+  final Project project;
+  const ProjectScreen({super.key, required this.project});
 
   @override
   State<ProjectScreen> createState() => _ProjectScreenState();
@@ -14,10 +15,12 @@ class ProjectScreen extends StatefulWidget {
 
 class _ProjectScreenState extends State<ProjectScreen> {
   String name = '';
+  Project? newProject;
 
   @override
   Widget build(BuildContext context) {
     Profile? currentProfile = Provider.of<Profile?>(context, listen: true);
+
     void handleBack() {
       Navigator.push(
         context,
@@ -25,7 +28,14 @@ class _ProjectScreenState extends State<ProjectScreen> {
       );
     }
 
-    void onChange(field, value) {}
+    void handleChange(field, value) {
+      if (newProject == null) {
+        newProject = widget.project;
+      }
+      Map<String, dynamic> projectMap = newProject.toMap();
+      projectMap[field] = value.toString();
+      setState(() => newProject = Project.fromMap(projectMap));
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -46,14 +56,8 @@ class _ProjectScreenState extends State<ProjectScreen> {
           child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: ProjectForm(
-                onChange: onChange,
-                project: Project(
-                    id: '',
-                    name: '',
-                    profileId: currentProfile?.id ?? 'None',
-                    startDate: DateTime.now(),
-                    endDate: DateTime.now(),
-                    estCost: 0.00),
+                onChange: handleChange,
+                project: newProject ?? widget.project,
               )),
         ),
       ),

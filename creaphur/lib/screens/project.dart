@@ -29,7 +29,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
     }
 
     void handleChange(field, value) {
-      newProject ??= widget.project;
+      newProject ??= widget.project; // set newProject to widget.project if null
       Map<String, dynamic> projectMap = newProject!.toMap();
       projectMap[field] = value.toString();
       setState(() => newProject = Project.fromMap(projectMap));
@@ -55,7 +55,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: ProjectForm(
                 onChange: handleChange,
-                project: newProject ?? widget.project,
+                project: newProject,
               )),
         ),
       ),

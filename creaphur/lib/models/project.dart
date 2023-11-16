@@ -45,6 +45,6 @@ class Project extends DefaultModel {
       name: '',
       profileId: profileId,
       startDate: DateTime.now(),
-      endDate: DateTime.now(),
+      endDate: DateTime.now().add(const Duration(days: 1)),
       estCost: 0.00);
 }

@@ -18,13 +18,7 @@ class Dashboard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ProjectScreen(
-                project: Project(
-                    id: '',
-                    name: '',
-                    profileId: currentProfile.id,
-                    startDate: DateTime.now(),
-                    endDate: DateTime.now(),
-                    estCost: 0.00)),
+                project: Project.getBlankProject(currentProfile.id)),
           ));
     }
 

@@ -39,4 +39,12 @@ class Project extends DefaultModel {
       'profileId': profileId,
     };
   }
+
+  static Project getBlankProject(String profileId) => Project(
+      id: '',
+      name: '',
+      profileId: profileId,
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
+      estCost: 0.00);
 }

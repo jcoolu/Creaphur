@@ -24,7 +24,7 @@ class Project extends DefaultModel {
         description: json['description'],
         startDate: DateTime.parse(json['startDate']),
         endDate: DateTime.parse(json['endDate']),
-        estCost: json['estCost'],
+        estCost: double.parse(json['estCost']),
         profileId: json['profileId']);
   }
 
@@ -35,7 +35,7 @@ class Project extends DefaultModel {
       'description': description,
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
-      'estCost': estCost,
+      'estCost': estCost.toString(),
       'profileId': profileId,
     };
   }

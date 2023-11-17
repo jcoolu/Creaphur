@@ -7,7 +7,13 @@ import 'package:flutter/material.dart';
 class ProjectForm extends StatefulWidget {
   final Function onChange;
   final Project? project;
-  const ProjectForm({super.key, required this.onChange, required this.project});
+  final Function onSave;
+
+  const ProjectForm(
+      {super.key,
+      required this.onChange,
+      required this.project,
+      required this.onSave});
 
   @override
   ProjectFormState createState() {
@@ -121,15 +127,14 @@ class ProjectFormState extends State<ProjectForm> {
                     hintText: 'Projected Cost for Project',
                     labelText: 'Projected Cost *',
                   ),
-                  onChanged: (value) {
-                    if (!Utils.isCurrencyValid(value)) {
-                      widget.onChange('estCost', value);
-                    }
-                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a projected cost for your project';
                     }
+                    if (!Utils.isCurrencyValid(value)) {
+                      return 'Please enter a valid format for Projected Cost.';
+                    }
+                    widget.onChange('estCost', value);
                     return null;
                   },
                 ),
@@ -137,7 +142,9 @@ class ProjectFormState extends State<ProjectForm> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        widget.onSave();
+                      }
                     },
                     child: const Text('Save'),
                   ),

@@ -19,4 +19,9 @@ class ProjectList extends DefaultModelList<Project> {
   void updateAllProjects(List<Project> updatedProjects) {
     updateAll(updatedProjects);
   }
+
+  void addAllProjects(List<Project> projects) {
+    addAll(projects);
+    notifyListeners();
+  }
 }

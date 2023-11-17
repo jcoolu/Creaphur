@@ -1,9 +1,11 @@
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/dashboard.dart';
+import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/widgets/forms/project_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class ProjectScreen extends StatefulWidget {
   final Project project;
@@ -35,6 +37,22 @@ class _ProjectScreenState extends State<ProjectScreen> {
       setState(() => newProject = Project.fromMap(projectMap));
     }
 
+    void handleSave() async {
+      if (newProject!.id.isEmpty) {
+        handleChange('id', const Uuid().v4());
+        await ProjectService.addProject(context, newProject!);
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Saved Project')),
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Dashboard()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -55,6 +73,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: ProjectForm(
                 onChange: handleChange,
+                onSave: handleSave,
                 project: newProject,
               )),
         ),

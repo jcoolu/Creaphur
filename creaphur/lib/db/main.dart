@@ -12,6 +12,13 @@ class DatabaseHelper {
     String databasePath = join(path, 'creaphur_database.db');
 
     return await openDatabase(databasePath,
-        version: 1, onCreate: (Database db, int version) => createTables(db));
+        version: 2,
+        onCreate: (Database db, int version) async =>
+            await SchemaBuilder.createTables(db),
+        onUpgrade: (Database db, oldVersion, newVersion) async {
+          if (oldVersion == 1) {
+            await SchemaBuilder.handleUpdateForProjectv1(db);
+          }
+        });
   }
 }

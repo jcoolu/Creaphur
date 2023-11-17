@@ -1,7 +1,12 @@
 import 'package:sqflite/sqflite.dart';
 
-Future<void> createTables(Database db) async {
-  await db.execute('''
+class SchemaBuilder {
+  static createTables(Database db) async {
+    Batch batch = db.batch();
+
+    batch.execute('DROP TABLE IF EXISTS Expense');
+
+    batch.execute('''
     CREATE TABLE Expense (
       id TEXT PRIMARY KEY,
       name TEXT,
@@ -11,7 +16,9 @@ Future<void> createTables(Database db) async {
     )
   ''');
 
-  await db.execute('''
+    batch.execute('DROP TABLE IF EXISTS Material');
+
+    batch.execute('''
     CREATE TABLE Material (
       id TEXT PRIMARY KEY,
       name TEXT,
@@ -20,14 +27,18 @@ Future<void> createTables(Database db) async {
     )
   ''');
 
-  await db.execute('''
+    batch.execute('DROP TABLE IF EXISTS Profile');
+
+    batch.execute('''
     CREATE TABLE Profile (
       id TEXT PRIMARY KEY,
       name TEXT
     )
   ''');
 
-  await db.execute('''
+    batch.execute('DROP TABLE IF EXISTS Project');
+
+    batch.execute('''
     CREATE TABLE Project (
       id TEXT PRIMARY KEY,
       name TEXT,
@@ -35,11 +46,13 @@ Future<void> createTables(Database db) async {
       startDate DATETIME,
       endDate DATETIME,
       estCost DOUBLE,
-      ownerId TEXT
+      profileId TEXT
     )
   ''');
 
-  await db.execute('''
+    batch.execute('DROP TABLE IF EXISTS TimeEntry');
+
+    batch.execute('''
     CREATE TABLE TimeEntry (
       id TEXT PRIMARY KEY,
       name TEXT,
@@ -50,4 +63,13 @@ Future<void> createTables(Database db) async {
       projectId STRING
     )
   ''');
+
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv1(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Project ADD COLUMN profileId TEXT");
+    await batch.commit();
+  }
 }

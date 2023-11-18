@@ -43,6 +43,7 @@ dependencies:
   multi_select_flutter: ^4.1.3
   intl: ^0.18.1
   widgetbook: ^3.4.1
+  file_picker: ^6.1.1
 
 dev_dependencies:
   flutter_test:

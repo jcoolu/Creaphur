@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 // Define a custom Form widget.
@@ -137,6 +142,22 @@ class ProjectFormState extends State<ProjectForm> {
                     widget.onChange('estCost', value);
                     return null;
                   },
+                ),
+                OutlinedButton(
+                  onPressed: () async {
+                    FilePickerResult? result = await FilePicker.platform
+                        .pickFiles(type: FileType.image);
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      Uint8List bytes = await file.readAsBytes();
+                      widget.onChange('image', base64.encode(bytes));
+                    }
+                  },
+                  child: Text(
+                      (widget.project == null || widget.project!.image.isEmpty)
+                          ? 'Select File'
+                          : 'Image Selected'),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),

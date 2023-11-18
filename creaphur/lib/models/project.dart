@@ -6,6 +6,7 @@ class Project extends DefaultModel {
   final DateTime endDate;
   final double estCost;
   final String profileId;
+  final String image;
 
   Project(
       {required String id,
@@ -14,7 +15,8 @@ class Project extends DefaultModel {
       required this.startDate,
       required this.endDate,
       required this.estCost,
-      required this.profileId})
+      required this.profileId,
+      required this.image})
       : super(id: id, name: name);
 
   factory Project.fromMap(Map<String, dynamic> json) {
@@ -25,7 +27,8 @@ class Project extends DefaultModel {
         startDate: DateTime.parse(json['startDate']),
         endDate: DateTime.parse(json['endDate']),
         estCost: double.parse(json['estCost']),
-        profileId: json['profileId']);
+        profileId: json['profileId'],
+        image: json['image']);
   }
 
   Map<String, dynamic> toMap() {
@@ -37,6 +40,7 @@ class Project extends DefaultModel {
       'endDate': endDate.toIso8601String(),
       'estCost': estCost.toString(),
       'profileId': profileId,
+      'image': image,
     };
   }
 
@@ -46,5 +50,6 @@ class Project extends DefaultModel {
       profileId: profileId,
       startDate: DateTime.now(),
       endDate: DateTime.now().add(const Duration(days: 1)),
-      estCost: 0.00);
+      estCost: 0.00,
+      image: '');
 }

@@ -22,7 +22,7 @@ class SchemaBuilder {
     CREATE TABLE Material (
       id TEXT PRIMARY KEY,
       name TEXT,
-      image BLOB,
+      image TEXT,
       profileId TEXT
     )
   ''');
@@ -46,7 +46,8 @@ class SchemaBuilder {
       startDate DATETIME,
       endDate DATETIME,
       estCost DOUBLE,
-      profileId TEXT
+      profileId TEXT,
+      image TEXT
     )
   ''');
 
@@ -70,6 +71,12 @@ class SchemaBuilder {
   static handleUpdateForProjectv1(Database db) async {
     Batch batch = db.batch();
     batch.execute("ALTER TABLE Project ADD COLUMN profileId TEXT");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv2(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Project ADD COLUMN image TEXT");
     await batch.commit();
   }
 }

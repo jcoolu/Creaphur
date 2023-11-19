@@ -31,10 +31,12 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: NameForm(
-          setName: handleNext,
+        child: SingleChildScrollView(
+          child: NameForm(
+            setName: handleNext,
+          ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

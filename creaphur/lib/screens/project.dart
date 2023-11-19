@@ -70,12 +70,15 @@ class _ProjectScreenState extends State<ProjectScreen> {
       body: SafeArea(
         child: Center(
           child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: SingleChildScrollView(
               child: ProjectForm(
                 onChange: handleChange,
                 onSave: handleSave,
                 project: newProject,
-              )),
+              ),
+            ),
+          ),
         ),
       ),
     );

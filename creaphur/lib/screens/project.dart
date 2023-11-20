@@ -17,7 +17,7 @@ class ProjectScreen extends StatefulWidget {
 
 class _ProjectScreenState extends State<ProjectScreen> {
   String name = '';
-  Project? newProject;
+  late Project? newProject = widget.project;
 
   @override
   Widget build(BuildContext context) {

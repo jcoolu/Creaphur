@@ -60,7 +60,7 @@ class NameFormState extends State<NameForm> {
               children: [
                 OutlinedTextField(
                   initialValue: '',
-                  hintText: 'Name',
+                  hintText: 'Your Name',
                   labelText: 'Name *',
                   onValidate: (value) {
                     if (value == null || value.isEmpty) {

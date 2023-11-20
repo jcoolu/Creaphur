@@ -10,23 +10,8 @@ Colors for reference:
           Color(4289567231), - light purple
           Color(4287227569), - light green
 */
-ThemeData appTheme(BuildContext context) => ThemeData(
+ThemeData appTheme(BuildContext context) => Theme.of(context).copyWith(
       textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
-      colorScheme: const ColorScheme(
-        brightness: Brightness.light,
-        primary: Color(0xff6c47ff),
-        onPrimary: Colors.white,
-        secondary: Color(0xff2bca70),
-        onSecondary: Colors.white,
-        error: Color(0xFFF32424),
-        onError: Color(0xFFF32424),
-        background: Color(0xFFF1F2F3),
-        onBackground: Colors.black,
-        surface: Colors.white24,
-        onSurface: Color(0xff2900cc),
-        primaryContainer: Color(0xffad99ff),
-        secondaryContainer: Color(0xff89e6b1),
-        onPrimaryContainer: Colors.white,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff6c47ff)),
       useMaterial3: true,
     );

@@ -1,14 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 // Define a custom Form widget.

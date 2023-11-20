@@ -17,18 +17,20 @@ class OutlinedFilePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () async {
-        FilePickerResult? result =
-            await FilePicker.platform.pickFiles(type: FileType.image);
+    return SizedBox(
+        width: double.infinity,
+        child: OutlinedButton(
+          onPressed: () async {
+            FilePickerResult? result =
+                await FilePicker.platform.pickFiles(type: FileType.image);
 
-        if (result != null) {
-          File file = File(result.files.single.path!);
-          Uint8List bytes = await file.readAsBytes();
-          onChange('image', base64.encode(bytes));
-        }
-      },
-      child: childWidget,
-    );
+            if (result != null) {
+              File file = File(result.files.single.path!);
+              Uint8List bytes = await file.readAsBytes();
+              onChange('image', base64.encode(bytes));
+            }
+          },
+          child: childWidget,
+        ));
   }
 }

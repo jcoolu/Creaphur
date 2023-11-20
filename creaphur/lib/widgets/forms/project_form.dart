@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
+import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -93,55 +94,64 @@ class ProjectFormState extends State<ProjectForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFormField(
-                  initialValue: widget.project?.name ?? '',
-                  decoration: const InputDecoration(
+                Padding(
+                  padding: const EdgeInsets.only(top: 12, bottom: 12),
+                  child: OutlinedTextField(
+                    initialValue: widget.project?.name ?? '',
                     hintText: 'Project Name',
                     labelText: 'Name *',
+                    onChange: (value) => widget.onChange('name', value),
+                    onValidate: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a name for your project';
+                      }
+                      return null;
+                    },
                   ),
-                  onChanged: (value) => widget.onChange('name', value),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a name for your project';
-                    }
-                    return null;
-                  },
                 ),
-                TextFormField(
-                  initialValue: widget.project?.description ?? '',
-                  decoration: const InputDecoration(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: OutlinedTextField(
+                    initialValue: widget.project?.description ?? '',
                     hintText: 'Project Description',
                     labelText: 'Description',
+                    onChange: (value) => widget.onChange('description', value),
                   ),
-                  onChanged: (value) => widget.onChange('description', value),
                 ),
-                DateTimePicker(
-                    dateTime: widget.project?.startDate ?? DateTime.now(),
-                    onChange: handleChangeStartDate,
-                    buttonText: 'Projected Start'),
-                DateTimePicker(
-                    dateTime: widget.project?.endDate ??
-                        DateTime.now().add(const Duration(days: 1)),
-                    onChange: handleChangeEndDate,
-                    buttonText: 'Projected End'),
-                TextFormField(
-                  initialValue: widget.project?.estCost.toString() ?? '0.00',
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: DateTimePicker(
+                      dateTime: widget.project?.startDate ?? DateTime.now(),
+                      onChange: handleChangeStartDate,
+                      buttonText: 'Projected Start'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: DateTimePicker(
+                      dateTime: widget.project?.endDate ??
+                          DateTime.now().add(const Duration(days: 1)),
+                      onChange: handleChangeEndDate,
+                      buttonText: 'Projected End'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: OutlinedTextField(
+                    initialValue: widget.project?.estCost.toString() ?? '0.00',
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
                     hintText: 'Projected Cost for Project',
                     labelText: 'Projected Cost *',
+                    onValidate: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a projected cost for your project';
+                      }
+                      if (!Utils.isCurrencyValid(value)) {
+                        return 'Please enter a valid format for Projected Cost.';
+                      }
+                      widget.onChange('estCost', value);
+                      return null;
+                    },
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a projected cost for your project';
-                    }
-                    if (!Utils.isCurrencyValid(value)) {
-                      return 'Please enter a valid format for Projected Cost.';
-                    }
-                    widget.onChange('estCost', value);
-                    return null;
-                  },
                 ),
                 OutlinedButton(
                   onPressed: () async {

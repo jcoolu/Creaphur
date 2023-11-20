@@ -21,8 +21,6 @@ class _ProjectScreenState extends State<ProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Profile? currentProfile = Provider.of<Profile?>(context, listen: true);
-
     void handleBack() {
       Navigator.push(
         context,

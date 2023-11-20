@@ -16,6 +16,6 @@ class ProfileService {
   }
 
   static setCurrent(context, Profile profile) {
-    Provider.of<Profile?>(context, listen: false)?.selectProfile(profile);
+    Provider.of<Profile>(context, listen: false).selectProfile(profile);
   }
 }

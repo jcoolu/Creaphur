@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DefaultModel extends ChangeNotifier {
-  late final String id;
-  late final String name;
+  late String id;
+  late String name;
 
   DefaultModel({required this.id, required this.name});
 

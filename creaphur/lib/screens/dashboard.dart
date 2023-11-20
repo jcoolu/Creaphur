@@ -11,9 +11,7 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Profile> profiles =
-        Provider.of<ProfileList>(context, listen: true).items;
-    Profile currentProfile = profiles.first;
+    Profile currentProfile = Provider.of<Profile>(context, listen: true);
     void createProject() {
       Navigator.push(
           context,

@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<Profile?>(create: (context) => null),
+    ChangeNotifierProvider<Profile>(
+        create: (context) => Profile(id: '', name: '')),
     ChangeNotifierProvider<ExpenseList>(create: (context) => ExpenseList([])),
     ChangeNotifierProvider<MaterialList>(create: (context) => MaterialList([])),
     ChangeNotifierProvider<ProjectList>(create: (context) => ProjectList([])),
@@ -30,15 +31,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<bool> hasProfiles() async {
       await ProfileService.getProfiles(context);
-      Profile? currentProfile = Provider.of<Profile?>(context, listen: false);
+
       List<Profile> profiles =
           Provider.of<ProfileList>(context, listen: false).items;
 
+      await ProfileService.setCurrent(context, profiles.first);
+
       bool containsProfiles = profiles.isNotEmpty;
 
-      if (containsProfiles && currentProfile == null) {
-        await ProfileService.setCurrent(context, profiles.first);
-      }
       return containsProfiles;
     }
 

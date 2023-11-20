@@ -25,13 +25,21 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const IconButton(
-          icon: Icon(Icons.menu),
+          icon: Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
           onPressed: null,
         ),
         title: Text('Welcome, ${currentProfile.name}'),
+        backgroundColor: const Color(0xff2bca70),
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         actions: const [
           IconButton(
-            icon: Icon(Icons.person_2_rounded),
+            icon: Icon(
+              Icons.person_2_rounded,
+              color: Colors.white,
+            ),
             onPressed: null,
           ),
         ],

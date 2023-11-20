@@ -56,16 +56,12 @@ class _ProjectScreenState extends State<ProjectScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left),
+          icon: const Icon(Icons.chevron_left, color: Colors.white),
           onPressed: handleBack,
         ),
         title: const Text('New Project'),
-        actions: const [
-          IconButton(
-            icon: Icon(Icons.person_2_rounded),
-            onPressed: null,
-          ),
-        ],
+        backgroundColor: const Color(0xff2bca70),
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
       ),
       body: SafeArea(
         child: Center(

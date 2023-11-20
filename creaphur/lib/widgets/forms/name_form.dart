@@ -1,3 +1,4 @@
+import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:flutter/material.dart';
 
 // Define a custom Form widget.
@@ -57,9 +58,11 @@ class NameFormState extends State<NameForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFormField(
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
+                OutlinedTextField(
+                  initialValue: '',
+                  hintText: 'Name',
+                  labelText: 'Name *',
+                  onValidate: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your name';
                     }

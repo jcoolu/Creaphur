@@ -43,15 +43,21 @@ class DateTimePicker extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 12),
-          child: OutlinedButton(
-              onPressed: chooseDate,
-              child: Text(
-                  '$buttonText Date *: ${DateFormat.yMMMMEEEEd().format(dateTime)}')),
+          child: SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+                onPressed: chooseDate,
+                child: Text(
+                    '$buttonText Date *: ${DateFormat.yMMMMEEEEd().format(dateTime)}')),
+          ),
         ),
-        OutlinedButton(
-            onPressed: chooseTime,
-            child:
-                Text('$buttonText Time *: ${DateFormat.jm().format(dateTime)}'))
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton(
+              onPressed: chooseTime,
+              child: Text(
+                  '$buttonText Time *: ${DateFormat.jm().format(dateTime)}')),
+        )
       ],
     );
   }

@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
+import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -153,18 +154,9 @@ class ProjectFormState extends State<ProjectForm> {
                     },
                   ),
                 ),
-                OutlinedButton(
-                  onPressed: () async {
-                    FilePickerResult? result = await FilePicker.platform
-                        .pickFiles(type: FileType.image);
-
-                    if (result != null) {
-                      File file = File(result.files.single.path!);
-                      Uint8List bytes = await file.readAsBytes();
-                      widget.onChange('image', base64.encode(bytes));
-                    }
-                  },
-                  child: Text(
+                OutlinedFilePicker(
+                  onChange: widget.onChange,
+                  childWidget: Text(
                       (widget.project == null || widget.project!.image.isEmpty)
                           ? 'Select File'
                           : 'Image Selected'),

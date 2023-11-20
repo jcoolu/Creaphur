@@ -1,3 +1,4 @@
+import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +73,7 @@ class NameFormState extends State<NameForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: ElevatedButton(
+                  child: FilledActionButton(
                     onPressed: () {
                       // Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
@@ -83,7 +84,7 @@ class NameFormState extends State<NameForm> {
                         );
                       }
                     },
-                    child: const Text('Next'),
+                    buttonText: 'Next',
                   ),
                 ),
               ],

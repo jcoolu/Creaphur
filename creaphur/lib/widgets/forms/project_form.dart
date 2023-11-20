@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
+import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:file_picker/file_picker.dart';
@@ -163,14 +164,13 @@ class ProjectFormState extends State<ProjectForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        widget.onSave();
-                      }
-                    },
-                    child: const Text('Save'),
-                  ),
+                  child: FilledActionButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          widget.onSave();
+                        }
+                      },
+                      buttonText: 'Save'),
                 ),
               ],
             ),

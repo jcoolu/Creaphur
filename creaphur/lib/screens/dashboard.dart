@@ -2,6 +2,7 @@ import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/project.dart';
+import 'package:creaphur/widgets/filled_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,47 +24,37 @@ class Dashboard extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        leading: const IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.white,
-          ),
-          onPressed: null,
-        ),
-        title: Text('Welcome, ${currentProfile.name}'),
-        backgroundColor: const Color(0xff2bca70),
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-        actions: const [
-          IconButton(
+        appBar: AppBar(
+          leading: const IconButton(
             icon: Icon(
-              Icons.person_2_rounded,
+              Icons.menu,
               color: Colors.white,
             ),
             onPressed: null,
           ),
-        ],
-      ),
-      body: const SafeArea(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            child: Text(
-                'No projects found. Please click (+) below to create a new project.'),
-          ),
+          title: Text('Welcome, ${currentProfile.name}'),
+          backgroundColor: const Color(0xff2bca70),
+          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+          actions: const [
+            IconButton(
+              icon: Icon(
+                Icons.person_2_rounded,
+                color: Colors.white,
+              ),
+              onPressed: null,
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: ElevatedButton(
-        onPressed: createProject,
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
+        body: const SafeArea(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              child: Text(
+                  'No projects found. Please click (+) below to create a new project.'),
             ),
           ),
         ),
-        child: const Icon(Icons.add),
-      ),
-    );
+        floatingActionButton:
+            FilledFloatingActionButton(onPressed: createProject));
   }
 }

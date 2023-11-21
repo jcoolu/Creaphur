@@ -1,5 +1,4 @@
 import 'package:creaphur/models/profile.dart';
-import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/screens/project.dart';
@@ -40,6 +39,13 @@ class Dashboard extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4.0),
+            child: Container(
+              color: const Color(0xff1d874b),
+              height: 3.0,
+            ),
+          ),
           leading: const IconButton(
             icon: Icon(
               Icons.menu,
@@ -65,7 +71,7 @@ class Dashboard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: projects.isEmpty
-                  ? Text(
+                  ? const Text(
                       'No projects found. Please click (+) below to create a new project.')
                   : SingleChildScrollView(
                       child: Column(

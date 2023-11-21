@@ -55,6 +55,13 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4.0),
+            child: Container(
+              color: const Color(0xff1d874b),
+              height: 3.0,
+            ),
+          ),
         leading: IconButton(
           icon: const Icon(Icons.chevron_left, color: Colors.white),
           onPressed: handleBack,

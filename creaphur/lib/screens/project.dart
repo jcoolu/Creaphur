@@ -22,7 +22,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     void handleBack() {
-      Navigator.push(
+      Navigator.pop(
         context,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );

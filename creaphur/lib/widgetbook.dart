@@ -1,5 +1,6 @@
 // Widgetbook file: widgetbook.dart
 import 'package:creaphur/widgets/date_time_picker_widgetbook.dart';
+import 'package:creaphur/widgets/project_summary_card_widgetbook.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
@@ -14,9 +15,7 @@ class HotReload extends StatelessWidget {
   Widget build(BuildContext context) {
     return Widgetbook.material(
       addons: [],
-      directories: [
-        dateTimePicker,
-      ],
+      directories: [dateTimePicker, projectSummaryCard],
     );
   }
 }

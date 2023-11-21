@@ -133,7 +133,8 @@ class ProjectFormState extends State<ProjectForm> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: OutlinedTextField(
-                    initialValue: widget.project?.estCost.toString() ?? '0.00',
+                    initialValue:
+                        widget.project?.estCost.toStringAsFixed(2) ?? '0.00',
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
                     hintText: 'Projected Cost for Project',
@@ -145,7 +146,7 @@ class ProjectFormState extends State<ProjectForm> {
                       if (!Utils.isCurrencyValid(value)) {
                         return 'Please enter a valid format for Projected Cost.';
                       }
-                      widget.onChange('estCost', value);
+                      widget.onChange('estCost', double.parse(value));
                       return null;
                     },
                   ),

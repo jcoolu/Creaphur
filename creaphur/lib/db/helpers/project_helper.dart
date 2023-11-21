@@ -28,26 +28,26 @@ class ProjectHelper {
     await db.delete("Project", where: 'id = ?', whereArgs: [project.id]);
   }
 
-  static Future<List<Project>?> getProjects(String profile) async {
+  static Future<List<Project>> getProjects(String profile) async {
     final db = await DatabaseHelper.getDB();
 
     final List<Map<String, dynamic>> maps =
         await db.query("Project", where: 'profileId = ?', whereArgs: [profile]);
 
     if (maps.isEmpty) {
-      return null;
+      return [];
     }
 
     return List.generate(maps.length, (index) => Project.fromMap(maps[index]));
   }
 
-  static Future<List<Project>?> getAllProjects(String profile) async {
+  static Future<List<Project>> getAllProjects(String profile) async {
     final db = await DatabaseHelper.getDB();
 
     final List<Map<String, dynamic>> maps = await db.query("Project");
 
     if (maps.isEmpty) {
-      return null;
+      return [];
     }
 
     return List.generate(maps.length, (index) => Project.fromMap(maps[index]));

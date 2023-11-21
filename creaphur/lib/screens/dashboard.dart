@@ -1,8 +1,10 @@
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/models/project.dart';
+import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
+import 'package:creaphur/widgets/project_summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +13,10 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Project> projects =
+        Provider.of<ProjectList>(context, listen: true).items;
     Profile currentProfile = Provider.of<Profile>(context, listen: true);
+
     void createProject() {
       Navigator.push(
           context,
@@ -19,6 +24,17 @@ class Dashboard extends StatelessWidget {
             builder: (context) => ProjectScreen(
                 project: Project.getBlankProject(currentProfile.id)),
           ));
+    }
+
+    void selectProject(Project project) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProjectScreen(
+            project: project,
+          ),
+        ),
+      );
     }
 
     return Scaffold(
@@ -43,12 +59,25 @@ class Dashboard extends StatelessWidget {
             ),
           ],
         ),
-        body: const SafeArea(
+        body: SafeArea(
           child: Center(
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-              child: Text(
-                  'No projects found. Please click (+) below to create a new project.'),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              child: projects.isEmpty
+                  ? Text(
+                      'No projects found. Please click (+) below to create a new project.')
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: projects
+                            .map(
+                              (project) => ProjectSummaryCard(
+                                project: project,
+                                onTap: () => selectProject(project),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
             ),
           ),
         ),

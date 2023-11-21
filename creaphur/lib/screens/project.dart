@@ -31,7 +31,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
     void handleChange(field, value) {
       newProject ??= widget.project; // set newProject to widget.project if null
       Map<String, dynamic> projectMap = newProject!.toMap();
-      projectMap[field] = value.toString();
+      projectMap[field] = value;
       setState(() => newProject = Project.fromMap(projectMap));
     }
 
@@ -39,6 +39,8 @@ class _ProjectScreenState extends State<ProjectScreen> {
       if (newProject!.id.isEmpty) {
         handleChange('id', const Uuid().v4());
         await ProjectService.addProject(context, newProject!);
+      } else {
+        await ProjectService.updateProject(context, newProject!);
       }
 
       ScaffoldMessenger.of(context).showSnackBar(

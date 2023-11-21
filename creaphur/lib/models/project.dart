@@ -24,11 +24,11 @@ class Project extends DefaultModel {
         id: json['id'],
         name: json['name'],
         description: json['description'],
-        startDate: DateTime.parse(json['startDate']),
-        endDate: DateTime.parse(json['endDate']),
-        estCost: double.parse(json['estCost']),
+        startDate: DateTime.parse(json['startDate'].toString()),
+        endDate: DateTime.parse(json['endDate'].toString()),
+        estCost: json['estCost'],
         profileId: json['profileId'],
-        image: json['image']);
+        image: json['image'] ?? '');
   }
 
   Map<String, dynamic> toMap() {
@@ -38,7 +38,7 @@ class Project extends DefaultModel {
       'description': description,
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
-      'estCost': estCost.toString(),
+      'estCost': estCost,
       'profileId': profileId,
       'image': image,
     };

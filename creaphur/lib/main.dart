@@ -8,6 +8,7 @@ import 'package:creaphur/screens/dashboard.dart';
 import 'package:creaphur/screens/welcome.dart';
 import 'package:creaphur/common/theme.dart';
 import 'package:creaphur/services/profile_service.dart';
+import 'package:creaphur/services/project_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
 
       List<Profile> profiles =
           Provider.of<ProfileList>(context, listen: false).items;
+
+      await ProjectService.getProjects(context, profiles.first.id);
 
       await ProfileService.setCurrent(context, profiles.first);
 

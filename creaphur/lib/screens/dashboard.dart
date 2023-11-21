@@ -3,6 +3,7 @@ import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/screens/project.dart';
+import 'package:creaphur/screens/project_overview.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
 import 'package:creaphur/widgets/project_summary_card.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class Dashboard extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ProjectScreen(
+          builder: (context) => ProjectOverviewScreen(
             project: project,
           ),
         ),

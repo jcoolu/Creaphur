@@ -19,19 +19,23 @@ class ProjectSummaryCard extends StatelessWidget {
     return Card(
       elevation: 1,
       clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: Color(0xff6c47ff), width: 2),
+        borderRadius: BorderRadius.circular(5),
+      ),
       child: InkWell(
         onTap: onTap,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              tileColor: const Color(0xff6c47ff),
+              tileColor: const Color(0xffad99ff),
               textColor: Colors.white,
               splashColor: const Color(0xff2900cc),
               leading: project.image.isEmpty
                   ? const Icon(
                       Icons.assessment,
-                      color: Colors.white,
+                      color: Color(0xff2900cc),
                     )
                   : Image.memory(base64Decode(project.image)),
               title: Text(project.name),

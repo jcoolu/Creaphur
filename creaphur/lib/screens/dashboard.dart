@@ -70,8 +70,10 @@ class Dashboard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: projects.isEmpty
-                ? const Text(
-                    'No projects found. Please click (+) below to create a new project.')
+                ? const Center(
+                    child: Text(
+                        'No projects found. Please click (+) below to create a new project.'),
+                  )
                 : SingleChildScrollView(
                     child: Column(
                       children: projects

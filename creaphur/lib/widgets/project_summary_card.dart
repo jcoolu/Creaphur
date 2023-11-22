@@ -38,16 +38,17 @@ class ProjectSummaryCard extends StatelessWidget {
                       color: Color(0xff2900cc),
                     )
                   : Image.memory(base64Decode(project.image)),
-              title: Text(project.name),
-              subtitle: Text(project.description ?? ''),
-              trailing: Column(
+              title: Text(project.name,
+                  softWrap: false,
+                  style: const TextStyle(overflow: TextOverflow.ellipsis)),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('0 Hours Logged'),
-                  Text('\$ 0 / ${project.estCost.toStringAsFixed(2)}'),
                   Utils.daysBetween(DateTime.now(), project.endDate) < 0
                       ? const Text('Project End Date Passed')
                       : Text(
                           '${Utils.daysBetween(DateTime.now(), project.endDate).toString()} days left'),
+                  const Text('Current Cost: \$0.00')
                 ],
               ),
             ),

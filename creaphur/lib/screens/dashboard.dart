@@ -67,25 +67,23 @@ class Dashboard extends StatelessWidget {
           ],
         ),
         body: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-              child: projects.isEmpty
-                  ? const Text(
-                      'No projects found. Please click (+) below to create a new project.')
-                  : SingleChildScrollView(
-                      child: Column(
-                        children: projects
-                            .map(
-                              (project) => ProjectSummaryCard(
-                                project: project,
-                                onTap: () => selectProject(project),
-                              ),
-                            )
-                            .toList(),
-                      ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: projects.isEmpty
+                ? const Text(
+                    'No projects found. Please click (+) below to create a new project.')
+                : SingleChildScrollView(
+                    child: Column(
+                      children: projects
+                          .map(
+                            (project) => ProjectSummaryCard(
+                              project: project,
+                              onTap: () => selectProject(project),
+                            ),
+                          )
+                          .toList(),
                     ),
-            ),
+                  ),
           ),
         ),
         floatingActionButton:

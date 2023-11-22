@@ -1,11 +1,9 @@
-import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/dashboard.dart';
+import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/services/project_service.dart';
-import 'package:creaphur/widgets/forms/project_form.dart';
+import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
 class ProjectOverviewScreen extends StatefulWidget {
   final Project project;
@@ -28,26 +26,21 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
       );
     }
 
-    void handleChange(field, value) {
-      newProject ??= widget.project; // set newProject to widget.project if null
-      Map<String, dynamic> projectMap = newProject!.toMap();
-      projectMap[field] = value;
-      setState(() => newProject = Project.fromMap(projectMap));
+    void handleEdit() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ProjectScreen(project: widget.project)),
+      );
     }
 
-    void handleSave() async {
-      if (newProject!.id.isEmpty) {
-        handleChange('id', const Uuid().v4());
-        await ProjectService.addProject(context, newProject!);
-      } else {
-        await ProjectService.updateProject(context, newProject!);
-      }
-
+    void handleDelete() async {
+      await ProjectService.deleteProject(context, widget.project);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Saved Project')),
+        const SnackBar(content: Text('Deleted Project')),
       );
 
-      Navigator.push(
+      Navigator.pop(
         context,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
@@ -56,30 +49,34 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(4.0),
-            child: Container(
-              color: const Color(0xff1d874b),
-              height: 3.0,
-            ),
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: const Color(0xff1d874b),
+            height: 3.0,
           ),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.chevron_left, color: Colors.white),
           onPressed: handleBack,
         ),
-        actions: [
+        actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white),
-            onPressed: handleBack,
-          )
+              icon: Icon(Icons.edit, color: Colors.white),
+              onPressed: handleEdit),
+          DeleteDialog(
+              isIconButton: true,
+              buttonText: 'Delete Project',
+              model: 'project',
+              onDelete: handleDelete)
         ],
         title: Text(widget.project.name),
         backgroundColor: const Color(0xff2bca70),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: SingleChildScrollView(child: Text('')),
           ),
         ),

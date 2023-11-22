@@ -2,6 +2,7 @@ import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/dashboard.dart';
 import 'package:creaphur/services/project_service.dart';
+import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/forms/project_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,8 @@ class _ProjectScreenState extends State<ProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isNew = widget.project.id.isEmpty;
+
     void handleBack() {
       Navigator.pop(
         context,
@@ -53,6 +56,19 @@ class _ProjectScreenState extends State<ProjectScreen> {
       );
     }
 
+    void handleDelete() {
+      ProjectService.deleteProject(context, widget.project);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Deleted Project')),
+      );
+
+      Navigator.pop(
+        context,
+        MaterialPageRoute(builder: (context) => const Dashboard()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(
@@ -69,6 +85,14 @@ class _ProjectScreenState extends State<ProjectScreen> {
         title: const Text('New Project'),
         backgroundColor: const Color(0xff2bca70),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+        actions: <Widget>[
+          if (!isNew)
+            DeleteDialog(
+                isIconButton: true,
+                model: 'project',
+                onDelete: handleDelete,
+                buttonText: 'Delete Project')
+        ],
       ),
       body: SafeArea(
         child: Center(

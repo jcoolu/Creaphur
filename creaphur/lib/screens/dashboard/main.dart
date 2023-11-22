@@ -89,8 +89,9 @@ class _DashboardState extends State<Dashboard> {
                       selected: selectedScreen == 'home',
                       onTap: () {
                         setState(() {
-                          selectedScreen = 'Messages';
+                          selectedScreen = 'home';
                         });
+                        Navigator.of(context).pop();
                       },
                     ),
                     ListTile(
@@ -101,6 +102,7 @@ class _DashboardState extends State<Dashboard> {
                         setState(() {
                           selectedScreen = 'materials';
                         });
+                        Navigator.of(context).pop();
                       },
                     ),
                     ListTile(

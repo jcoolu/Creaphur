@@ -4,7 +4,7 @@ import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/models/time_entry_list.dart';
-import 'package:creaphur/screens/dashboard.dart';
+import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/screens/welcome.dart';
 import 'package:creaphur/common/theme.dart';
 import 'package:creaphur/services/profile_service.dart';

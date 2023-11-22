@@ -1,7 +1,7 @@
 import 'package:creaphur/services/profile_service.dart';
 import 'package:uuid/uuid.dart';
 import 'package:creaphur/models/profile.dart';
-import 'package:creaphur/screens/dashboard.dart';
+import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/widgets/forms/name_form.dart';
 import 'package:flutter/material.dart';
 

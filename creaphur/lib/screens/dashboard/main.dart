@@ -8,9 +8,14 @@ import 'package:creaphur/widgets/project_summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
 
+class _DashboardState extends State<Dashboard> {
+  String selectedScreen = 'home';
   @override
   Widget build(BuildContext context) {
     List<Project> projects =
@@ -39,19 +44,13 @@ class Dashboard extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.white),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(4.0),
             child: Container(
               color: const Color(0xff1d874b),
               height: 3.0,
             ),
-          ),
-          leading: const IconButton(
-            icon: Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
-            onPressed: null,
           ),
           title: Text('Welcome, ${currentProfile.name}'),
           backgroundColor: const Color(0xff2bca70),
@@ -65,6 +64,72 @@ class Dashboard extends StatelessWidget {
               onPressed: null,
             ),
           ],
+        ),
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: ListView(
+                  children: [
+                    const DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Color(0xff89e6b1),
+                      ),
+                      child: Text(
+                        'Creaphur',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.home),
+                      title: const Text('Home'),
+                      selected: selectedScreen == 'home',
+                      onTap: () {
+                        setState(() {
+                          selectedScreen = 'Messages';
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.search),
+                      title: const Text('Materials'),
+                      selected: selectedScreen == 'materials',
+                      onTap: () {
+                        setState(() {
+                          selectedScreen = 'materials';
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.person),
+                      title: const Text('Profiles'),
+                      selected: selectedScreen == 'profiles',
+                      onTap: () {
+                        setState(() {
+                          selectedScreen = 'profiles';
+                        });
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.info),
+                selected: selectedScreen == 'info',
+                title: const Text('About App'),
+                onTap: () {
+                  setState(() {
+                    selectedScreen = 'info';
+                  });
+                },
+              ),
+            ],
+          ),
         ),
         body: SafeArea(
           child: Padding(

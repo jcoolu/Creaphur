@@ -10,6 +10,19 @@ class ProfileService {
     Provider.of<Profile>(context, listen: false).selectProfile(profile);
   }
 
+  static Future<void> updateProfile(context, Profile profile) async {
+    await ProfileHelper.updateProfile(profile);
+    Provider.of<ProfileList>(context, listen: false).update(profile);
+    Provider.of<Profile>(context, listen: false).selectProfile(profile);
+  }
+
+  static Future<void> deleteProfile(context, Profile profile) async {
+    await ProfileHelper.deleteProfile(profile);
+    Provider.of<ProfileList>(context, listen: false).remove(profile);
+    Provider.of<Profile>(context, listen: false).selectProfile(
+        Provider.of<ProfileList>(context, listen: false).items.first);
+  }
+
   static getProfiles(context) async {
     List<Profile> profiles = await ProfileHelper.getProfiles() ?? [];
     Provider.of<ProfileList>(context, listen: false).addAllProfiles(profiles);

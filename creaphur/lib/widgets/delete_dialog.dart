@@ -5,7 +5,7 @@ class DeleteDialog extends StatelessWidget {
   final bool isIconButton;
   final String buttonText;
   final String model;
-  final void Function() onDelete;
+  final void Function()? onDelete;
 
   const DeleteDialog({
     super.key,

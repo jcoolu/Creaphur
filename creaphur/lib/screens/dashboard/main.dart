@@ -1,6 +1,7 @@
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/project_list.dart';
+import 'package:creaphur/screens/profile.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/screens/project_overview.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
@@ -21,6 +22,15 @@ class _DashboardState extends State<Dashboard> {
     List<Project> projects =
         Provider.of<ProjectList>(context, listen: true).items;
     Profile currentProfile = Provider.of<Profile>(context, listen: true);
+
+    void goToProfile() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProfileScreen(
+                    profile: currentProfile,
+                  )));
+    }
 
     void createProject() {
       Navigator.push(
@@ -55,13 +65,13 @@ class _DashboardState extends State<Dashboard> {
           title: Text('Welcome, ${currentProfile.name}'),
           backgroundColor: const Color(0xff2bca70),
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-          actions: const [
+          actions: [
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.person_2_rounded,
                 color: Colors.white,
               ),
-              onPressed: null,
+              onPressed: goToProfile,
             ),
           ],
         ),

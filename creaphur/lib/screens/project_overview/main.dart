@@ -16,6 +16,7 @@ class ProjectOverviewScreen extends StatefulWidget {
 class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
   String name = '';
   late Project? newProject = widget.project;
+  int screenIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
         ),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.edit, color: Colors.white),
+              icon: const Icon(Icons.edit, color: Colors.white),
               onPressed: handleEdit),
           DeleteDialog(
               isIconButton: true,
@@ -82,23 +83,35 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
         ),
       ),
       bottomNavigationBar: NavigationBar(
-        selectedIndex: screenIndex,
-        onDestinationSelected: (int index) {
-          setState(() {
-            screenIndex = index;
-          });
-        },
-        destinations: destinations.map(
-          (ExampleDestination destination) {
-            return NavigationDestination(
-              label: destination.label,
-              icon: destination.icon,
-              selectedIcon: destination.selectedIcon,
-              tooltip: destination.label,
-            );
+          selectedIndex: screenIndex,
+          onDestinationSelected: (int index) {
+            setState(() {
+              screenIndex = index;
+            });
           },
-        ).toList(),
-      ),
+          destinations: const [
+            NavigationDestination(
+              label: 'Overview',
+              icon: Icon(Icons.account_tree_outlined, color: Color(0xff2900cc)),
+              selectedIcon: Icon(Icons.account_tree, color: Color(0xff2900cc)),
+              tooltip: 'Overview',
+            ),
+            NavigationDestination(
+              label: 'Expenses',
+              icon: Icon(Icons.monetization_on_outlined,
+                  color: Color(0xff2900cc)),
+              selectedIcon:
+                  Icon(Icons.monetization_on, color: Color(0xff2900cc)),
+              tooltip: 'Expenses',
+            ),
+            NavigationDestination(
+              label: 'Time Log',
+              icon: Icon(Icons.access_time, color: Color(0xff2900cc)),
+              selectedIcon:
+                  Icon(Icons.access_time_filled, color: Color(0xff2900cc)),
+              tooltip: 'Time Log',
+            ),
+          ]),
     );
   }
 }

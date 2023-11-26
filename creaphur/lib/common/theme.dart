@@ -12,6 +12,5 @@ Colors for reference:
 */
 ThemeData appTheme(BuildContext context) => Theme.of(context).copyWith(
       textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
-      colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff6c47ff)),
-      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff6c47ff)),
     );

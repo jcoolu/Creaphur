@@ -81,6 +81,24 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: screenIndex,
+        onDestinationSelected: (int index) {
+          setState(() {
+            screenIndex = index;
+          });
+        },
+        destinations: destinations.map(
+          (ExampleDestination destination) {
+            return NavigationDestination(
+              label: destination.label,
+              icon: destination.icon,
+              selectedIcon: destination.selectedIcon,
+              tooltip: destination.label,
+            );
+          },
+        ).toList(),
+      ),
     );
   }
 }

@@ -6,9 +6,7 @@ import 'package:creaphur/screens/dashboard/materials.dart';
 import 'package:creaphur/screens/dashboard/profiles.dart';
 import 'package:creaphur/screens/profile.dart';
 import 'package:creaphur/screens/project.dart';
-import 'package:creaphur/screens/project_overview/main.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
-import 'package:creaphur/widgets/project_summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,17 +40,6 @@ class _DashboardState extends State<Dashboard> {
             builder: (context) => ProjectScreen(
                 project: Project.getBlankProject(currentProfile.id)),
           ));
-    }
-
-    void selectProject(Project project) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProjectOverviewScreen(
-            project: project,
-          ),
-        ),
-      );
     }
 
     Widget handleScreen() {

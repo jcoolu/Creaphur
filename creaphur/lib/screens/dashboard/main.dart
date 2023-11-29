@@ -3,6 +3,7 @@ import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/screens/dashboard/home.dart';
 import 'package:creaphur/screens/dashboard/materials.dart';
+import 'package:creaphur/screens/dashboard/profiles.dart';
 import 'package:creaphur/screens/profile.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/screens/project_overview/main.dart';
@@ -56,9 +57,11 @@ class _DashboardState extends State<Dashboard> {
 
     Widget handleScreen() {
       if (selectedScreen == 'materials') {
-        return MaterialsScreen();
+        return const MaterialsScreen();
       }
-      if (selectedScreen == 'profiles') {}
+      if (selectedScreen == 'profiles') {
+        return const ProfilesScreen();
+      }
       return const HomeScreen();
     }
 

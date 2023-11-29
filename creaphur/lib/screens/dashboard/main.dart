@@ -1,6 +1,7 @@
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/project_list.dart';
+import 'package:creaphur/screens/dashboard/home.dart';
 import 'package:creaphur/screens/profile.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/screens/project_overview/main.dart';
@@ -50,6 +51,18 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       );
+    }
+
+    Widget handleScreen() {
+      if (selectedScreen == 'materials') {}
+      if (selectedScreen == 'profiles') {}
+      return const HomeScreen();
+    }
+
+    void handleCreate() {
+      if (selectedScreen == 'materials') {}
+      if (selectedScreen == 'profiles') {}
+      return createProject();
     }
 
     return Scaffold(
@@ -143,29 +156,8 @@ class _DashboardState extends State<Dashboard> {
             ],
           ),
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            child: projects.isEmpty
-                ? const Center(
-                    child: Text(
-                        'No projects found. Please click (+) below to create a new project.'),
-                  )
-                : SingleChildScrollView(
-                    child: Column(
-                      children: projects
-                          .map(
-                            (project) => ProjectSummaryCard(
-                              project: project,
-                              onTap: () => selectProject(project),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-          ),
-        ),
+        body: handleScreen(),
         floatingActionButton:
-            FilledFloatingActionButton(onPressed: createProject));
+            FilledFloatingActionButton(onPressed: handleCreate));
   }
 }

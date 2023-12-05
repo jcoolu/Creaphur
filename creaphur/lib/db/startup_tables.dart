@@ -23,7 +23,11 @@ class SchemaBuilder {
       id TEXT PRIMARY KEY,
       name TEXT,
       image TEXT,
-      profileId TEXT
+      profileId TEXT,
+      quantityType TEXT,
+      quantity DOUBLE,
+      costPer DOUBLE,
+      singleQuantity DOUBLE,
     )
   ''');
 
@@ -77,6 +81,15 @@ class SchemaBuilder {
   static handleUpdateForProjectv2(Database db) async {
     Batch batch = db.batch();
     batch.execute("ALTER TABLE Project ADD COLUMN image TEXT");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv3(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Material ADD COLUMN quantity DOUBLE");
+    batch.execute("ALTER TABLE Material ADD COLUMN quantityType TEXT");
+    batch.execute("ALTER TABLE Material ADD COLUMN costPer DOUBLE");
+    batch.execute("ALTER TABLE Material ADD COLUMN singleQuantity DOUBLE");
     await batch.commit();
   }
 }

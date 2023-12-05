@@ -24,8 +24,8 @@ class DeleteDialog extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: const Color(0xffad99ff),
-            titleTextStyle: TextStyle(color: Colors.white),
-            contentTextStyle: TextStyle(color: Colors.white),
+            titleTextStyle: const TextStyle(color: Colors.white),
+            contentTextStyle: const TextStyle(color: Colors.white),
             icon: const Icon(Icons.warning, color: Color(0xff2900cc)),
             title: const Text('Are you sure?'),
             content: SingleChildScrollView(

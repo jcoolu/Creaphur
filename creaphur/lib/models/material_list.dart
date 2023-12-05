@@ -19,4 +19,9 @@ class MaterialList extends DefaultModelList<Material> {
   void updateAllMaterials(List<Material> updatedMaterials) {
     updateAll(updatedMaterials);
   }
+
+  void addAllMaterials(List<Material> materials) {
+    addAll(materials);
+    notifyListeners();
+  }
 }

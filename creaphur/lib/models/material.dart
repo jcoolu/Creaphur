@@ -1,8 +1,7 @@
 import 'package:creaphur/models/default_model.dart';
-import 'package:flutter/material.dart';
 
 class Material extends DefaultModel {
-  final Image? image;
+  final String image;
   final String profileId;
   final double quantity;
   final String quantityType;
@@ -12,7 +11,7 @@ class Material extends DefaultModel {
   Material(
       {required String id,
       required String name,
-      this.image,
+      required this.image,
       required this.profileId,
       required this.quantity,
       required this.quantityType,
@@ -24,7 +23,7 @@ class Material extends DefaultModel {
     return Material(
         id: json['id'],
         name: json['name'],
-        image: json['image'] != null ? Image.network(json['image']) : null,
+        image: json['image'] ?? '',
         profileId: json['profileId'],
         quantity: json['quantity'],
         quantityType: json['quantityType'],
@@ -36,7 +35,7 @@ class Material extends DefaultModel {
     return {
       'id': id,
       'name': name,
-      'image': image, // Assuming 'image' is an ImageProvider
+      'image': image,
       'profileId': profileId,
       'quantity': quantity,
       'quantityType': quantityType,
@@ -44,4 +43,14 @@ class Material extends DefaultModel {
       'singleQuantity': singleQuantity,
     };
   }
+
+  static Material getBlankMaterial(String profileId) => Material(
+      id: '',
+      name: '',
+      profileId: profileId,
+      quantity: 0.00,
+      quantityType: 'Each',
+      costPer: 0.00,
+      image: '',
+      singleQuantity: 1);
 }

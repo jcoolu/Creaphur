@@ -4,6 +4,8 @@ import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/screens/dashboard/home.dart';
 import 'package:creaphur/screens/dashboard/materials.dart';
 import 'package:creaphur/screens/dashboard/profiles.dart';
+import 'package:creaphur/models/material.dart' as material_model;
+import 'package:creaphur/screens/material.dart';
 import 'package:creaphur/screens/profile.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
@@ -42,6 +44,16 @@ class _DashboardState extends State<Dashboard> {
           ));
     }
 
+    void createMaterial() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MaterialScreen(
+                material: material_model.Material.getBlankMaterial(
+                    currentProfile.id)),
+          ));
+    }
+
     Widget handleScreen() {
       if (selectedScreen == 'materials') {
         return const MaterialsScreen();
@@ -53,7 +65,9 @@ class _DashboardState extends State<Dashboard> {
     }
 
     void handleCreate() {
-      if (selectedScreen == 'materials') {}
+      if (selectedScreen == 'materials') {
+        return createMaterial();
+      }
       if (selectedScreen == 'profiles') {}
       return createProject();
     }

@@ -1,16 +1,13 @@
-import 'dart:convert';
-
-import 'package:creaphur/common/utils.dart';
-import 'package:creaphur/models/project.dart';
+import 'package:creaphur/models/time_entry.dart';
 import 'package:flutter/material.dart';
 
-class ProjectSummaryCard extends StatelessWidget {
-  final Project project;
+class TimeEntrySummaryCard extends StatelessWidget {
+  final TimeEntry timeEntry;
   final void Function()? onTap;
 
-  const ProjectSummaryCard({
+  const TimeEntrySummaryCard({
     super.key,
-    required this.project,
+    required this.timeEntry,
     this.onTap,
   });
 
@@ -32,22 +29,13 @@ class ProjectSummaryCard extends StatelessWidget {
               tileColor: const Color(0xffad99ff),
               textColor: Colors.white,
               splashColor: const Color(0xff2900cc),
-              leading: project.image.isEmpty
-                  ? const Icon(
-                      Icons.assessment,
-                      color: Color(0xff2900cc),
-                    )
-                  : Image.memory(base64Decode(project.image)),
-              title: Text(project.name,
+              title: Text(timeEntry.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Utils.daysBetween(DateTime.now(), project.endDate) < 0
-                      ? const Text('Project End Date Passed')
-                      : Text(
-                          '${Utils.daysBetween(DateTime.now(), project.endDate).toString()} days left'),
+                  const Text('Duration: '),
                   const Text('Cost: \$0.00')
                 ],
               ),

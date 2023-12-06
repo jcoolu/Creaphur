@@ -28,11 +28,11 @@ class MaterialHelper {
     await db.delete("Material", where: 'id = ?', whereArgs: [material.id]);
   }
 
-  static Future<List<Material>> getMaterials(String project) async {
+  static Future<List<Material>> getMaterials(String profile) async {
     final db = await DatabaseHelper.getDB();
 
     final List<Map<String, dynamic>> maps = await db
-        .query("Material", where: 'projectId = ?', whereArgs: [project]);
+        .query("Material", where: 'profileId = ?', whereArgs: [profile]);
 
     return List.generate(maps.length, (index) => Material.fromMap(maps[index]));
   }

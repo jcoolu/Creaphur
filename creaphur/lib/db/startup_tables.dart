@@ -65,7 +65,7 @@ class SchemaBuilder {
       endDate DATETIME,
       duration INT,
       costOfServices DOUBLE,
-      projectId STRING
+      projectId TEXT
     )
   ''');
 

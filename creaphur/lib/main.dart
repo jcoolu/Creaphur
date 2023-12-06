@@ -7,6 +7,7 @@ import 'package:creaphur/models/time_entry_list.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/screens/welcome.dart';
 import 'package:creaphur/common/theme.dart';
+import 'package:creaphur/services/material_service.dart';
 import 'package:creaphur/services/profile_service.dart';
 import 'package:creaphur/services/project_service.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget {
       await ProjectService.getProjects(context, profiles.first.id);
 
       await ProfileService.setCurrent(context, profiles.first);
+
+      await MaterialService.getMaterials(context, profiles.first.id);
 
       bool containsProfiles = profiles.isNotEmpty;
 

@@ -19,4 +19,9 @@ class TimeEntryList extends DefaultModelList<TimeEntry> {
   void updateAllTimeEntries(List<TimeEntry> updatedTimeEntries) {
     updateAll(updatedTimeEntries);
   }
+
+  void addAllTimeEntries(List<TimeEntry> timeEntries) {
+    addAll(timeEntries);
+    notifyListeners();
+  }
 }

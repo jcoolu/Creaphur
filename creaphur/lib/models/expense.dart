@@ -32,4 +32,12 @@ class Expense extends DefaultModel {
       'quantity': quantity,
     };
   }
+
+  static Expense getBlankExpense(String projectId) => Expense(
+        id: '',
+        name: '',
+        projectId: projectId,
+        quantity: 0.00,
+        materialId: '',
+      );
 }

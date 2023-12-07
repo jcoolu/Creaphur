@@ -28,15 +28,11 @@ class ExpenseHelper {
     await db.delete("Expense", where: 'id = ?', whereArgs: [expense.id]);
   }
 
-  static Future<List<Expense>?> getExpenses(String project) async {
+  static Future<List<Expense>> getExpenses(String project) async {
     final db = await DatabaseHelper.getDB();
 
     final List<Map<String, dynamic>> maps =
         await db.query("Expense", where: 'projectId = ?', whereArgs: [project]);
-
-    if (maps.isEmpty) {
-      return null;
-    }
 
     return List.generate(maps.length, (index) => Expense.fromMap(maps[index]));
   }

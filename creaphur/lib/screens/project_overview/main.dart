@@ -1,8 +1,12 @@
+import 'package:creaphur/models/expense.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
+import 'package:creaphur/screens/expense.dart';
 import 'package:creaphur/screens/project.dart';
+import 'package:creaphur/screens/project_overview/expenses.dart';
 import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
+import 'package:creaphur/widgets/filled_floating_action_button.dart';
 import 'package:flutter/material.dart';
 
 class ProjectOverviewScreen extends StatefulWidget {
@@ -47,6 +51,32 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
       );
     }
 
+    Widget handleScreen() {
+      if (screenIndex == 0) {
+        return const Text('');
+      }
+      if (screenIndex == 1) {
+        return const ExpensesScreen();
+      }
+      return const Text('');
+    }
+
+    void createExpense() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ExpenseScreen(
+                expense: Expense.getBlankExpense(widget.project.id)),
+          ));
+    }
+
+    void handleCreate() {
+      if (screenIndex == 1) {
+        return createExpense();
+      }
+      if (screenIndex == 2) {}
+    }
+
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(
@@ -74,13 +104,8 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
         backgroundColor: const Color(0xff2bca70),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
       ),
-      body: const SafeArea(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            child: SingleChildScrollView(child: Text('')),
-          ),
-        ),
+      body: SafeArea(
+        child: handleScreen(),
       ),
       bottomNavigationBar: NavigationBar(
           selectedIndex: screenIndex,
@@ -112,6 +137,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
               tooltip: 'Time Log',
             ),
           ]),
+      floatingActionButton: FilledFloatingActionButton(onPressed: handleCreate),
     );
   }
 }

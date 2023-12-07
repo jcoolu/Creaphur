@@ -19,4 +19,9 @@ class ExpenseList extends DefaultModelList<Expense> {
   void updateAllExpenses(List<Expense> updatedExpenses) {
     updateAll(updatedExpenses);
   }
+
+  void addAllExpenses(List<Expense> expenses) {
+    addAll(expenses);
+    notifyListeners();
+  }
 }

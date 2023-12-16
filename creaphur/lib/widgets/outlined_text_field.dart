@@ -7,6 +7,7 @@ class OutlinedTextField extends StatelessWidget {
   final void Function(String)? onChange;
   final String? Function(String?)? onValidate;
   final TextInputType? keyboardType;
+  final String? suffix;
 
   const OutlinedTextField(
       {super.key,
@@ -15,7 +16,8 @@ class OutlinedTextField extends StatelessWidget {
       required this.labelText,
       this.onChange,
       this.onValidate,
-      this.keyboardType});
+      this.keyboardType,
+      this.suffix});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class OutlinedTextField extends StatelessWidget {
         border: const OutlineInputBorder(),
         hintText: hintText,
         labelText: labelText,
+        suffixText: suffix,
       ),
       onChanged: onChange,
       validator: onValidate,

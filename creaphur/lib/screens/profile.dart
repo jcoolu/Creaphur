@@ -64,8 +64,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
 
-    print(Provider.of<ProfileList>(context, listen: false).items.length);
-
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(

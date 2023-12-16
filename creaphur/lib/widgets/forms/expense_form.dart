@@ -83,10 +83,10 @@ class ExpenseFormState extends State<ExpenseForm> {
                       .items
                       .map((mat) => mat.name)
                       .toList(),
-                  dropdownDecoratorProps: DropDownDecoratorProps(
+                  dropdownDecoratorProps: const DropDownDecoratorProps(
                     dropdownSearchDecoration: InputDecoration(
                       labelText: "Menu mode",
-                      hintText: "country in menu mode",
+                      hintText: "materials in menu mode",
                     ),
                   ),
                   onChanged: print,

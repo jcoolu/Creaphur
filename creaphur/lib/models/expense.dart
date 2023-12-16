@@ -1,3 +1,7 @@
+import 'package:creaphur/models/material.dart';
+import 'package:creaphur/models/material_list.dart';
+import 'package:provider/provider.dart';
+
 import 'default_model.dart';
 
 class Expense extends DefaultModel {
@@ -40,4 +44,14 @@ class Expense extends DefaultModel {
         quantity: 0.00,
         materialId: '',
       );
+
+  String? getMaterialUnit(context) {
+    List<Material> materials =
+        Provider.of<MaterialList>(context, listen: false).items;
+
+    List<Material>? possibleMatches =
+        materials.where((element) => element.id == materialId).toList();
+
+    return possibleMatches.isEmpty ? null : possibleMatches.first.name;
+  }
 }

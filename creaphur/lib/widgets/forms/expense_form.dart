@@ -85,8 +85,8 @@ class ExpenseFormState extends State<ExpenseForm> {
                       .toList(),
                   dropdownDecoratorProps: const DropDownDecoratorProps(
                     dropdownSearchDecoration: InputDecoration(
-                      labelText: "Menu mode",
-                      hintText: "materials in menu mode",
+                      labelText: "Material",
+                      hintText: "Material related to expense for project.",
                     ),
                   ),
                   onChanged: print,

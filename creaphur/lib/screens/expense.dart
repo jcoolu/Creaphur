@@ -1,12 +1,9 @@
-import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/expense.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/services/expense_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
-import 'package:creaphur/widgets/filled_floating_action_button.dart';
 import 'package:creaphur/widgets/forms/expense_form.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class ExpenseScreen extends StatefulWidget {

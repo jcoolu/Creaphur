@@ -32,12 +32,9 @@ class TimeEntrySummaryCard extends StatelessWidget {
               title: Text(timeEntry.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),
-              subtitle: Column(
+              subtitle: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Duration: '),
-                  const Text('Cost: \$0.00')
-                ],
+                children: [Text('Duration: '), Text('Cost: \$0.00')],
               ),
             ),
           ],

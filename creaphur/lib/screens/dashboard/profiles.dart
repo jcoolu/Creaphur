@@ -8,7 +8,7 @@ class ProfilesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Profile> materials =
+    List<Profile> profiles =
         Provider.of<ProfileList>(context, listen: true).items;
 
     return const SafeArea(

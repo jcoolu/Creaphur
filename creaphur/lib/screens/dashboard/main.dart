@@ -22,8 +22,6 @@ class _DashboardState extends State<Dashboard> {
   String selectedScreen = 'home';
   @override
   Widget build(BuildContext context) {
-    List<Project> projects =
-        Provider.of<ProjectList>(context, listen: true).items;
     Profile currentProfile = Provider.of<Profile>(context, listen: true);
 
     void goToProfile() {

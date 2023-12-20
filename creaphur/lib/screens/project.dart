@@ -1,11 +1,9 @@
-import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/forms/project_form.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class ProjectScreen extends StatefulWidget {

@@ -1,11 +1,8 @@
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/expense.dart';
-import 'package:creaphur/models/material.dart' as material_model;
 import 'package:creaphur/models/material_list.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
-import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
-import 'package:creaphur/widgets/unit_dropdown.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -70,7 +67,7 @@ class ExpenseFormState extends State<ExpenseForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a quantity for your expense';
                       }
-                      if (!Utils.isCurrencyValid(value)) {
+                      if (!Utils.isQuantityValid(value)) {
                         return 'Please enter a valid format for quantity of expense.';
                       }
                       widget.onChange('quantity', double.parse(value));

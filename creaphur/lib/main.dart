@@ -11,6 +11,7 @@ import 'package:creaphur/services/expense_service.dart';
 import 'package:creaphur/services/material_service.dart';
 import 'package:creaphur/services/profile_service.dart';
 import 'package:creaphur/services/project_service.dart';
+import 'package:creaphur/services/time_entry_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,6 +46,8 @@ class MyApp extends StatelessWidget {
       await MaterialService.getMaterials(context, profiles.first.id);
 
       await ExpenseService.getExpenses(context, profiles.first.id);
+
+      await TimeEntryService.getTimeEntries(context, profiles.first.id);
 
       bool containsProfiles = profiles.isNotEmpty;
 

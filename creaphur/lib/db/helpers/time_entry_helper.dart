@@ -42,15 +42,11 @@ class TimeEntryHelper {
         maps.length, (index) => TimeEntry.fromMap(maps[index]));
   }
 
-  static Future<List<TimeEntry>?> getAllTimeEntries(String profile) async {
+  static Future<List<TimeEntry>> getAllTimeEntries(String profile) async {
     final db = await DatabaseHelper.getDB();
 
     final List<Map<String, dynamic>> maps = await db
         .query("TimeEntry", where: 'profileId = ?', whereArgs: [profile]);
-
-    if (maps.isEmpty) {
-      return null;
-    }
 
     return List.generate(
         maps.length, (index) => TimeEntry.fromMap(maps[index]));

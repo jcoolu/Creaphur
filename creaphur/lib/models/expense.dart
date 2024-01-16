@@ -8,13 +8,15 @@ class Expense extends DefaultModel {
   final String materialId;
   final String projectId;
   final double quantity;
+  final String profileId;
 
   Expense(
       {required String id,
       required String name,
       required this.materialId,
       required this.projectId,
-      required this.quantity})
+      required this.quantity,
+      required this.profileId})
       : super(id: id, name: name);
 
   factory Expense.fromMap(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class Expense extends DefaultModel {
       materialId: json['materialId'],
       projectId: json['projectId'],
       quantity: json['quantity'].toDouble(),
+      profileId: json['profileId'],
     );
   }
 
@@ -34,15 +37,17 @@ class Expense extends DefaultModel {
       'materialId': materialId,
       'projectId': projectId,
       'quantity': quantity,
+      'profileId': profileId,
     };
   }
 
-  static Expense getBlankExpense(String projectId) => Expense(
+  static Expense getBlankExpense(String projectId, String profileId) => Expense(
         id: '',
         name: '',
         projectId: projectId,
         quantity: 0.00,
         materialId: '',
+        profileId: profileId,
       );
 
   String? getMaterialUnit(context) {

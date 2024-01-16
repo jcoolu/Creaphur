@@ -19,8 +19,8 @@ class ExpenseService {
     Provider.of<ExpenseList>(context, listen: false).remove(expense);
   }
 
-  static getExpenses(context, String projectId) async {
-    List<Expense> expenses = await ExpenseHelper.getExpenses(projectId);
+  static getExpenses(context, String profileId) async {
+    List<Expense> expenses = await ExpenseHelper.getAllExpenses(profileId);
     Provider.of<ExpenseList>(context, listen: false).addAllExpenses(expenses);
   }
 }

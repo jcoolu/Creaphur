@@ -92,4 +92,10 @@ class SchemaBuilder {
     batch.execute("ALTER TABLE Material ADD COLUMN singleQuantity DOUBLE");
     await batch.commit();
   }
+
+  static handleUpdateForProjectv4(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Expense ADD COLUMN profileId TEXT");
+    await batch.commit();
+  }
 }

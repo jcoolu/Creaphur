@@ -1,4 +1,5 @@
 import 'package:creaphur/models/expense.dart';
+import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/screens/expense.dart';
@@ -8,6 +9,8 @@ import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 class ProjectOverviewScreen extends StatefulWidget {
   final Project project;
@@ -24,6 +27,8 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Profile currentProfile = Provider.of<Profile>(context, listen: true);
+
     void handleBack() {
       Navigator.pop(
         context,
@@ -56,7 +61,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
         return const Text('');
       }
       if (screenIndex == 1) {
-        return const ExpensesScreen();
+        return ExpensesScreen(projectId: widget.project.id);
       }
       return const Text('');
     }
@@ -66,7 +71,8 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => ExpenseScreen(
-                expense: Expense.getBlankExpense(widget.project.id)),
+                expense: Expense.getBlankExpense(
+                    widget.project.id, currentProfile.id)),
           ));
     }
 

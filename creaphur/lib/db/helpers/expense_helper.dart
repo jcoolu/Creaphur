@@ -37,15 +37,11 @@ class ExpenseHelper {
     return List.generate(maps.length, (index) => Expense.fromMap(maps[index]));
   }
 
-  static Future<List<Expense>?> getAllExpenses(String profile) async {
+  static Future<List<Expense>> getAllExpenses(String profile) async {
     final db = await DatabaseHelper.getDB();
 
     final List<Map<String, dynamic>> maps =
         await db.query("Expense", where: 'profileId = ?', whereArgs: [profile]);
-
-    if (maps.isEmpty) {
-      return null;
-    }
 
     return List.generate(maps.length, (index) => Expense.fromMap(maps[index]));
   }

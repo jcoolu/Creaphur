@@ -98,4 +98,10 @@ class SchemaBuilder {
     batch.execute("ALTER TABLE Expense ADD COLUMN profileId TEXT");
     await batch.commit();
   }
+
+  static handleUpdateForProjectv5(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE TimeEntry ADD COLUMN profileId TEXT");
+    await batch.commit();
+  }
 }

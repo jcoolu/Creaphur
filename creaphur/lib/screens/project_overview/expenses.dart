@@ -1,7 +1,6 @@
 import 'package:creaphur/models/expense.dart';
 import 'package:creaphur/models/expense_list.dart';
 import 'package:creaphur/screens/expense.dart';
-import 'package:creaphur/services/expense_service.dart';
 import 'package:creaphur/widgets/expense_summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

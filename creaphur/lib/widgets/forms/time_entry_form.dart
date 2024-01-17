@@ -1,30 +1,29 @@
 import 'package:creaphur/common/utils.dart';
-import 'package:creaphur/models/project.dart';
+import 'package:creaphur/models/time_entry.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
-import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:flutter/material.dart';
 
 // Define a custom Form widget.
-class ProjectForm extends StatefulWidget {
+class TimeEntryForm extends StatefulWidget {
   final Function onChange;
-  final Project? project;
+  final TimeEntry? timeEntry;
   final Function onSave;
 
-  const ProjectForm(
+  const TimeEntryForm(
       {super.key,
       required this.onChange,
-      required this.project,
+      required this.timeEntry,
       required this.onSave});
 
   @override
-  ProjectFormState createState() {
-    return ProjectFormState();
+  TimeEntryFormState createState() {
+    return TimeEntryFormState();
   }
 }
 
-class ProjectFormState extends State<ProjectForm> {
+class TimeEntryFormState extends State<TimeEntryForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -38,17 +37,17 @@ class ProjectFormState extends State<ProjectForm> {
               nextDate.year,
               nextDate.month,
               nextDate.day,
-              widget.project!.startDate.hour,
-              widget.project!.startDate.minute,
+              widget.timeEntry!.startDate.hour,
+              widget.timeEntry!.startDate.minute,
             ));
       } else {
         TimeOfDay nextTime = value;
         widget.onChange(
             'startDate',
             DateTime(
-              widget.project!.startDate.year,
-              widget.project!.startDate.month,
-              widget.project!.startDate.day,
+              widget.timeEntry!.startDate.year,
+              widget.timeEntry!.startDate.month,
+              widget.timeEntry!.startDate.day,
               nextTime.hour,
               nextTime.minute,
             ));
@@ -64,17 +63,17 @@ class ProjectFormState extends State<ProjectForm> {
               nextDate.year,
               nextDate.month,
               nextDate.day,
-              widget.project!.endDate.hour,
-              widget.project!.endDate.minute,
+              widget.timeEntry!.endDate.hour,
+              widget.timeEntry!.endDate.minute,
             ));
       } else {
         TimeOfDay nextTime = value;
         widget.onChange(
             'endDate',
             DateTime(
-              widget.project!.endDate.year,
-              widget.project!.endDate.month,
-              widget.project!.endDate.day,
+              widget.timeEntry!.endDate.year,
+              widget.timeEntry!.endDate.month,
+              widget.timeEntry!.endDate.day,
               nextTime.hour,
               nextTime.minute,
             ));
@@ -94,13 +93,13 @@ class ProjectFormState extends State<ProjectForm> {
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 12),
                   child: OutlinedTextField(
-                    initialValue: widget.project?.name ?? '',
-                    hintText: 'Project Name',
+                    initialValue: widget.timeEntry?.name ?? '',
+                    hintText: 'Time Entry Name',
                     labelText: 'Name *',
                     onChange: (value) => widget.onChange('name', value),
                     onValidate: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter a name for your project';
+                        return 'Please enter a name for your time entry';
                       }
                       return null;
                     },
@@ -108,37 +107,29 @@ class ProjectFormState extends State<ProjectForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedTextField(
-                    initialValue: widget.project?.description ?? '',
-                    hintText: 'Project Description',
-                    labelText: 'Description',
-                    onChange: (value) => widget.onChange('description', value),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
                   child: DateTimePicker(
-                      dateTime: widget.project?.startDate ?? DateTime.now(),
+                      dateTime: widget.timeEntry?.startDate ?? DateTime.now(),
                       onChange: handleChangeStartDate,
-                      buttonText: 'Projected Start'),
+                      buttonText: 'Time Start'),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: DateTimePicker(
-                      dateTime: widget.project?.endDate ??
+                      dateTime: widget.timeEntry?.endDate ??
                           DateTime.now().add(const Duration(days: 1)),
                       onChange: handleChangeEndDate,
-                      buttonText: 'Projected End'),
+                      buttonText: 'Time End'),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: OutlinedTextField(
                     initialValue:
-                        widget.project?.estCost.toStringAsFixed(2) ?? '0.00',
+                        widget.timeEntry?.costOfServices.toStringAsFixed(2) ??
+                            '0.00',
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
-                    hintText: 'Projected Cost for Project',
-                    labelText: 'Projected Cost *',
+                    hintText: 'Time Entry Cost of Service',
+                    labelText: 'Cost of Services *',
                     onValidate: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a projected cost for your project';
@@ -150,13 +141,6 @@ class ProjectFormState extends State<ProjectForm> {
                       return null;
                     },
                   ),
-                ),
-                OutlinedFilePicker(
-                  onChange: widget.onChange,
-                  childWidget: Text(
-                      (widget.project == null || widget.project!.image.isEmpty)
-                          ? 'Select File'
-                          : 'Image Selected'),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),

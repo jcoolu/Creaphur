@@ -1,8 +1,8 @@
 import 'package:creaphur/models/default_model.dart';
 
 class TimeEntry extends DefaultModel {
-  final DateTime startTime;
-  final DateTime endTime;
+  final DateTime startDate;
+  final DateTime endDate;
   final double costOfServices;
   final String projectId;
   final String profileId;
@@ -10,8 +10,8 @@ class TimeEntry extends DefaultModel {
   TimeEntry(
       {required String id,
       required String name,
-      required this.startTime,
-      required this.endTime,
+      required this.startDate,
+      required this.endDate,
       required this.costOfServices,
       required this.projectId,
       required this.profileId})
@@ -21,8 +21,8 @@ class TimeEntry extends DefaultModel {
     return TimeEntry(
         id: json['id'],
         name: json['name'],
-        startTime: DateTime.parse(json['startTime']),
-        endTime: DateTime.parse(json['endTime']),
+        startDate: DateTime.parse(json['startDate'].toString()),
+        endDate: DateTime.parse(json['endDate'].toString()),
         costOfServices: json['costOfServices'],
         projectId: json['projectId'],
         profileId: json['profileId']);
@@ -32,8 +32,8 @@ class TimeEntry extends DefaultModel {
     return {
       'id': id,
       'name': name,
-      'startTime': startTime.toIso8601String(),
-      'endTime': endTime.toIso8601String(),
+      'startDate': startDate.toIso8601String(),
+      'endDate': endDate.toIso8601String(),
       'costOfServices': costOfServices,
       'projectId': projectId,
       'profileId': profileId,
@@ -46,8 +46,8 @@ class TimeEntry extends DefaultModel {
         name: '',
         projectId: projectId,
         costOfServices: 0.00,
-        startTime: DateTime.now().subtract(const Duration(hours: 3)),
-        endTime: DateTime.now(),
+        startDate: DateTime.now().subtract(const Duration(hours: 3)),
+        endDate: DateTime.now(),
         profileId: profileId,
       );
 }

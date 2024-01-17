@@ -1,10 +1,13 @@
 import 'package:creaphur/models/expense.dart';
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
+import 'package:creaphur/models/time_entry.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/screens/expense.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/screens/project_overview/expenses.dart';
+import 'package:creaphur/screens/project_overview/time_log.dart';
+import 'package:creaphur/screens/timeEntry.dart';
 import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
@@ -63,6 +66,10 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
       if (screenIndex == 1) {
         return ExpensesScreen(projectId: widget.project.id);
       }
+
+      if (screenIndex == 2) {
+        return TimeEntriesScreen(projectId: widget.project.id);
+      }
       return const Text('');
     }
 
@@ -76,11 +83,23 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
           ));
     }
 
+    void createTimeEntry() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TimeEntryScreen(
+                timeEntry: TimeEntry.getBlankTimeEntry(
+                    widget.project.id, currentProfile.id)),
+          ));
+    }
+
     void handleCreate() {
       if (screenIndex == 1) {
         return createExpense();
       }
-      if (screenIndex == 2) {}
+      if (screenIndex == 2) {
+        return createTimeEntry();
+      }
     }
 
     return Scaffold(

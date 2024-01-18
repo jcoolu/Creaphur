@@ -137,7 +137,7 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                       if (!Utils.isCurrencyValid(value)) {
                         return 'Please enter a valid format for Projected Cost.';
                       }
-                      widget.onChange('estCost', double.parse(value));
+                      widget.onChange('costOfServices', double.parse(value));
                       return null;
                     },
                   ),

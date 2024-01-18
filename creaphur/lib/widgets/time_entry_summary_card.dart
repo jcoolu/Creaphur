@@ -13,6 +13,27 @@ class TimeEntrySummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formatDuration() {
+      Duration duration = timeEntry.endDate.difference(timeEntry.startDate);
+      String result = '';
+
+      if (duration.inDays > 0) {
+        result += '${duration.inDays} ${duration.inDays == 1 ? 'day' : 'days'}';
+      }
+
+      if (duration.inHours.remainder(24) > 0) {
+        result +=
+            '${result.isEmpty ? '' : ', '}${duration.inHours.remainder(24)} ${duration.inHours.remainder(24) == 1 ? 'hour' : 'hours'}';
+      }
+
+      if (duration.inMinutes.remainder(60) > 0) {
+        result +=
+            '${result.isEmpty ? '' : ', '}${duration.inMinutes.remainder(60)} ${duration.inMinutes.remainder(60) == 1 ? 'minute' : 'minutes'}';
+      }
+
+      return result.isEmpty ? '0 minutes' : result;
+    }
+
     return Card(
       elevation: 1,
       clipBehavior: Clip.antiAlias,
@@ -32,9 +53,12 @@ class TimeEntrySummaryCard extends StatelessWidget {
               title: Text(timeEntry.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),
-              subtitle: const Column(
+              subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text('Duration: '), Text('Cost: \$0.00')],
+                children: [
+                  Text('Duration: ${formatDuration()}'),
+                  Text('Cost: \$${timeEntry.costOfServices ?? '0.00'}')
+                ],
               ),
             ),
           ],

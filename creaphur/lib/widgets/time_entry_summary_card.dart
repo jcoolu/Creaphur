@@ -57,7 +57,7 @@ class TimeEntrySummaryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Duration: ${formatDuration()}'),
-                  Text('Cost: \$${timeEntry.costOfServices ?? '0.00'}')
+                  Text('Cost: \$${timeEntry.costOfServices}')
                 ],
               ),
             ),

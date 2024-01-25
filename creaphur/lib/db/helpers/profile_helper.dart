@@ -28,14 +28,10 @@ class ProfileHelper {
     await db.delete("Profile", where: 'id = ?', whereArgs: [profile.id]);
   }
 
-  static Future<List<Profile>?> getProfiles() async {
+  static Future<List<Profile>> getProfiles() async {
     final db = await DatabaseHelper.getDB();
 
     final List<Map<String, dynamic>> maps = await db.query("Profile");
-
-    if (maps.isEmpty) {
-      return null;
-    }
 
     return List.generate(maps.length, (index) => Profile.fromMap(maps[index]));
   }

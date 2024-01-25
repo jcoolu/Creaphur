@@ -75,10 +75,11 @@ class ExpenseFormState extends State<ExpenseForm> {
                     },
                   ),
                 ),
-                DropdownSearch<String>(
+                DropdownSearch<DropdownMenuItem>(
                   items: Provider.of<MaterialList>(context, listen: false)
                       .items
-                      .map((mat) => mat.name)
+                      .map((mat) => DropdownMenuItem(
+                          value: mat.id, child: Text(mat.name)))
                       .toList(),
                   dropdownDecoratorProps: const DropDownDecoratorProps(
                     dropdownSearchDecoration: InputDecoration(
@@ -86,18 +87,12 @@ class ExpenseFormState extends State<ExpenseForm> {
                       hintText: "Material related to expense for project.",
                     ),
                   ),
-                  onChanged: print,
-                  selectedItem: Provider.of<MaterialList>(context,
-                              listen: false)
-                          .items
-                          .where((mat) => mat.id == widget.expense!.materialId)
-                          .isNotEmpty
-                      ? Provider.of<MaterialList>(context, listen: false)
-                          .items
-                          .where((mat) => mat.id == widget.expense!.materialId)
-                          .first
-                          .name
-                      : '',
+                  selectedItem: DropdownMenuItem(
+                    value: widget.expense?.materialId,
+                    child: Text(widget.expense!.materialId),
+                  ),
+                  onChanged: (DropdownMenuItem? val) =>
+                      widget.onChange('materialId', val!.value),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),

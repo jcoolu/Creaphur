@@ -29,6 +29,7 @@ class ExpenseFormState extends State<ExpenseForm> {
 
   @override
   Widget build(BuildContext context) {
+    MaterialList list = Provider.of<MaterialList>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -75,25 +76,18 @@ class ExpenseFormState extends State<ExpenseForm> {
                     },
                   ),
                 ),
-                DropdownSearch<DropdownMenuItem>(
-                  items: Provider.of<MaterialList>(context, listen: false)
-                      .items
-                      .map((mat) => DropdownMenuItem(
-                          value: mat.id, child: Text(mat.name)))
-                      .toList(),
-                  dropdownDecoratorProps: const DropDownDecoratorProps(
-                    dropdownSearchDecoration: InputDecoration(
-                      labelText: "Material",
-                      hintText: "Material related to expense for project.",
+                DropdownSearch<String>(
+                    items: list.items.map((mat) => mat.name).toList(),
+                    selectedItem:
+                        list.getRelatedMaterialName(widget.expense!.materialId),
+                    dropdownDecoratorProps: const DropDownDecoratorProps(
+                      dropdownSearchDecoration: InputDecoration(
+                        labelText: "Material",
+                        hintText: "Material related to expense for project.",
+                      ),
                     ),
-                  ),
-                  selectedItem: DropdownMenuItem(
-                    value: widget.expense?.materialId,
-                    child: Text(widget.expense!.materialId),
-                  ),
-                  onChanged: (DropdownMenuItem? val) =>
-                      widget.onChange('materialId', val!.value),
-                ),
+                    onChanged: (String? val) => widget.onChange(
+                        'materialId', list.getRelatedIdOfMaterial(val!))),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: FilledActionButton(

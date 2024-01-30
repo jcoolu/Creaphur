@@ -69,6 +69,6 @@ class Expense extends DefaultModel {
 
     return possibleMatches.isEmpty
         ? ''
-        : (possibleMatches.first.costPer * quantity).toStringAsPrecision(2);
+        : (possibleMatches.first.costPer * quantity).toStringAsFixed(2);
   }
 }

@@ -1,4 +1,8 @@
 import 'package:creaphur/models/default_model.dart';
+import 'package:creaphur/models/material.dart';
+import 'package:creaphur/models/material_list.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 
 class Project extends DefaultModel {
   final String? description;
@@ -52,4 +56,15 @@ class Project extends DefaultModel {
       endDate: DateTime.now().add(const Duration(days: 1)),
       estCost: 0.00,
       image: '');
+
+  String getTotalCost(BuildContext context) {
+    List<Material> materials =
+        Provider.of<MaterialList>(context, listen: false).items;
+
+    List<double> costs = materials
+        .map((material) => material.costPer * material.quantity)
+        .toList();
+
+    return costs.reduce((a, b) => a + b).toStringAsFixed(2);
+  }
 }

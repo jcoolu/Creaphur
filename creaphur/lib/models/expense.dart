@@ -50,13 +50,25 @@ class Expense extends DefaultModel {
         profileId: profileId,
       );
 
-  String? getMaterialUnit(context) {
+  String? getMaterialName(context) {
     List<Material> materials =
         Provider.of<MaterialList>(context, listen: false).items;
 
     List<Material>? possibleMatches =
         materials.where((element) => element.id == materialId).toList();
 
-    return possibleMatches.isEmpty ? null : possibleMatches.first.name;
+    return possibleMatches.isEmpty ? 'None' : possibleMatches.first.name;
+  }
+
+  String getMaterialCost(context) {
+    List<Material> materials =
+        Provider.of<MaterialList>(context, listen: false).items;
+
+    List<Material>? possibleMatches =
+        materials.where((element) => element.id == materialId).toList();
+
+    return possibleMatches.isEmpty
+        ? ''
+        : (possibleMatches.first.costPer * quantity).toStringAsPrecision(2);
   }
 }

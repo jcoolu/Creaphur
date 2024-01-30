@@ -1,5 +1,7 @@
 import 'package:creaphur/models/expense.dart';
+import 'package:creaphur/models/material_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ExpenseSummaryCard extends StatelessWidget {
   final Expense expense;
@@ -32,9 +34,12 @@ class ExpenseSummaryCard extends StatelessWidget {
               title: Text(expense.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),
-              subtitle: const Column(
+              subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text('Material: '), Text('Cost: \$0.00')],
+                children: [
+                  Text('Material: ${expense.getMaterialName(context)}'),
+                  Text('Cost: \$${expense.getMaterialCost(context)}')
+                ],
               ),
             ),
           ],

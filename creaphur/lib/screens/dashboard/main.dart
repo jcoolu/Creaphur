@@ -3,7 +3,7 @@ import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/screens/dashboard/home.dart';
 import 'package:creaphur/screens/dashboard/materials.dart';
-import 'package:creaphur/screens/dashboard/profiles.dart';
+import 'package:creaphur/screens/dashboard/settings.dart';
 import 'package:creaphur/models/material.dart' as material_model;
 import 'package:creaphur/screens/material.dart';
 import 'package:creaphur/screens/profile.dart';
@@ -52,12 +52,20 @@ class _DashboardState extends State<Dashboard> {
           ));
     }
 
+    void goToSettings() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SettingsScreen(),
+          ));
+    }
+
     Widget handleScreen() {
       if (selectedScreen == 'materials') {
         return const MaterialsScreen();
       }
-      if (selectedScreen == 'profiles') {
-        return const ProfilesScreen();
+      if (selectedScreen == 'settings') {
+        return const SettingsScreen();
       }
       return const HomeScreen();
     }
@@ -66,7 +74,6 @@ class _DashboardState extends State<Dashboard> {
       if (selectedScreen == 'materials') {
         return createMaterial();
       }
-      if (selectedScreen == 'profiles') {}
       return createProject();
     }
 
@@ -135,11 +142,11 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.person),
-                      title: const Text('Profiles'),
-                      selected: selectedScreen == 'profiles',
+                      title: const Text('Settings'),
+                      selected: selectedScreen == 'settings',
                       onTap: () {
                         setState(() {
-                          selectedScreen = 'profiles';
+                          selectedScreen = 'settings';
                         });
                         Navigator.of(context).pop();
                       },

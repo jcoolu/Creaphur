@@ -1,0 +1,56 @@
+import 'package:creaphur/models/profile.dart';
+import 'package:creaphur/models/profile_list.dart';
+import 'package:creaphur/services/expense_service.dart';
+import 'package:creaphur/services/material_service.dart';
+import 'package:creaphur/services/profile_service.dart';
+import 'package:creaphur/services/project_service.dart';
+import 'package:creaphur/services/time_entry_service.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
+
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    List<Profile> profiles =
+        Provider.of<ProfileList>(context, listen: true).items;
+    Profile currentProfile = Provider.of<Profile>(context, listen: false);
+
+    void selectProfile(String name) async {
+      List<Profile> relevantProfiles =
+          profiles.where((p) => p.name == name).toList();
+
+      if (relevantProfiles.isNotEmpty) {
+        Profile nextProfile = relevantProfiles.first;
+        await ProfileService.setCurrent(context, nextProfile);
+        await ProjectService.getProjects(context, nextProfile.id);
+        await MaterialService.getMaterials(context, nextProfile.id);
+
+        await ExpenseService.getExpenses(context, nextProfile.id);
+        await TimeEntryService.getTimeEntries(context, nextProfile.id);
+      }
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          DropdownSearch<String>(
+              items: profiles.map((p) => p.name).toList(),
+              selectedItem: currentProfile.name,
+              dropdownDecoratorProps: const DropDownDecoratorProps(
+                dropdownSearchDecoration: InputDecoration(
+                  labelText: "Current Profile",
+                  hintText: "Current Profile Selected",
+                ),
+              ),
+              onChanged: (String? val) => selectProfile(val!)),
+        ],
+      ),
+    );
+  }
+}

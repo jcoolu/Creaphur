@@ -21,6 +21,7 @@ class ProjectService {
 
   static getProjects(context, String profileId) async {
     List<Project> projects = await ProjectHelper.getProjects(profileId);
+    Provider.of<ProjectList>(context, listen: false).items.clear();
     Provider.of<ProjectList>(context, listen: false).addAllProjects(projects);
   }
 }

@@ -22,6 +22,7 @@ class TimeEntryService {
   static getTimeEntries(context, String profileId) async {
     List<TimeEntry> timeEntrys =
         await TimeEntryHelper.getAllTimeEntries(profileId);
+    Provider.of<TimeEntryList>(context, listen: false).items.clear();
     Provider.of<TimeEntryList>(context, listen: false)
         .addAllTimeEntries(timeEntrys);
   }

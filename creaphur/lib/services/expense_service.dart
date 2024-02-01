@@ -21,6 +21,7 @@ class ExpenseService {
 
   static getExpenses(context, String profileId) async {
     List<Expense> expenses = await ExpenseHelper.getAllExpenses(profileId);
+    Provider.of<ExpenseList>(context, listen: false).items.clear();
     Provider.of<ExpenseList>(context, listen: false).addAllExpenses(expenses);
   }
 }

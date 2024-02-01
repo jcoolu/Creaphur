@@ -21,6 +21,7 @@ class MaterialService {
 
   static getMaterials(context, String profileId) async {
     List<Material> materials = await MaterialHelper.getMaterials(profileId);
+    Provider.of<MaterialList>(context, listen: false).items.clear();
     Provider.of<MaterialList>(context, listen: false)
         .addAllMaterials(materials);
   }

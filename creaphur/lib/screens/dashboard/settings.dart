@@ -5,6 +5,7 @@ import 'package:creaphur/services/material_service.dart';
 import 'package:creaphur/services/profile_service.dart';
 import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/services/time_entry_service.dart';
+import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -49,6 +50,10 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               onChanged: (String? val) => selectProfile(val!)),
+          const SizedBox(
+            height: 16,
+          ),
+          FilledActionButton(buttonText: 'Add Profile'),
         ],
       ),
     );

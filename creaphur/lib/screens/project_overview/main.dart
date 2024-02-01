@@ -7,7 +7,7 @@ import 'package:creaphur/screens/expense.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/screens/project_overview/expenses.dart';
 import 'package:creaphur/screens/project_overview/time_log.dart';
-import 'package:creaphur/screens/timeEntry.dart';
+import 'package:creaphur/screens/time_entry.dart';
 import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';

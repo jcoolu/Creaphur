@@ -1,6 +1,6 @@
 import 'package:creaphur/models/time_entry_list.dart';
 import 'package:creaphur/models/time_entry.dart';
-import 'package:creaphur/screens/timeEntry.dart';
+import 'package:creaphur/screens/time_entry.dart';
 import 'package:creaphur/widgets/time_entry_summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

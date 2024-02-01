@@ -1,3 +1,4 @@
+import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
@@ -6,6 +7,7 @@ import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/forms/profile_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class ProfileScreen extends StatefulWidget {
   final Profile profile;
@@ -39,10 +41,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     void handleSave(String value) async {
       setState(() => name = value);
-      Profile profile = Profile(id: widget.profile.id, name: value);
-
-      await ProfileService.updateProfile(context, profile);
-
+      Profile profile = Profile(
+          id: widget.profile.id.isNotEmpty
+              ? widget.profile.id
+              : const Uuid().v4(),
+          name: value);
+      if (widget.profile.id.isEmpty) {
+        ProfileService.addProfile(context, profile);
+      } else {
+        await ProfileService.updateProfile(context, profile);
+      }
+      await Utils.load(context, profile);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Dashboard()),

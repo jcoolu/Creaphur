@@ -1,3 +1,4 @@
+import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/expense_list.dart';
 import 'package:creaphur/models/material_list.dart';
 import 'package:creaphur/models/profile.dart';
@@ -39,15 +40,7 @@ class MyApp extends StatelessWidget {
       List<Profile> profiles =
           Provider.of<ProfileList>(context, listen: false).items;
 
-      await ProjectService.getProjects(context, profiles.first.id);
-
-      await ProfileService.setCurrent(context, profiles.first);
-
-      await MaterialService.getMaterials(context, profiles.first.id);
-
-      await ExpenseService.getExpenses(context, profiles.first.id);
-
-      await TimeEntryService.getTimeEntries(context, profiles.first.id);
+      await Utils.load(context, profiles.first);
 
       bool containsProfiles = profiles.isNotEmpty;
 

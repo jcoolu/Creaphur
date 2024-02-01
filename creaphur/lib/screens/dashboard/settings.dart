@@ -1,5 +1,7 @@
+import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
+import 'package:creaphur/screens/profile.dart';
 import 'package:creaphur/services/expense_service.dart';
 import 'package:creaphur/services/material_service.dart';
 import 'package:creaphur/services/profile_service.dart';
@@ -26,13 +28,17 @@ class SettingsScreen extends StatelessWidget {
 
       if (relevantProfiles.isNotEmpty) {
         Profile nextProfile = relevantProfiles.first;
-        await ProfileService.setCurrent(context, nextProfile);
-        await ProjectService.getProjects(context, nextProfile.id);
-        await MaterialService.getMaterials(context, nextProfile.id);
-
-        await ExpenseService.getExpenses(context, nextProfile.id);
-        await TimeEntryService.getTimeEntries(context, nextProfile.id);
+        await Utils.load(context, nextProfile);
       }
+    }
+
+    void goToProfile() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProfileScreen(
+                    profile: Profile(id: '', name: ''),
+                  )));
     }
 
     return Padding(
@@ -53,7 +59,10 @@ class SettingsScreen extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          FilledActionButton(buttonText: 'Add Profile'),
+          FilledActionButton(
+            buttonText: 'Add Profile',
+            onPressed: goToProfile,
+          ),
         ],
       ),
     );

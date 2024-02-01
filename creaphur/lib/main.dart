@@ -34,11 +34,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Profile> profiles =
+        Provider.of<ProfileList>(context, listen: false).items;
+
     Future<bool> hasProfiles() async {
       await ProfileService.getProfiles(context);
-
-      List<Profile> profiles =
-          Provider.of<ProfileList>(context, listen: false).items;
 
       await Utils.load(context, profiles.first);
 

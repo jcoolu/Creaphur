@@ -32,13 +32,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
 
-    void handleChange(field, value) {
-      newProfile ??= widget.profile; // set newProfile to widget.profile if null
-      Map<String, dynamic> profileMap = newProfile!.toMap();
-      profileMap[field] = value;
-      setState(() => newProfile = Profile.fromMap(profileMap));
-    }
-
     void handleSave(String value) async {
       setState(() => name = value);
       Profile profile = Profile(

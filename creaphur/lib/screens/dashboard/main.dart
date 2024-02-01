@@ -52,14 +52,6 @@ class _DashboardState extends State<Dashboard> {
           ));
     }
 
-    void goToSettings() {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SettingsScreen(),
-          ));
-    }
-
     Widget handleScreen() {
       if (selectedScreen == 'materials') {
         return const MaterialsScreen();

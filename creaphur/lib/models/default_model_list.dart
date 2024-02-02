@@ -46,4 +46,6 @@ class DefaultModelList<T extends DefaultModel> extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  bool isDuplicate(String name) => items.map((p) => p.name).contains(name);
 }

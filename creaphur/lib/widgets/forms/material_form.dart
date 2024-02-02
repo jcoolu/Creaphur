@@ -1,10 +1,12 @@
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/material.dart' as material_model;
+import 'package:creaphur/models/material_list.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:creaphur/widgets/unit_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MaterialForm extends StatefulWidget {
   final Function onChange;
@@ -49,6 +51,12 @@ class MaterialFormState extends State<MaterialForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a name for your material';
                       }
+
+                      if (Provider.of<MaterialList>(context, listen: false)
+                          .isDuplicate(value)) {
+                        return 'Duplicate name';
+                      }
+
                       return null;
                     },
                   ),

@@ -1,6 +1,8 @@
+import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // Define a custom Form widget.
 class ProfileForm extends StatefulWidget {
@@ -45,6 +47,12 @@ class ProfileFormState extends State<ProfileForm> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your name';
                     }
+
+                    if (Provider.of<ProfileList>(context, listen: false)
+                        .isDuplicate(value)) {
+                      return 'Duplicate name';
+                    }
+
                     widget.setName(value);
                     return null;
                   },

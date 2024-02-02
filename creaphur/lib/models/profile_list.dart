@@ -28,4 +28,6 @@ class ProfileList extends DefaultModelList<Profile> {
     addAll(profiles);
     notifyListeners();
   }
+
+  bool isDuplicate(String name) => items.map((p) => p.name).contains(name);
 }

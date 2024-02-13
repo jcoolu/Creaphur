@@ -8,11 +8,7 @@ import 'package:creaphur/models/time_entry_list.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/screens/welcome.dart';
 import 'package:creaphur/common/theme.dart';
-import 'package:creaphur/services/expense_service.dart';
-import 'package:creaphur/services/material_service.dart';
 import 'package:creaphur/services/profile_service.dart';
-import 'package:creaphur/services/project_service.dart';
-import 'package:creaphur/services/time_entry_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

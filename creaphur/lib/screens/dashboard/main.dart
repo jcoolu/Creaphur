@@ -1,6 +1,5 @@
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
-import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/screens/dashboard/home.dart';
 import 'package:creaphur/screens/dashboard/materials.dart';
 import 'package:creaphur/screens/dashboard/settings.dart';

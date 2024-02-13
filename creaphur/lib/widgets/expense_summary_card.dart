@@ -1,7 +1,5 @@
 import 'package:creaphur/models/expense.dart';
-import 'package:creaphur/models/material_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ExpenseSummaryCard extends StatelessWidget {
   final Expense expense;

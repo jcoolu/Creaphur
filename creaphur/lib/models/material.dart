@@ -8,16 +8,16 @@ class Material extends DefaultModel {
   final double costPer;
   final double singleQuantity;
 
-  Material(
-      {required String id,
-      required String name,
-      required this.image,
-      required this.profileId,
-      required this.quantity,
-      required this.quantityType,
-      required this.costPer,
-      required this.singleQuantity})
-      : super(id: id, name: name);
+  Material({
+    required String id,
+    required String name,
+    required this.image,
+    required this.profileId,
+    required this.quantity,
+    required this.quantityType,
+    required this.costPer,
+    required this.singleQuantity,
+  }) : super(id: id, name: name);
 
   factory Material.fromMap(Map<String, dynamic> json) {
     return Material(

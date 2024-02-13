@@ -63,6 +63,7 @@ class NameFormState extends State<NameForm> {
                   initialValue: '',
                   hintText: 'Your Name',
                   labelText: 'Name *',
+                  maxLines: 1,
                   onValidate: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your name';

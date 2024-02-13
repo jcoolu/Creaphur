@@ -43,6 +43,7 @@ class ProfileFormState extends State<ProfileForm> {
                   initialValue: widget.name,
                   hintText: 'Your Name',
                   labelText: 'Name *',
+                  maxLines: 1,
                   onValidate: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your name';

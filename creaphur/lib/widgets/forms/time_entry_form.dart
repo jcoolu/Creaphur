@@ -96,6 +96,7 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                     initialValue: widget.timeEntry?.name ?? '',
                     hintText: 'Time Entry Name',
                     labelText: 'Name *',
+                    maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
                     onValidate: (value) {
                       if (value == null || value.isEmpty) {
@@ -126,6 +127,7 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                     initialValue:
                         widget.timeEntry?.costOfServices.toStringAsFixed(2) ??
                             '0.00',
+                    maxLines: 1,
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
                     hintText: 'Time Entry Cost of Service',

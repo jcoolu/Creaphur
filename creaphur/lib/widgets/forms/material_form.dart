@@ -46,6 +46,7 @@ class MaterialFormState extends State<MaterialForm> {
                     initialValue: widget.material?.name ?? '',
                     hintText: 'Material Name',
                     labelText: 'Name *',
+                    maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
                     onValidate: (value) {
                       if (value == null || value.isEmpty) {
@@ -68,6 +69,7 @@ class MaterialFormState extends State<MaterialForm> {
                         widget.material?.quantity.toStringAsFixed(2) ?? '0.00',
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
+                    maxLines: 1,
                     hintText: 'Available Quantity of Material',
                     labelText: 'Available Quantity *',
                     onValidate: (value) {
@@ -95,6 +97,7 @@ class MaterialFormState extends State<MaterialForm> {
                               decimal: true),
                           hintText: 'Cost for Material Per Unit',
                           labelText: 'Cost *',
+                          maxLines: 1,
                           onValidate: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter a cost for your material';

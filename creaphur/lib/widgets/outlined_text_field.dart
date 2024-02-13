@@ -8,6 +8,7 @@ class OutlinedTextField extends StatelessWidget {
   final String? Function(String?)? onValidate;
   final TextInputType? keyboardType;
   final String? suffix;
+  final int? maxLines;
 
   const OutlinedTextField(
       {super.key,
@@ -17,12 +18,14 @@ class OutlinedTextField extends StatelessWidget {
       this.onChange,
       this.onValidate,
       this.keyboardType,
-      this.suffix});
+      this.suffix,
+      this.maxLines});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
+      maxLines: maxLines,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         hintText: hintText,

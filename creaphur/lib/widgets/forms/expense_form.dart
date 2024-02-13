@@ -46,6 +46,7 @@ class ExpenseFormState extends State<ExpenseForm> {
                     initialValue: widget.expense?.name ?? '',
                     hintText: 'Expense Name',
                     labelText: 'Name *',
+                    maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
                     onValidate: (value) {
                       if (value == null || value.isEmpty) {
@@ -62,6 +63,7 @@ class ExpenseFormState extends State<ExpenseForm> {
                         widget.expense?.quantity.toStringAsFixed(2) ?? '0.00',
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
+                    maxLines: 1,
                     hintText: 'Quantity of Expense',
                     labelText: 'Quantity *',
                     onValidate: (value) {

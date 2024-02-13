@@ -97,6 +97,7 @@ class ProjectFormState extends State<ProjectForm> {
                     initialValue: widget.project?.name ?? '',
                     hintText: 'Project Name',
                     labelText: 'Name *',
+                    maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
                     onValidate: (value) {
                       if (value == null || value.isEmpty) {
@@ -114,6 +115,21 @@ class ProjectFormState extends State<ProjectForm> {
                     labelText: 'Description',
                     onChange: (value) => widget.onChange('description', value),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: DropdownButton<String>(
+                      hint: const Text('Status of Project'),
+                      isExpanded: true,
+                      value:
+                          widget.project?.status ?? Project.getStatuses().first,
+                      items: Project.getStatuses()
+                          .map((status) => DropdownMenuItem<String>(
+                                value: status,
+                                child: Text(status),
+                              ))
+                          .toList(),
+                      onChanged: (value) => widget.onChange('status', value)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -137,6 +153,7 @@ class ProjectFormState extends State<ProjectForm> {
                         widget.project?.estCost.toStringAsFixed(2) ?? '0.00',
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
+                    maxLines: 1,
                     hintText: 'Projected Cost for Project',
                     labelText: 'Projected Cost *',
                     onValidate: (value) {

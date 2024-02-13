@@ -16,7 +16,8 @@ WidgetbookComponent projectSummaryCard = WidgetbookComponent(
               startDate: DateTime.now(),
               endDate: DateTime.now().add(const Duration(days: 2)),
               image: '',
-              description: "Test description here."),
+              description: "Test description here.",
+              status: Project.getStatuses().first),
           onTap: () {
             // ignore: avoid_print
             print("Project clicked");
@@ -33,6 +34,7 @@ WidgetbookComponent projectSummaryCard = WidgetbookComponent(
               startDate: DateTime.now(),
               endDate: DateTime.now().add(const Duration(days: 2)),
               image: '',
+              status: Project.getStatuses().first,
               description:
                   "Test description here. Hey this is very long, blah blah blah blah blah blah do dee da la la la la la doop de doo"),
           onTap: () {
@@ -51,6 +53,7 @@ WidgetbookComponent projectSummaryCard = WidgetbookComponent(
               startDate: DateTime.now(),
               endDate: DateTime.now().subtract(const Duration(days: 2)),
               image: '',
+              status: Project.getStatuses().first,
               description:
                   "Test description here. Hey this is very long, blah blah blah blah blah blah do dee da la la la la la doop de doo"),
           onTap: () {

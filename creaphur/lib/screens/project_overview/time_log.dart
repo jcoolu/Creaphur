@@ -13,7 +13,10 @@ class TimeEntriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<TimeEntry> timeEntries =
-        Provider.of<TimeEntryList>(context, listen: true).items;
+        Provider.of<TimeEntryList>(context, listen: true)
+            .items
+            .where((time) => time.projectId == projectId)
+            .toList();
 
     void selectTimeEntry(TimeEntry timeEntry) {
       Navigator.push(

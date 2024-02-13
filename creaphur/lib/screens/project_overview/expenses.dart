@@ -12,8 +12,10 @@ class ExpensesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Expense> expenses =
-        Provider.of<ExpenseList>(context, listen: true).items;
+    List<Expense> expenses = Provider.of<ExpenseList>(context, listen: true)
+        .items
+        .where((expense) => expense.projectId == projectId)
+        .toList();
 
     void selectExpense(Expense expense) {
       Navigator.push(

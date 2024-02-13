@@ -1,6 +1,6 @@
 import 'package:creaphur/models/default_model.dart';
-import 'package:creaphur/models/material.dart';
-import 'package:creaphur/models/material_list.dart';
+import 'package:creaphur/models/expense.dart';
+import 'package:creaphur/models/expense_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -11,17 +11,19 @@ class Project extends DefaultModel {
   final double estCost;
   final String profileId;
   final String image;
+  final String status;
 
-  Project(
-      {required String id,
-      required String name,
-      this.description,
-      required this.startDate,
-      required this.endDate,
-      required this.estCost,
-      required this.profileId,
-      required this.image})
-      : super(id: id, name: name);
+  Project({
+    required String id,
+    required String name,
+    this.description,
+    required this.status,
+    required this.startDate,
+    required this.endDate,
+    required this.estCost,
+    required this.profileId,
+    required this.image,
+  }) : super(id: id, name: name);
 
   factory Project.fromMap(Map<String, dynamic> json) {
     return Project(
@@ -32,7 +34,8 @@ class Project extends DefaultModel {
         endDate: DateTime.parse(json['endDate'].toString()),
         estCost: json['estCost'],
         profileId: json['profileId'],
-        image: json['image'] ?? '');
+        image: json['image'] ?? '',
+        status: json['status'] ?? Project.getStatuses().first);
   }
 
   Map<String, dynamic> toMap() {
@@ -45,6 +48,7 @@ class Project extends DefaultModel {
       'estCost': estCost,
       'profileId': profileId,
       'image': image,
+      'status': status
     };
   }
 
@@ -55,16 +59,25 @@ class Project extends DefaultModel {
       startDate: DateTime.now(),
       endDate: DateTime.now().add(const Duration(days: 1)),
       estCost: 0.00,
-      image: '');
+      image: '',
+      status: getStatuses().first);
 
-  String getTotalCost(BuildContext context) {
-    List<Material> materials =
-        Provider.of<MaterialList>(context, listen: false).items;
-
-    List<double> costs = materials
-        .map((material) => material.costPer * material.quantity)
+  String getTotalCost(BuildContext context, String projectId) {
+    List<Expense> expenses = Provider.of<ExpenseList>(context, listen: false)
+        .items
+        .where((exp) => exp.projectId == projectId)
         .toList();
 
-    return costs.reduce((a, b) => a + b).toStringAsFixed(2);
+    List<double> costs = expenses
+        .map(
+            (expense) => double.tryParse(expense.getMaterialCost(context)) ?? 0)
+        .toList();
+
+    return costs.isEmpty
+        ? '\$0.00'
+        : costs.reduce((a, b) => a + b).toStringAsFixed(2);
   }
+
+  static List<String> getStatuses() =>
+      ['Not Started', 'In Progress', 'Finished'];
 }

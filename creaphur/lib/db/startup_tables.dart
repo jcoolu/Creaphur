@@ -12,7 +12,8 @@ class SchemaBuilder {
       name TEXT,
       materialId TEXT,
       projectId TEXT,
-      quantity DOUBLE
+      quantity DOUBLE,
+      profileId TEXT
     )
   ''');
 
@@ -27,7 +28,7 @@ class SchemaBuilder {
       quantityType TEXT,
       quantity DOUBLE,
       costPer DOUBLE,
-      singleQuantity DOUBLE,
+      singleQuantity DOUBLE
     )
   ''');
 
@@ -51,7 +52,8 @@ class SchemaBuilder {
       endDate DATETIME,
       estCost DOUBLE,
       profileId TEXT,
-      image TEXT
+      image TEXT,
+      status TEXT
     )
   ''');
 
@@ -65,7 +67,8 @@ class SchemaBuilder {
       endDate DATETIME,
       duration INT,
       costOfServices DOUBLE,
-      projectId TEXT
+      projectId TEXT,
+      profileId TEXT
     )
   ''');
 
@@ -102,6 +105,24 @@ class SchemaBuilder {
   static handleUpdateForProjectv5(Database db) async {
     Batch batch = db.batch();
     batch.execute("ALTER TABLE TimeEntry ADD COLUMN profileId TEXT");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv6(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Material ADD COLUMN projectId TEXT");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv7(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Project ADD COLUMN status TEXT");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv8(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Material DROP COLUMN projectId");
     await batch.commit();
   }
 }

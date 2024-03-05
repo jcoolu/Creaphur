@@ -50,4 +50,6 @@ class TimeEntry extends DefaultModel {
         endDate: DateTime.now(),
         profileId: profileId,
       );
+
+  int getTimeInSeconds() => endDate.difference(startDate).inSeconds;
 }

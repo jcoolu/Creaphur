@@ -30,4 +30,24 @@ class Utils {
     await ExpenseService.getExpenses(context, profile.id);
     await TimeEntryService.getTimeEntries(context, profile.id);
   }
+
+  static String formatDuration(Duration duration) {
+    String result = '';
+
+    if (duration.inDays > 0) {
+      result += '${duration.inDays} ${duration.inDays == 1 ? 'day' : 'days'}';
+    }
+
+    if (duration.inHours.remainder(24) > 0) {
+      result +=
+          '${result.isEmpty ? '' : ', '}${duration.inHours.remainder(24)} ${duration.inHours.remainder(24) == 1 ? 'hour' : 'hours'}';
+    }
+
+    if (duration.inMinutes.remainder(60) > 0) {
+      result +=
+          '${result.isEmpty ? '' : ', '}${duration.inMinutes.remainder(60)} ${duration.inMinutes.remainder(60) == 1 ? 'minute' : 'minutes'}';
+    }
+
+    return result.isEmpty ? '0 minutes' : result;
+  }
 }

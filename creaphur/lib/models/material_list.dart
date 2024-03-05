@@ -32,4 +32,9 @@ class MaterialList extends DefaultModelList<Material> {
 
   String getRelatedIdOfMaterial(String val) =>
       items.firstWhere((material) => material.name == val).id;
+
+  Material? getRelatedMaterialObject(String idToCompare) =>
+      items.where((mat) => mat.id == idToCompare).isNotEmpty
+          ? items.firstWhere((mat) => mat.id == idToCompare)
+          : null;
 }

@@ -1,3 +1,4 @@
+import 'package:creaphur/models/expense_list.dart';
 import 'package:creaphur/models/material.dart';
 import 'package:creaphur/models/material_list.dart';
 import 'package:provider/provider.dart';
@@ -51,11 +52,11 @@ class Expense extends DefaultModel {
       );
 
   String? getMaterialName(context) {
-    List<Material> materials =
-        Provider.of<MaterialList>(context, listen: false).items;
+    List<Expense> expenses =
+        Provider.of<ExpenseList>(context, listen: false).items;
 
-    List<Material>? possibleMatches =
-        materials.where((element) => element.id == materialId).toList();
+    List<Expense>? possibleMatches =
+        expenses.where((element) => element.id == materialId).toList();
 
     return possibleMatches.isEmpty ? 'None' : possibleMatches.first.name;
   }

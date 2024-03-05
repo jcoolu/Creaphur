@@ -6,6 +6,7 @@ import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/screens/expense.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/screens/project_overview/expenses.dart';
+import 'package:creaphur/screens/project_overview/overview.dart';
 import 'package:creaphur/screens/project_overview/time_log.dart';
 import 'package:creaphur/screens/time_entry.dart';
 import 'package:creaphur/services/project_service.dart';
@@ -60,7 +61,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
 
     Widget handleScreen() {
       if (screenIndex == 0) {
-        return const Text('');
+        return OverviewScreen(project: widget.project);
       }
       if (screenIndex == 1) {
         return ExpensesScreen(projectId: widget.project.id);
@@ -161,7 +162,9 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
               tooltip: 'Time Log',
             ),
           ]),
-      floatingActionButton: FilledFloatingActionButton(onPressed: handleCreate),
+      floatingActionButton: screenIndex != 0
+          ? FilledFloatingActionButton(onPressed: handleCreate)
+          : null,
     );
   }
 }

@@ -36,8 +36,7 @@ class TimeEntrySummaryCard extends StatelessWidget {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                      'Duration: ${Utils.formatDuration(timeEntry.endDate.difference(timeEntry.endDate))}'),
+                  Text('Duration: ${timeEntry.getDuration(context)}'),
                   Text('Cost: \$${timeEntry.costOfServices}')
                 ],
               ),

@@ -1,4 +1,6 @@
+import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/default_model.dart';
+import 'package:flutter/cupertino.dart';
 
 class TimeEntry extends DefaultModel {
   final DateTime startDate;
@@ -52,4 +54,7 @@ class TimeEntry extends DefaultModel {
       );
 
   int getTimeInSeconds() => endDate.difference(startDate).inSeconds;
+
+  String getDuration(BuildContext context) =>
+      Utils.formatDuration(endDate.difference(startDate));
 }

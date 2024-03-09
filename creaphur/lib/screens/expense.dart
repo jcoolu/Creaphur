@@ -86,6 +86,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         actions: <Widget>[
           if (!isNew)
             DeleteDialog(
+                isDeleteDisabled: false,
                 isIconButton: true,
                 model: 'expense',
                 onDelete: handleDelete,

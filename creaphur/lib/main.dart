@@ -36,7 +36,9 @@ class MyApp extends StatelessWidget {
     Future<bool> hasProfiles() async {
       await ProfileService.getProfiles(context);
 
-      await Utils.load(context, profiles.first);
+      if (profiles.isNotEmpty) {
+        await Utils.load(context, profiles.first);
+      }
 
       bool containsProfiles = profiles.isNotEmpty;
 

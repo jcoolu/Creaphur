@@ -64,6 +64,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
 
+    print(Provider.of<ProfileList>(context, listen: false).items.length);
+
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(
@@ -84,13 +86,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (!isNew)
             DeleteDialog(
                 isIconButton: true,
-                model: 'profile',
-                onDelete: Provider.of<ProfileList>(context, listen: false)
+                isDeleteDisabled:
+                    Provider.of<ProfileList>(context, listen: false)
                             .items
-                            .length >
-                        1
-                    ? handleDelete
-                    : null,
+                            .length ==
+                        1,
+                model: 'profile',
+                onDelete: handleDelete,
                 buttonText: 'Delete Profile')
         ],
       ),

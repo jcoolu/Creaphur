@@ -21,7 +21,6 @@ final Map<String, List<String>> items = {
     "Fat Quarter",
     "Square Yard",
     "Square Meter",
-    "Sheet"
   ],
   "Paper Specific": ["Sheet", "Ream", "Pad", "Square Inch", "Square Foot"],
   "Flower Specific": ["Bunch", "Stem Length"],
@@ -46,9 +45,14 @@ class UnitDropdown extends StatelessWidget {
       // Add the disabled group name item
       dropdownItems.add(DropdownMenuItem<String>(
         value: null,
-        child: Text(
-          groupName,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+        child: GestureDetector(
+          onTap: () {
+            // Do nothing when tapped (making it non-clickable)
+          },
+          child: Text(
+            groupName,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       ));
 

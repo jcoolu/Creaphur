@@ -120,6 +120,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
               icon: const Icon(Icons.edit, color: Colors.white),
               onPressed: handleEdit),
           DeleteDialog(
+              isDeleteDisabled: false,
               isIconButton: true,
               buttonText: 'Delete Project',
               model: 'project',

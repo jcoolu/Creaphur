@@ -87,6 +87,7 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
         actions: <Widget>[
           if (!isNew)
             DeleteDialog(
+                isDeleteDisabled: false,
                 isIconButton: true,
                 model: 'timeEntry',
                 onDelete: handleDelete,

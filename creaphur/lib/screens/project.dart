@@ -86,6 +86,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
         actions: <Widget>[
           if (!isNew)
             DeleteDialog(
+                isDeleteDisabled: false,
                 isIconButton: true,
                 model: 'project',
                 onDelete: handleDelete,

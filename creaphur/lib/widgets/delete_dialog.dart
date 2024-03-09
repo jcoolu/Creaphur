@@ -6,6 +6,7 @@ class DeleteDialog extends StatelessWidget {
   final String buttonText;
   final String model;
   final void Function()? onDelete;
+  final bool isDeleteDisabled;
 
   const DeleteDialog({
     super.key,
@@ -13,6 +14,7 @@ class DeleteDialog extends StatelessWidget {
     required this.buttonText,
     required this.model,
     required this.onDelete,
+    required this.isDeleteDisabled,
   });
 
   @override
@@ -52,7 +54,7 @@ class DeleteDialog extends StatelessWidget {
 
     if (isIconButton) {
       return IconButton(
-          onPressed: showDeleteDialog,
+          onPressed: isDeleteDisabled ? null : showDeleteDialog,
           icon: const Icon(Icons.delete, color: Colors.white));
     }
     return TextButton(onPressed: showDeleteDialog, child: Text(buttonText));

@@ -88,6 +88,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
         actions: <Widget>[
           if (!isNew)
             DeleteDialog(
+                isDeleteDisabled: false,
                 isIconButton: true,
                 model: 'material',
                 onDelete: handleDelete,

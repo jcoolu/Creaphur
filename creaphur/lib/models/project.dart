@@ -118,9 +118,11 @@ class Project extends DefaultModel {
             .where((time) => time.projectId == id)
             .toList();
 
-    int timeSum = timeEntries
-        .map((time) => time.getTimeInSeconds())
-        .reduce((value, element) => value + element);
+    int timeSum = timeEntries.isEmpty
+        ? 0
+        : timeEntries
+            .map((time) => time.getTimeInSeconds())
+            .reduce((value, element) => value + element);
     Duration durationOfTime = Duration(seconds: timeSum);
     return Utils.formatDuration(durationOfTime);
   }

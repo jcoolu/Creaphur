@@ -160,7 +160,8 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
         body: handleScreen(),
-        floatingActionButton:
-            FilledFloatingActionButton(onPressed: handleCreate));
+        floatingActionButton: ['home', 'materials', ''].contains(selectedScreen)
+            ? FilledFloatingActionButton(onPressed: handleCreate)
+            : null);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class OutlinedTextField extends StatelessWidget {
   final String initialValue;
@@ -9,6 +10,7 @@ class OutlinedTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? suffix;
   final int? maxLines;
+  final List<TextInputFormatter>? inputFormatters;
 
   const OutlinedTextField(
       {super.key,
@@ -19,13 +21,15 @@ class OutlinedTextField extends StatelessWidget {
       this.onValidate,
       this.keyboardType,
       this.suffix,
-      this.maxLines});
+      this.maxLines,
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
       maxLines: maxLines,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         hintText: hintText,

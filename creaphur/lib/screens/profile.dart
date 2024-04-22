@@ -52,19 +52,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     void handleDelete() {
-      ProfileService.deleteProfile(context, widget.profile);
+      Profile selectedProfile =
+          Profile(id: widget.profile.id, name: widget.profile.name);
+      ProfileService.deleteProfile(context, selectedProfile);
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Deleted Profile')),
       );
 
-      Navigator.pop(
+      Profile firstProfile =
+          Provider.of<ProfileList>(context, listen: false).items.first;
+
+      ProfileService.setCurrent(context, firstProfile);
+
+      Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
     }
-
-    print(Provider.of<ProfileList>(context, listen: false).items.length);
 
     return Scaffold(
       appBar: AppBar(

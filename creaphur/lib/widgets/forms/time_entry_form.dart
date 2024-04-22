@@ -4,6 +4,7 @@ import 'package:creaphur/widgets/date_time_picker.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Define a custom Form widget.
 class TimeEntryForm extends StatefulWidget {
@@ -128,6 +129,10 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                         widget.timeEntry?.costOfServices.toStringAsFixed(2) ??
                             '0.00',
                     maxLines: 1,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,2}')),
+                    ],
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
                     hintText: 'Time Entry Cost of Service',

@@ -6,6 +6,7 @@ import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:creaphur/widgets/unit_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class MaterialForm extends StatefulWidget {
@@ -93,6 +94,10 @@ class MaterialFormState extends State<MaterialForm> {
                           initialValue:
                               widget.material?.costPer.toStringAsFixed(2) ??
                                   '0.00',
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d+\.?\d{0,2}')),
+                          ],
                           keyboardType: const TextInputType.numberWithOptions(
                               decimal: true),
                           hintText: 'Cost for Material Per Unit',

@@ -5,6 +5,7 @@ import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Define a custom Form widget.
 class ProjectForm extends StatefulWidget {
@@ -153,6 +154,10 @@ class ProjectFormState extends State<ProjectForm> {
                         widget.project?.estCost.toStringAsFixed(2) ?? '0.00',
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,2}')),
+                    ],
                     maxLines: 1,
                     hintText: 'Projected Cost for Project',
                     labelText: 'Projected Cost *',

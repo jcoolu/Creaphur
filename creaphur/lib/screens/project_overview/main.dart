@@ -27,10 +27,16 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
   String name = '';
   late Project? newProject = widget.project;
   int screenIndex = 0;
-
+  int selectedMonth = DateTime.now().month;
+  int selectedYear = DateTime.now().year;
   @override
   Widget build(BuildContext context) {
     Profile currentProfile = Provider.of<Profile>(context, listen: true);
+
+    void handleChangeMonthYear(int month, int year) {
+      setState(() => selectedMonth = month);
+      setState(() => selectedYear = year);
+    }
 
     void handleBack() {
       Navigator.pop(
@@ -61,7 +67,12 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
 
     Widget handleScreen() {
       if (screenIndex == 0) {
-        return OverviewScreen(project: widget.project);
+        return OverviewScreen(
+          project: widget.project,
+          onChange: handleChangeMonthYear,
+          month: selectedMonth,
+          year: selectedYear,
+        );
       }
       if (screenIndex == 1) {
         return ExpensesScreen(projectId: widget.project.id);

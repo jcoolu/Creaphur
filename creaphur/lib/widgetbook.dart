@@ -1,7 +1,8 @@
 // Widgetbook file: widgetbook.dart
+import 'package:creaphur/widgets/calendar/calendar_widgetbook.dart';
 import 'package:creaphur/widgets/date_time_picker_widgetbook.dart';
 import 'package:creaphur/widgets/project_summary_card_widgetbook.dart';
-import 'package:creaphur/widgets/yearly_calendar_widgetbook.dart';
+import 'package:creaphur/widgets/calendar/yearly_calendar_widgetbook.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
@@ -20,6 +21,7 @@ class HotReload extends StatelessWidget {
         dateTimePicker,
         projectSummaryCard,
         yearlyCalendarComponent,
+        calendarComponent
       ],
     );
   }

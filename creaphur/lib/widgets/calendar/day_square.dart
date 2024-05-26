@@ -1,5 +1,6 @@
 import 'package:creaphur/models/time_entry.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DaySquare extends StatelessWidget {
   final int? day;
@@ -42,13 +43,17 @@ class DaySquare extends StatelessWidget {
       int minutes = remainingSeconds ~/ 60;
 
       // Create formatted duration string
-      String formattedDuration = '$hours:${minutes.toString().padLeft(2, '0')}';
+      String formattedDuration = timeEntries
+          .map((time) =>
+              '\n Start Date: ${DateFormat.MMMEd().format(time.startDate)} \n End Date: ${DateFormat.MMMEd().format(time.endDate)} \n Total Time: $hours:${minutes.toString().padLeft(2, '0')} \n')
+          .toString();
 
       return formattedDuration;
     }
 
     return day != null
         ? Tooltip(
+            waitDuration: const Duration(seconds: 30),
             triggerMode: TooltipTriggerMode.tap,
             message: formatDuration(totalTime), // Tooltip message
             child: Container(

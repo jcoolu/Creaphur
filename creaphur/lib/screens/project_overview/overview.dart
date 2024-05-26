@@ -1,9 +1,12 @@
 import 'dart:convert';
 
 import 'package:creaphur/models/project.dart';
+import 'package:creaphur/models/time_entry.dart';
+import 'package:creaphur/models/time_entry_list.dart';
 import 'package:creaphur/widgets/calendar/main.dart';
 import 'package:creaphur/widgets/project_status_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OverviewScreen extends StatelessWidget {
   final Project project;
@@ -20,6 +23,12 @@ class OverviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<TimeEntry> timeEntries =
+        Provider.of<TimeEntryList>(context, listen: true)
+            .items
+            .where((time) => time.projectId == project.id)
+            .toList();
+
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -39,7 +48,7 @@ class OverviewScreen extends StatelessWidget {
           Calendar(
             year: year,
             month: month,
-            timeEntries: [],
+            timeEntries: timeEntries,
             onChange: onChange,
           )
         ],

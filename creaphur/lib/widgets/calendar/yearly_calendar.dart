@@ -83,8 +83,12 @@ class YearlyCalendar extends StatelessWidget {
   }
 
   Widget _buildDaySquare(int day, int month, int year) {
-    List<TimeEntry> times =
-        timeEntries.where((time) => time.startDate.day == day).toList();
+    List<TimeEntry> times = timeEntries
+        .where((time) =>
+            time.startDate.isBefore(DateTime(year, month, day)) &&
+            time.endDate.isAfter(DateTime(year, month, day)))
+        .toList();
+
     bool isSelected = times.isNotEmpty;
 
     if (isSelected) {

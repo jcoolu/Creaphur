@@ -48,7 +48,7 @@ class ProjectSummaryCard extends StatelessWidget {
                       ? const Text('Project End Date Passed')
                       : Text(
                           '${Utils.daysBetween(DateTime.now(), project.endDate).toString()} days left'),
-                  Text('Cost: \$${project.getTotalCost(context)}')
+                  Text('Cost: ${project.getTotalCost(context)}')
                 ],
               ),
             ),

@@ -37,8 +37,8 @@ class _CalendarState extends State<Calendar> {
           onChanged: widget.onChange,
         ),
         // Remove Expanded and use a Container with a fixed height
-        Container(
-          height: 400, // Adjust height as needed
+        SizedBox(
+          height: 300,
           child: YearlyCalendar(
             year: widget.year,
             month: widget.month,

@@ -83,6 +83,20 @@ class Project extends DefaultModel {
         : costs.reduce((a, b) => a + b).toStringAsFixed(2);
   }
 
+  double getTotal(BuildContext context) {
+    List<Expense> expenses = Provider.of<ExpenseList>(context, listen: false)
+        .items
+        .where((exp) => exp.projectId == id)
+        .toList();
+
+    List<double> costs = expenses
+        .map(
+            (expense) => double.tryParse(expense.getMaterialCost(context)) ?? 0)
+        .toList();
+
+    return costs.isEmpty ? 0.00 : costs.reduce((a, b) => a + b);
+  }
+
   List<String> getMaterials(BuildContext context) {
     List<Expense> expenses = Provider.of<ExpenseList>(context, listen: false)
         .items

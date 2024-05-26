@@ -4,6 +4,7 @@ import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/time_entry.dart';
 import 'package:creaphur/models/time_entry_list.dart';
 import 'package:creaphur/widgets/calendar/main.dart';
+import 'package:creaphur/widgets/compare_chart/main.dart';
 import 'package:creaphur/widgets/project_status_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,10 @@ class OverviewScreen extends StatelessWidget {
             month: month,
             timeEntries: timeEntries,
             onChange: onChange,
-          )
+          ),
+          CompareChart(
+            project: project,
+          ),
         ],
       ),
     );

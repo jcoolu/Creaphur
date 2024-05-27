@@ -84,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           icon: const Icon(Icons.chevron_left, color: Colors.white),
           onPressed: handleBack,
         ),
-        title: const Text('Profile'),
+        title: Text(isNew ? 'New Profile' : 'Edit Profile'),
         backgroundColor: const Color(0xff2bca70),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         actions: <Widget>[
@@ -108,6 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: ProfileForm(
               setName: handleSave,
               name: name,
+              isNew: isNew,
             ),
           ),
         ),

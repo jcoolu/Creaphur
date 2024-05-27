@@ -110,7 +110,7 @@ class Project extends DefaultModel {
             .getRelatedMaterialObject(exp.materialId);
         if (material != null) {
           materials.add(
-              '${material.quantity} ${material.quantityType} of ${material.name}');
+              '${exp.quantity} ${material.quantityType} of ${material.name}');
         }
       }
     }

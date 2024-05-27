@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class CompareChart extends StatefulWidget {
   final Project project;
-  CompareChart({
+  const CompareChart({
     super.key,
     required this.project,
   });
@@ -22,7 +22,7 @@ class CompareChart extends StatefulWidget {
         Color(0xff89e6b1),
       ];
 
-  final Color barBackgroundColor = Color.fromARGB(153, 232, 228, 228);
+  final Color barBackgroundColor = const Color.fromARGB(153, 232, 228, 228);
   final Color barColor = const Color(0xffad99ff);
   final Color touchedBarColor = const Color(0xff6c47ff);
 
@@ -104,7 +104,6 @@ class CompareChartState extends State<CompareChart> {
     double y, {
     bool isTouched = false,
     Color? barColor,
-    double width = 22,
     List<int> showTooltips = const [],
   }) {
     barColor ??= widget.barColor;
@@ -114,7 +113,7 @@ class CompareChartState extends State<CompareChart> {
         BarChartRodData(
           toY: isTouched ? y + 1 : y,
           color: isTouched ? widget.touchedBarColor : barColor,
-          width: width,
+          width: 40,
           borderSide: isTouched
               ? BorderSide(color: widget.touchedBarColor)
               : const BorderSide(color: Colors.white, width: 0),

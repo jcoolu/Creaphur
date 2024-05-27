@@ -8,7 +8,12 @@ import 'package:provider/provider.dart';
 class ProfileForm extends StatefulWidget {
   final Function setName;
   final String name;
-  const ProfileForm({super.key, required this.setName, required this.name});
+  final bool isNew;
+  const ProfileForm(
+      {super.key,
+      required this.setName,
+      required this.name,
+      required this.isNew});
 
   @override
   ProfileFormState createState() {
@@ -50,7 +55,8 @@ class ProfileFormState extends State<ProfileForm> {
                     }
 
                     if (Provider.of<ProfileList>(context, listen: false)
-                        .isDuplicate(value)) {
+                            .isDuplicate(value) &&
+                        widget.isNew) {
                       return 'Duplicate name';
                     }
 

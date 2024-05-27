@@ -56,7 +56,7 @@ class Expense extends DefaultModel {
         Provider.of<ExpenseList>(context, listen: false).items;
 
     List<Expense>? possibleMatches =
-        expenses.where((element) => element.id == materialId).toList();
+        expenses.where((element) => element.materialId == materialId).toList();
 
     return possibleMatches.isEmpty ? 'None' : possibleMatches.first.name;
   }

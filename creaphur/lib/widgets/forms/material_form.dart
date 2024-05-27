@@ -13,12 +13,14 @@ class MaterialForm extends StatefulWidget {
   final Function onChange;
   final material_model.Material? material;
   final Function onSave;
+  final bool isNew;
 
   const MaterialForm(
       {super.key,
       required this.onChange,
       required this.material,
-      required this.onSave});
+      required this.onSave,
+      required this.isNew});
 
   @override
   MaterialFormState createState() {
@@ -55,7 +57,8 @@ class MaterialFormState extends State<MaterialForm> {
                       }
 
                       if (Provider.of<MaterialList>(context, listen: false)
-                          .isDuplicate(value)) {
+                              .isDuplicate(value) &&
+                          widget.isNew) {
                         return 'Duplicate name';
                       }
 
@@ -77,7 +80,7 @@ class MaterialFormState extends State<MaterialForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a quantity for your material';
                       }
-                      if (!Utils.isCurrencyValid(value)) {
+                      if (!Utils.isQuantityValid(value)) {
                         return 'Please enter a valid format for quantity of material.';
                       }
                       widget.onChange('quantity', double.parse(value));

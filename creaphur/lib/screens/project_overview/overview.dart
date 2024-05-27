@@ -29,6 +29,7 @@ class OverviewScreen extends StatelessWidget {
             .items
             .where((time) => time.projectId == project.id)
             .toList();
+    List<String> materials = project.getMaterials(context);
 
     return SafeArea(
       child: ListView(
@@ -36,16 +37,86 @@ class OverviewScreen extends StatelessWidget {
         children: [
           project.image.isEmpty
               ? const Icon(
+                  size: 150,
                   Icons.assessment,
                   color: Color(0xff2900cc),
                 )
               : Image.memory(base64Decode(project.image)),
-          Text(project.description ?? ''),
+          const SizedBox(height: 8),
+          Text(
+            project.description ?? '',
+            style: const TextStyle(
+              color: Color(0xff6c47ff),
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
           ProjectStatusIndicator(status: project.status),
-          Text('Total Cost of Materials: ${project.getTotalCost(context)}'),
-          Text('Total Hours Worked on: ${project.getTotalHours(context)}'),
-          Text('Total Cost of Services: ${project.getCostOfServices(context)}'),
-          Text('Materials Used: ${project.getMaterials(context)}'),
+          const SizedBox(height: 8),
+          Text(
+            'Total Cost of Materials: \$${project.getTotalCost(context)},',
+            style: const TextStyle(
+              color: Color(0xff6c47ff),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Total Time Worked on: ${project.getTotalHours(context)}',
+            style: const TextStyle(
+              color: Color(0xff6c47ff),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Total Cost of Services: ${project.getCostOfServices(context)}',
+            style: const TextStyle(
+              color: Color(0xff6c47ff),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Materials Used:',
+            style: TextStyle(
+              color: Color(0xff6c47ff),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          if (materials.isNotEmpty)
+            ...materials
+                .map((item) => ListTile(
+                      leading: const Text(
+                        "•",
+                        style:
+                            TextStyle(fontSize: 20, color: Color(0xff6c47ff)),
+                      ),
+                      title: Text(
+                        item,
+                        style: const TextStyle(
+                          color: Color(0xff6c47ff),
+                          fontSize: 16,
+                        ),
+                      ),
+                    ))
+                .toList()
+          else
+            const Center(
+              child: Text(
+                "No materials added.",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xff6c47ff)),
+              ),
+            ),
+          const SizedBox(height: 8),
           Calendar(
             year: year,
             month: month,

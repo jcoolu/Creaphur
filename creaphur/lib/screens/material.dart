@@ -82,7 +82,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
           icon: const Icon(Icons.chevron_left, color: Colors.white),
           onPressed: handleBack,
         ),
-        title: const Text('New Material'),
+        title: Text(isNew ? 'New Material' : 'Edit Material'),
         backgroundColor: const Color(0xff2bca70),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         actions: <Widget>[
@@ -103,6 +103,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
               onChange: handleChange,
               onSave: handleSave,
               material: newMaterial,
+              isNew: isNew,
             ),
           ),
         ),

@@ -169,7 +169,7 @@ class CompareChartState extends State<CompareChart> {
               ),
               children: <TextSpan>[
                 TextSpan(
-                  text: (rod.toY - 1).toString(),
+                  text: '\$${(rod.toY - 1).toString()}',
                   style: const TextStyle(
                     color: Colors.white, //widget.touchedBarColor,
                     fontSize: 16,

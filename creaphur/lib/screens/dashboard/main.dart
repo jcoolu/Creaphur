@@ -1,5 +1,6 @@
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/project.dart';
+import 'package:creaphur/screens/dashboard/about.dart';
 import 'package:creaphur/screens/dashboard/home.dart';
 import 'package:creaphur/screens/dashboard/materials.dart';
 import 'package:creaphur/screens/dashboard/settings.dart';
@@ -19,9 +20,11 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   String selectedScreen = 'home';
+  String title = 'Welcome';
   @override
   Widget build(BuildContext context) {
     Profile currentProfile = Provider.of<Profile>(context, listen: true);
+    bool isInHome = selectedScreen == 'home';
 
     void goToProfile() {
       Navigator.push(
@@ -58,6 +61,9 @@ class _DashboardState extends State<Dashboard> {
       if (selectedScreen == 'settings') {
         return const SettingsScreen();
       }
+      if (selectedScreen == 'about') {
+        return const AboutScreen();
+      }
       return const HomeScreen();
     }
 
@@ -78,7 +84,7 @@ class _DashboardState extends State<Dashboard> {
               height: 3.0,
             ),
           ),
-          title: Text('Welcome, ${currentProfile.name}'),
+          title: Text(isInHome ? '$title, ${currentProfile.name}' : title),
           backgroundColor: const Color(0xff2bca70),
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
           actions: [
@@ -116,6 +122,7 @@ class _DashboardState extends State<Dashboard> {
                       onTap: () {
                         setState(() {
                           selectedScreen = 'home';
+                          title = 'Welcome, ${currentProfile.name}';
                         });
                         Navigator.of(context).pop();
                       },
@@ -127,6 +134,7 @@ class _DashboardState extends State<Dashboard> {
                       onTap: () {
                         setState(() {
                           selectedScreen = 'materials';
+                          title = 'Materials';
                         });
                         Navigator.of(context).pop();
                       },
@@ -138,6 +146,7 @@ class _DashboardState extends State<Dashboard> {
                       onTap: () {
                         setState(() {
                           selectedScreen = 'settings';
+                          title = 'Settings';
                         });
                         Navigator.of(context).pop();
                       },
@@ -148,12 +157,14 @@ class _DashboardState extends State<Dashboard> {
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.info),
-                selected: selectedScreen == 'info',
-                title: const Text('About App'),
+                selected: selectedScreen == 'about',
+                title: const Text('About Creaphur'),
                 onTap: () {
                   setState(() {
-                    selectedScreen = 'info';
+                    selectedScreen = 'about';
+                    title = 'About Creaphur';
                   });
+                  Navigator.of(context).pop();
                 },
               ),
             ],

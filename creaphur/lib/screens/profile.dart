@@ -44,9 +44,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       } else {
         await ProfileService.updateProfile(context, profile);
       }
-      await Utils.load(context, profile);
+
+      // Store the current context
+      BuildContext currentContext = context;
+      // Check if the widget is still mounted before navigating
+      if (!mounted) return;
+
+      await Utils.load(currentContext, profile);
+
+      // Check if the widget is still mounted before navigating
+      if (!mounted) return;
+
       Navigator.push(
-        context,
+        currentContext,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
     }

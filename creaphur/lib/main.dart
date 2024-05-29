@@ -25,38 +25,51 @@ void main() {
   ], child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Future<bool> _hasProfilesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _hasProfilesFuture = hasProfiles();
+  }
+
+  Future<bool> hasProfiles() async {
     List<Profile> profiles =
         Provider.of<ProfileList>(context, listen: false).items;
 
-    Future<bool> hasProfiles() async {
-      await ProfileService.getProfiles(context);
+    await ProfileService.getProfiles(context);
 
-      if (profiles.isNotEmpty) {
-        await Utils.load(context, profiles.first);
-      }
+    if (!mounted) return false;
 
-      bool containsProfiles = profiles.isNotEmpty;
-
-      return containsProfiles;
+    if (profiles.isNotEmpty) {
+      await Utils.load(context, profiles.first);
     }
 
+    return profiles.isNotEmpty;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Creaphur',
       theme: appTheme(context),
       home: FutureBuilder<bool>(
-        future: hasProfiles(),
+        future: _hasProfilesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Show a loading indicator while the Future is in progress
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             // Show an error message if the Future completes with an error
-            return Text('Error: ${snapshot.error}');
+            return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             if (snapshot.data == true) {
               return const Dashboard();

@@ -44,13 +44,17 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
       } else {
         await TimeEntryService.updateTimeEntry(context, newTimeEntry!);
       }
+      // Store the current context
+      BuildContext currentContext = context;
+      // Check if the widget is still mounted before navigating
+      if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(currentContext).showSnackBar(
         const SnackBar(content: Text('Saved Time Entry')),
       );
 
       Navigator.push(
-        context,
+        currentContext,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
     }

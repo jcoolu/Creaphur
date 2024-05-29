@@ -21,8 +21,13 @@ class _WelcomePageState extends State<WelcomePage> {
 
     await ProfileService.addProfile(context, profile);
 
+    // Store the current context
+    BuildContext currentContext = context;
+    // Check if the widget is still mounted before navigating
+    if (!mounted) return;
+
     Navigator.push(
-      context,
+      currentContext,
       MaterialPageRoute(builder: (context) => const Dashboard()),
     );
   }

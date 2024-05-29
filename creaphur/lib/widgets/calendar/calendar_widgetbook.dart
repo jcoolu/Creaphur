@@ -9,7 +9,7 @@ WidgetbookComponent calendarComponent = WidgetbookComponent(
       builder: (context) => Calendar(
         month: DateTime.now().month,
         year: DateTime.now().year,
-        timeEntries: [],
+        timeEntries: const [],
         onChange: (m, y) {},
       ),
     ),

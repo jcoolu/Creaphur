@@ -46,13 +46,18 @@ class _MaterialScreenState extends State<MaterialScreen> {
         await MaterialService.updateMaterial(context, newMaterial!);
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      // Store the current context
+      BuildContext currentContext = context;
+      // Check if the widget is still mounted before navigating
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(currentContext).showSnackBar(
         const SnackBar(content: Text('Saved Material')),
       );
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
+        MaterialPageRoute(builder: (currentContext) => const Dashboard()),
       );
     }
 

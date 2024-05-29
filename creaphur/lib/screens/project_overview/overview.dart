@@ -55,7 +55,7 @@ class OverviewScreen extends StatelessWidget {
           ProjectStatusIndicator(status: project.status),
           const SizedBox(height: 8),
           Text(
-            'Total Cost of Materials: \$${project.getTotalCost(context)},',
+            'Total Cost of Materials: ${project.getTotalCost(context)},',
             style: const TextStyle(
               color: Color(0xff6c47ff),
               fontSize: 16,

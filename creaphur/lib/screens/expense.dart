@@ -44,12 +44,17 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         await ExpenseService.updateExpense(context, newExpense!);
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      // Store the current context
+      BuildContext currentContext = context;
+      // Check if the widget is still mounted before navigating
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(currentContext).showSnackBar(
         const SnackBar(content: Text('Saved Expense')),
       );
 
       Navigator.push(
-        context,
+        currentContext,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
     }

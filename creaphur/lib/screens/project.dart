@@ -44,26 +44,29 @@ class _ProjectScreenState extends State<ProjectScreen> {
         await ProjectService.updateProject(context, newProject!);
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      // Store the current context
+      BuildContext currentContext = context;
+      // Check if the widget is still mounted before navigating
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(currentContext).showSnackBar(
         const SnackBar(content: Text('Saved Project')),
       );
 
-      Navigator.push(
-        context,
+      Navigator.pushReplacement(
+        currentContext,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
     }
 
     void handleDelete() {
-      ProjectService.deleteProject(context, widget.project);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Deleted Project')),
-      );
-
-      Navigator.pop(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const Dashboard()),
+      );
+      ProjectService.deleteProject(context, widget.project);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Deleted Project')),
       );
     }
 

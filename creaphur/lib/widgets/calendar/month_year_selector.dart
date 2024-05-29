@@ -6,6 +6,7 @@ class MonthYearSelector extends StatelessWidget {
   final Function(int, int) onChanged;
 
   MonthYearSelector({
+    super.key,
     required this.month,
     required this.year,
     required this.onChanged,
@@ -55,7 +56,7 @@ class MonthYearSelector extends StatelessWidget {
               isExpanded: true,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: DropdownButton<int>(
               value: year,
@@ -63,7 +64,7 @@ class MonthYearSelector extends StatelessWidget {
                 return DropdownMenuItem<int>(
                   value: year,
                   child: Text(year.toString(),
-                      style: TextStyle(color: Colors.black)),
+                      style: const TextStyle(color: Colors.black)),
                 );
               }).toList(),
               onChanged: (int? newYear) {

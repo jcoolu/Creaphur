@@ -80,7 +80,7 @@ class Project extends DefaultModel {
 
     return costs.isEmpty
         ? '\$0.00'
-        : costs.reduce((a, b) => a + b).toStringAsFixed(2);
+        : '\$${costs.reduce((a, b) => a + b).toStringAsFixed(2)}';
   }
 
   double getTotal(BuildContext context) {

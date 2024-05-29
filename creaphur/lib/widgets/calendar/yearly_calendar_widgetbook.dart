@@ -7,7 +7,7 @@ WidgetbookComponent yearlyCalendarComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Display March 2024',
-      builder: (context) => YearlyCalendar(
+      builder: (context) => const YearlyCalendar(
         year: 2024,
         month: 3,
         timeEntries: [],
@@ -15,7 +15,7 @@ WidgetbookComponent yearlyCalendarComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Display January 2023',
-      builder: (context) => YearlyCalendar(
+      builder: (context) => const YearlyCalendar(
         year: 2023,
         month: 1,
         timeEntries: [],

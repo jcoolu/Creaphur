@@ -114,6 +114,7 @@ class ProjectFormState extends State<ProjectForm> {
                     initialValue: widget.project?.description ?? '',
                     hintText: 'Project Description',
                     labelText: 'Description',
+                    inputFormatters: [LengthLimitingTextInputFormatter(320)],
                     onChange: (value) => widget.onChange('description', value),
                   ),
                 ),

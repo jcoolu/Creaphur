@@ -30,56 +30,17 @@ class ProjectFormState extends State<ProjectForm> {
 
   @override
   Widget build(BuildContext context) {
-    void handleChangeStartDate(field, value) {
-      if (field == 'date') {
-        DateTime nextDate = value;
-        widget.onChange(
-            'startDate',
-            DateTime(
-              nextDate.year,
-              nextDate.month,
-              nextDate.day,
-              widget.project!.startDate.hour,
-              widget.project!.startDate.minute,
-            ));
-      } else {
-        TimeOfDay nextTime = value;
-        widget.onChange(
-            'startDate',
-            DateTime(
-              widget.project!.startDate.year,
-              widget.project!.startDate.month,
-              widget.project!.startDate.day,
-              nextTime.hour,
-              nextTime.minute,
-            ));
-      }
-    }
-
-    void handleChangeEndDate(field, value) {
-      if (field == 'date') {
-        DateTime nextDate = value;
-        widget.onChange(
-            'endDate',
-            DateTime(
-              nextDate.year,
-              nextDate.month,
-              nextDate.day,
-              widget.project!.endDate.hour,
-              widget.project!.endDate.minute,
-            ));
-      } else {
-        TimeOfDay nextTime = value;
-        widget.onChange(
-            'endDate',
-            DateTime(
-              widget.project!.endDate.year,
-              widget.project!.endDate.month,
-              widget.project!.endDate.day,
-              nextTime.hour,
-              nextTime.minute,
-            ));
-      }
+    void handleChangeDate(field, value) {
+      DateTime nextDate = value;
+      widget.onChange(
+          field,
+          DateTime(
+            nextDate.year,
+            nextDate.month,
+            nextDate.day,
+            nextDate.hour,
+            nextDate.minute,
+          ));
     }
 
     return Padding(
@@ -136,16 +97,26 @@ class ProjectFormState extends State<ProjectForm> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: DateTimePicker(
+                      type: 'startDate',
                       dateTime: widget.project?.startDate ?? DateTime.now(),
-                      onChange: handleChangeStartDate,
-                      buttonText: 'Projected Start'),
+                      onChange: handleChangeDate,
+                      buttonText: 'Projected Start',
+                      conditional: 'isBefore',
+                      showTime: false,
+                      compareDate: widget.project?.endDate ??
+                          DateTime.now().add(const Duration(days: 1))),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: DateTimePicker(
+                      type: 'endDate',
                       dateTime: widget.project?.endDate ??
                           DateTime.now().add(const Duration(days: 1)),
-                      onChange: handleChangeEndDate,
+                      onChange: handleChangeDate,
+                      conditional: 'isAfter',
+                      showTime: false,
+                      compareDate: widget.project?.startDate ??
+                          DateTime.now().add(const Duration(days: 1)),
                       buttonText: 'Projected End'),
                 ),
                 Padding(

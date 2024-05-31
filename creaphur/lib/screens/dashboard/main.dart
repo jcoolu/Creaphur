@@ -122,7 +122,7 @@ class _DashboardState extends State<Dashboard> {
                       onTap: () {
                         setState(() {
                           selectedScreen = 'home';
-                          title = 'Welcome, ${currentProfile.name}';
+                          title = 'Welcome';
                         });
                         Navigator.of(context).pop();
                       },

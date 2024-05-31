@@ -7,7 +7,10 @@ WidgetbookComponent dateTimePicker = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'For Prospected date',
       builder: (context) => DateTimePicker(
-          dateTime: DateTime.now(), onChange: () {}, buttonText: 'Prospected'),
+          type: 'startDate',
+          dateTime: DateTime.now(),
+          onChange: () {},
+          buttonText: 'Prospected'),
     ),
   ],
 );

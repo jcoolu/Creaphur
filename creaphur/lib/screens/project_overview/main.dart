@@ -64,11 +64,6 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
       ScaffoldMessenger.of(currentContext).showSnackBar(
         const SnackBar(content: Text('Deleted Project')),
       );
-
-      Navigator.pop(
-        currentContext,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
-      );
     }
 
     Widget handleScreen() {
@@ -81,11 +76,11 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
         );
       }
       if (screenIndex == 1) {
-        return ExpensesScreen(projectId: widget.project.id);
+        return ExpensesScreen(project: widget.project);
       }
 
       if (screenIndex == 2) {
-        return TimeEntriesScreen(projectId: widget.project.id);
+        return TimeEntriesScreen(project: widget.project);
       }
       return const Text('');
     }
@@ -95,6 +90,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => ExpenseScreen(
+                project: widget.project,
                 expense: Expense.getBlankExpense(
                     widget.project.id, currentProfile.id)),
           ));
@@ -105,6 +101,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => TimeEntryScreen(
+                project: widget.project,
                 timeEntry: TimeEntry.getBlankTimeEntry(
                     widget.project.id, currentProfile.id)),
           ));
@@ -141,6 +138,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
               isIconButton: true,
               buttonText: 'Delete Project',
               model: 'project',
+              confirmedWidgetPath: const Dashboard(),
               onDelete: handleDelete)
         ],
         title: Text(widget.project.name),

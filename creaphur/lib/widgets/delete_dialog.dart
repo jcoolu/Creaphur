@@ -7,6 +7,7 @@ class DeleteDialog extends StatelessWidget {
   final String model;
   final void Function()? onDelete;
   final bool isDeleteDisabled;
+  final Widget confirmedWidgetPath;
 
   const DeleteDialog({
     super.key,
@@ -15,6 +16,7 @@ class DeleteDialog extends StatelessWidget {
     required this.model,
     required this.onDelete,
     required this.isDeleteDisabled,
+    required this.confirmedWidgetPath,
   });
 
   @override
@@ -45,7 +47,19 @@ class DeleteDialog extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-              FilledActionButton(buttonText: 'Confirm', onPressed: onDelete),
+              FilledActionButton(
+                buttonText: 'Confirm',
+                onPressed: () {
+                  if (onDelete != null) {
+                    onDelete!();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => confirmedWidgetPath),
+                    );
+                  }
+                },
+              ),
             ],
           );
         },

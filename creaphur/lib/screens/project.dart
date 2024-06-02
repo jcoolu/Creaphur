@@ -60,10 +60,6 @@ class _ProjectScreenState extends State<ProjectScreen> {
     }
 
     void handleDelete() {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
-      );
       ProjectService.deleteProject(context, widget.project);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Deleted Project')),
@@ -93,6 +89,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                 isIconButton: true,
                 model: 'project',
                 onDelete: handleDelete,
+                confirmedWidgetPath: const Dashboard(),
                 buttonText: 'Delete Project')
         ],
       ),

@@ -1,5 +1,7 @@
 import 'package:creaphur/models/expense.dart';
+import 'package:creaphur/models/project.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
+import 'package:creaphur/screens/project_overview/main.dart';
 import 'package:creaphur/services/expense_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/forms/expense_form.dart';
@@ -8,7 +10,9 @@ import 'package:uuid/uuid.dart';
 
 class ExpenseScreen extends StatefulWidget {
   final Expense expense;
-  const ExpenseScreen({super.key, required this.expense});
+  final Project project;
+  const ExpenseScreen(
+      {super.key, required this.expense, required this.project});
 
   @override
   State<ExpenseScreen> createState() => _ExpenseScreenState();
@@ -55,7 +59,9 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
 
       Navigator.push(
         currentContext,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
+        MaterialPageRoute(
+            builder: (context) =>
+                ProjectOverviewScreen(project: widget.project)),
       );
     }
 
@@ -64,11 +70,6 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Deleted Expense')),
-      );
-
-      Navigator.pop(
-        context,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
       );
     }
 
@@ -95,6 +96,9 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 isIconButton: true,
                 model: 'expense',
                 onDelete: handleDelete,
+                confirmedWidgetPath: ProjectOverviewScreen(
+                  project: widget.project,
+                ),
                 buttonText: 'Delete Expense')
         ],
       ),

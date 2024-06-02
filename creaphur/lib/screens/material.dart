@@ -18,16 +18,16 @@ class _MaterialScreenState extends State<MaterialScreen> {
   String name = '';
   late material_model.Material? newMaterial = widget.material;
 
+  void handleBack() {
+    Navigator.pop(
+      context,
+      MaterialPageRoute(builder: (context) => const Dashboard()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isNew = widget.material.id.isEmpty;
-
-    void handleBack() {
-      Navigator.pop(
-        context,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
-      );
-    }
 
     void handleChange(field, value) {
       newMaterial ??=
@@ -67,11 +67,6 @@ class _MaterialScreenState extends State<MaterialScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Deleted Material')),
       );
-
-      Navigator.pop(
-        context,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
-      );
     }
 
     return Scaffold(
@@ -97,6 +92,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
                 isIconButton: true,
                 model: 'material',
                 onDelete: handleDelete,
+                confirmedWidgetPath: MaterialScreen(material: widget.material),
                 buttonText: 'Delete Material')
         ],
       ),

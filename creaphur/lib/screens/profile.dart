@@ -2,6 +2,7 @@ import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
+import 'package:creaphur/screens/welcome.dart';
 import 'package:creaphur/services/profile_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/forms/profile_form.dart';
@@ -70,15 +71,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const SnackBar(content: Text('Deleted Profile')),
       );
 
-      Profile firstProfile =
-          Provider.of<ProfileList>(context, listen: false).items.first;
+      if (Provider.of<ProfileList>(context, listen: false).items.isNotEmpty) {
+        Profile firstProfile =
+            Provider.of<ProfileList>(context, listen: false).items.first;
 
-      ProfileService.setCurrent(context, firstProfile);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
-      );
+        ProfileService.setCurrent(context, firstProfile);
+      } else {
+        ProfileService.setCurrent(context, Profile(id: '', name: ''));
+      }
     }
 
     return Scaffold(
@@ -101,12 +101,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (!isNew)
             DeleteDialog(
                 isIconButton: true,
-                isDeleteDisabled:
-                    Provider.of<ProfileList>(context, listen: false)
-                            .items
-                            .length ==
-                        1,
+                isDeleteDisabled: false,
                 model: 'profile',
+                confirmedWidgetPath:
+                    Provider.of<ProfileList>(context, listen: false)
+                                .items
+                                .length ==
+                            1
+                        ? const WelcomePage()
+                        : const Dashboard(),
                 onDelete: handleDelete,
                 buttonText: 'Delete Profile')
         ],

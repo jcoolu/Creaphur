@@ -1,5 +1,7 @@
+import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/time_entry.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
+import 'package:creaphur/screens/project_overview/main.dart';
 import 'package:creaphur/services/time_entry_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/forms/time_entry_form.dart';
@@ -8,7 +10,9 @@ import 'package:uuid/uuid.dart';
 
 class TimeEntryScreen extends StatefulWidget {
   final TimeEntry timeEntry;
-  const TimeEntryScreen({super.key, required this.timeEntry});
+  final Project project;
+  const TimeEntryScreen(
+      {super.key, required this.timeEntry, required this.project});
 
   @override
   State<TimeEntryScreen> createState() => _TimeEntryScreenState();
@@ -55,7 +59,9 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
 
       Navigator.push(
         currentContext,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
+        MaterialPageRoute(
+            builder: (context) =>
+                ProjectOverviewScreen(project: widget.project)),
       );
     }
 
@@ -64,11 +70,6 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Deleted Time Entry')),
-      );
-
-      Navigator.pop(
-        context,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
       );
     }
 
@@ -95,7 +96,9 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
                 isIconButton: true,
                 model: 'timeEntry',
                 onDelete: handleDelete,
-                buttonText: 'Delete Time Entry')
+                buttonText: 'Delete Time Entry',
+                confirmedWidgetPath:
+                    ProjectOverviewScreen(project: widget.project))
         ],
       ),
       body: SafeArea(

@@ -19,8 +19,13 @@ class ProfileService {
   static Future<void> deleteProfile(context, Profile profile) async {
     await ProfileHelper.deleteProfile(profile);
     Provider.of<ProfileList>(context, listen: false).remove(profile);
-    Provider.of<Profile>(context, listen: false).selectProfile(
-        Provider.of<ProfileList>(context, listen: false).items.first);
+    if (Provider.of<ProfileList>(context, listen: false).items.isNotEmpty) {
+      Provider.of<Profile>(context, listen: false).selectProfile(
+          Provider.of<ProfileList>(context, listen: false).items.first);
+    } else {
+      Provider.of<Profile>(context, listen: false)
+          .selectProfile(Profile(id: '', name: ''));
+    }
   }
 
   static getProfiles(context) async {

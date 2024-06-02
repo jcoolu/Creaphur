@@ -1,3 +1,4 @@
+import 'package:creaphur/models/project.dart';
 import 'package:creaphur/models/time_entry_list.dart';
 import 'package:creaphur/models/time_entry.dart';
 import 'package:creaphur/screens/time_entry.dart';
@@ -6,16 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TimeEntriesScreen extends StatelessWidget {
-  final String projectId;
+  final Project project;
 
-  const TimeEntriesScreen({super.key, required this.projectId});
+  const TimeEntriesScreen({super.key, required this.project});
 
   @override
   Widget build(BuildContext context) {
     List<TimeEntry> timeEntries =
         Provider.of<TimeEntryList>(context, listen: true)
             .items
-            .where((time) => time.projectId == projectId)
+            .where((time) => time.projectId == project.id)
             .toList();
 
     void selectTimeEntry(TimeEntry timeEntry) {
@@ -24,6 +25,7 @@ class TimeEntriesScreen extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => TimeEntryScreen(
             timeEntry: timeEntry,
+            project: project,
           ),
         ),
       );

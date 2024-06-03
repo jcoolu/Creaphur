@@ -1,3 +1,5 @@
+import 'package:creaphur/widgets/ko_fi.dart';
+import 'package:creaphur/widgets/ko_fi_widgetbook.dart';
 import 'package:flutter/material.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -54,6 +56,8 @@ class AboutScreen extends StatelessWidget {
           const BulletPoint(text: 'Manage project expenses'),
           const BulletPoint(text: 'Monitor project progress'),
           const BulletPoint(text: 'User-friendly interface'),
+          const SizedBox(height: 20),
+          const KoFi(),
           const Spacer(),
           Center(
             child: Text(

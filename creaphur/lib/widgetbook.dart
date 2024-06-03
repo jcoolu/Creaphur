@@ -5,6 +5,7 @@ import 'package:creaphur/widgets/project_summary_card_widgetbook.dart';
 import 'package:creaphur/widgets/calendar/yearly_calendar_widgetbook.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'package:creaphur/widgets/ko_fi_widgetbook.dart';
 
 void main() {
   runApp(const HotReload());
@@ -21,7 +22,8 @@ class HotReload extends StatelessWidget {
         dateTimePicker,
         projectSummaryCard,
         yearlyCalendarComponent,
-        calendarComponent
+        calendarComponent,
+        kofiWidget,
       ],
     );
   }

@@ -7,6 +7,7 @@ class Material extends DefaultModel {
   final String quantityType;
   final double costPer;
   final double singleQuantity;
+  final String retailer;
 
   Material({
     required String id,
@@ -17,6 +18,7 @@ class Material extends DefaultModel {
     required this.quantityType,
     required this.costPer,
     required this.singleQuantity,
+    required this.retailer,
   }) : super(id: id, name: name);
 
   factory Material.fromMap(Map<String, dynamic> json) {
@@ -28,7 +30,8 @@ class Material extends DefaultModel {
         quantity: json['quantity'],
         quantityType: json['quantityType'],
         costPer: json['costPer'],
-        singleQuantity: json['singleQuantity']);
+        singleQuantity: json['singleQuantity'],
+        retailer: json['retailer']);
   }
 
   Map<String, dynamic> toMap() {
@@ -41,6 +44,7 @@ class Material extends DefaultModel {
       'quantityType': quantityType,
       'costPer': costPer,
       'singleQuantity': singleQuantity,
+      'retailer': retailer,
     };
   }
 
@@ -52,5 +56,6 @@ class Material extends DefaultModel {
       quantityType: 'Each',
       costPer: 0.00,
       image: '',
-      singleQuantity: 1);
+      singleQuantity: 1,
+      retailer: 'None / Unknown');
 }

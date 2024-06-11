@@ -1,3 +1,4 @@
+import 'package:creaphur/common/retailers.dart';
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/material.dart' as material_model;
 import 'package:creaphur/models/material_list.dart';
@@ -66,6 +67,42 @@ class MaterialFormState extends State<MaterialForm> {
                     },
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: DropdownButton<String>(
+                    value: retailers.contains(widget.material?.retailer)
+                        ? widget.material?.retailer
+                        : 'Other',
+                    items: retailers
+                        .map((retailer) => DropdownMenuItem<String>(
+                              value: retailer,
+                              child: Text(retailer),
+                            ))
+                        .toList(),
+                    onChanged: (value) => widget.onChange('retailer', value),
+                  ),
+                ),
+                (widget.material?.retailer == 'Other' ||
+                        !retailers.contains(widget.material?.retailer))
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: OutlinedTextField(
+                          initialValue: widget.material?.retailer ?? '',
+                          hintText: 'Retailer Name',
+                          labelText: 'Retailer Name *',
+                          maxLines: 1,
+                          onChange: (value) =>
+                              widget.onChange('retailer', value),
+                          onValidate: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a retailer name';
+                            }
+
+                            return null;
+                          },
+                        ),
+                      )
+                    : Container(),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: OutlinedTextField(

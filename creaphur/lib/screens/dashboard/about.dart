@@ -1,5 +1,4 @@
 import 'package:creaphur/widgets/ko_fi.dart';
-import 'package:creaphur/widgets/ko_fi_widgetbook.dart';
 import 'package:flutter/material.dart';
 
 class AboutScreen extends StatelessWidget {

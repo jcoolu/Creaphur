@@ -125,4 +125,10 @@ class SchemaBuilder {
     batch.execute("ALTER TABLE Material DROP COLUMN projectId");
     await batch.commit();
   }
+
+  static handleUpdateForProjectv9(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Material ADD COLUMN retailer");
+    await batch.commit();
+  }
 }

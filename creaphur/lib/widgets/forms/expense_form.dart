@@ -1,9 +1,11 @@
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/expense.dart';
 import 'package:creaphur/models/material_list.dart';
+import 'package:creaphur/screens/dashboard/materials.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -78,18 +80,45 @@ class ExpenseFormState extends State<ExpenseForm> {
                     },
                   ),
                 ),
-                DropdownSearch<String>(
-                    items: list.items.map((mat) => mat.name).toList(),
-                    selectedItem:
-                        list.getRelatedMaterialName(widget.expense!.materialId),
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        labelText: "Material",
-                        hintText: "Material related to expense for project.",
-                      ),
-                    ),
-                    onChanged: (String? val) => widget.onChange(
-                        'materialId', list.getRelatedIdOfMaterial(val!))),
+                list.items.isEmpty
+                    ? RichText(
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text:
+                                  'You have no materials listed in your account.',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            TextSpan(
+                              text:
+                                  'Please go to the Materials screen and create at least one material to assign to this expense.',
+                              style: const TextStyle(color: Colors.blue),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MaterialsScreen()),
+                                  );
+                                },
+                            ),
+                          ],
+                        ),
+                      )
+                    : DropdownSearch<String>(
+                        items: list.items.map((mat) => mat.name).toList(),
+                        selectedItem: list
+                            .getRelatedMaterialName(widget.expense!.materialId),
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                            labelText: "Material",
+                            hintText:
+                                "Material related to expense for project.",
+                          ),
+                        ),
+                        onChanged: (String? val) => widget.onChange(
+                            'materialId', list.getRelatedIdOfMaterial(val!))),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: FilledActionButton(

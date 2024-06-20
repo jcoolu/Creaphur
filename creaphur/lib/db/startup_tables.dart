@@ -28,7 +28,8 @@ class SchemaBuilder {
       quantityType TEXT,
       quantity DOUBLE,
       costPer DOUBLE,
-      singleQuantity DOUBLE
+      singleQuantity DOUBLE,
+      retailer TEXT
     )
   ''');
 

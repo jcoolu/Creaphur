@@ -13,14 +13,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  final String? previousState;
+  const Dashboard({super.key, this.previousState});
   @override
   State<Dashboard> createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-  String selectedScreen = 'home';
+  late String selectedScreen;
   String title = 'Welcome';
+
+  @override
+  void initState() {
+    selectedScreen = widget.previousState ?? 'home';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Profile currentProfile = Provider.of<Profile>(context, listen: true);

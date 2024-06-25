@@ -1,6 +1,7 @@
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/expense.dart';
 import 'package:creaphur/models/material_list.dart';
+import 'package:creaphur/screens/dashboard/main.dart';
 import 'package:creaphur/screens/dashboard/materials.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
@@ -86,22 +87,28 @@ class ExpenseFormState extends State<ExpenseForm> {
                           children: [
                             const TextSpan(
                               text:
-                                  'You have no materials listed in your account.',
+                                  'You have no materials listed in your account. Please go to the ',
                               style: TextStyle(color: Colors.black),
                             ),
                             TextSpan(
-                              text:
-                                  'Please go to the Materials screen and create at least one material to assign to this expense.',
-                              style: const TextStyle(color: Colors.blue),
+                              text: 'Materials screen',
+                              style: const TextStyle(
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MaterialsScreen()),
+                                        builder: (context) => const Dashboard(
+                                            previousState: 'materials')),
                                   );
                                 },
+                            ),
+                            const TextSpan(
+                              text:
+                                  ' and create at least one material to assign to this expense.',
+                              style: TextStyle(color: Colors.black),
                             ),
                           ],
                         ),

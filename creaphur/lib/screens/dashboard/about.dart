@@ -66,7 +66,7 @@ class AboutScreen extends StatelessWidget {
           const SizedBox(height: 10),
           const BulletPoint(
               text: 'Developer: Jamie Coulombe (Ginger Jellygrump)'),
-          const BulletPoint(text: 'QA Analyst/Tester: Kirby Forsberg'),
+          const BulletPoint(text: 'QA Analyst/Tester: Kirby'),
           const SizedBox(height: 20),
           const KoFi(),
           const SizedBox(height: 20),

@@ -55,9 +55,21 @@ class AboutScreen extends StatelessWidget {
           const BulletPoint(text: 'Manage project expenses'),
           const BulletPoint(text: 'Monitor project progress'),
           const BulletPoint(text: 'User-friendly interface'),
+          const Spacer(),
+          const Text(
+            'Development Team:',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          const BulletPoint(
+              text: 'Developer: Jamie Coulombe (Ginger Jellygrump)'),
+          const BulletPoint(text: 'QA Analyst/Tester: Kirby Forsberg'),
           const SizedBox(height: 20),
           const KoFi(),
-          const Spacer(),
+          const SizedBox(height: 20),
           Center(
             child: Text(
               '© 2024 Creaphur',

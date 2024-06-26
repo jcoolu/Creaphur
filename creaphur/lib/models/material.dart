@@ -6,7 +6,6 @@ class Material extends DefaultModel {
   final double quantity;
   final String quantityType;
   final double costPer;
-  final double singleQuantity;
   final String retailer;
 
   Material({
@@ -17,7 +16,6 @@ class Material extends DefaultModel {
     required this.quantity,
     required this.quantityType,
     required this.costPer,
-    required this.singleQuantity,
     required this.retailer,
   }) : super(id: id, name: name);
 
@@ -30,7 +28,6 @@ class Material extends DefaultModel {
         quantity: json['quantity'],
         quantityType: json['quantityType'],
         costPer: json['costPer'],
-        singleQuantity: json['singleQuantity'],
         retailer: json['retailer']);
   }
 
@@ -43,7 +40,6 @@ class Material extends DefaultModel {
       'quantity': quantity,
       'quantityType': quantityType,
       'costPer': costPer,
-      'singleQuantity': singleQuantity,
       'retailer': retailer,
     };
   }
@@ -56,6 +52,5 @@ class Material extends DefaultModel {
       quantityType: 'Each',
       costPer: 0.00,
       image: '',
-      singleQuantity: 1,
       retailer: 'None / Unknown');
 }

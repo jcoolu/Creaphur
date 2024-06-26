@@ -28,7 +28,6 @@ class SchemaBuilder {
       quantityType TEXT,
       quantity DOUBLE,
       costPer DOUBLE,
-      singleQuantity DOUBLE,
       retailer TEXT
     )
   ''');
@@ -130,6 +129,12 @@ class SchemaBuilder {
   static handleUpdateForProjectv9(Database db) async {
     Batch batch = db.batch();
     batch.execute("ALTER TABLE Material ADD COLUMN retailer");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv10(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Material DROP COLUMN singleQuantity");
     await batch.commit();
   }
 }

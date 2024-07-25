@@ -26,7 +26,9 @@ class Expense extends DefaultModel {
       name: json['name'],
       materialId: json['materialId'],
       projectId: json['projectId'],
-      quantity: json['quantity'].toDouble(),
+      quantity: json['quantity'] is String
+          ? double.tryParse(json['quantity'])
+          : json['quantity'],
       profileId: json['profileId'],
     );
   }

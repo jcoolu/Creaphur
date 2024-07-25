@@ -4,6 +4,7 @@ import 'package:creaphur/widgets/date_time_picker.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -147,6 +148,7 @@ class ProjectFormState extends State<ProjectForm> {
                 ),
                 OutlinedFilePicker(
                   onChange: widget.onChange,
+                  type: FileType.image,
                   childWidget: Text(
                       (widget.project == null || widget.project!.image.isEmpty)
                           ? 'Select File'

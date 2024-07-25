@@ -1,11 +1,39 @@
+import 'dart:io';
+
 import 'package:creaphur/models/profile.dart';
 import 'package:creaphur/services/expense_service.dart';
 import 'package:creaphur/services/material_service.dart';
 import 'package:creaphur/services/profile_service.dart';
 import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/services/time_entry_service.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Utils {
+  static const List<String> fields = [
+    'type',
+    'id',
+    'costOfServices',
+    'costPer',
+    'description',
+    'endDate',
+    'estCost',
+    'image',
+    'materialId',
+    'name',
+    'quantity',
+    'quantityType',
+    'profileId',
+    'projectId',
+    'retailer',
+    'startDate',
+    'status',
+  ];
+  // ignore: prefer_interpolation_to_compose_strings
+  static String csvHeader = Utils.fields.join(',') + ' \n';
+
+  static const saveDataFileName = "creaphur_save_data.csv";
+
   static isCurrencyValid(String value) {
     RegExp regExp = RegExp(r'^\d+(\.\d{2})?$');
     return regExp.hasMatch(value);
@@ -49,5 +77,46 @@ class Utils {
     }
 
     return result.isEmpty ? '0 minutes' : result;
+  }
+
+  static Future<String> getLocalPath() async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  static Future<File> getSaveFile() async =>
+      File('${await Utils.getLocalPath()}/creaphurSaveData.txt');
+
+  static void saveFile(data) async {
+    File file = await Utils.getSaveFile();
+    file.writeAsString(data.toString());
+  }
+
+  static DateTime? parseDateTime(String? dateStr) {
+    if (dateStr == null || dateStr.isEmpty) {
+      return null;
+    }
+
+    List<DateFormat> dateFormats = [
+      DateFormat("yyyy-MM-dd H:mm:ss"),
+      DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS"),
+      DateFormat(
+          "yyyy-MM-dd'T'HH:mm:ss"), // To handle the case without milliseconds
+    ];
+
+    for (var format in dateFormats) {
+      try {
+        return format.parse(dateStr.trim());
+      } catch (e) {
+        // Continue to the next format
+      }
+    }
+
+    return null; // Return null if no formats match
+  }
+
+  static String escapeCommas(String input) {
+    return input.replaceAll(',', '\\,');
   }
 }

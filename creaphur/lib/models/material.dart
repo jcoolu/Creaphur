@@ -23,11 +23,15 @@ class Material extends DefaultModel {
     return Material(
         id: json['id'],
         name: json['name'],
-        image: json['image'] ?? '',
+        image: json['image'].trim() ?? '',
         profileId: json['profileId'],
-        quantity: json['quantity'],
+        quantity: json['quantity'] is String
+            ? double.tryParse(json['quantity'])
+            : json['quantity'],
         quantityType: json['quantityType'],
-        costPer: json['costPer'],
+        costPer: json['costPer'] is String
+            ? double.tryParse(json['costPer'])
+            : json['costPer'],
         retailer: json['retailer']);
   }
 

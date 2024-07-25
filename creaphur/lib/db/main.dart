@@ -21,4 +21,15 @@ class DatabaseHelper {
           }
         });
   }
+
+  static Future<void> clearData() async {
+    final db = await getDB();
+    await db.transaction((txn) async {
+      await txn.delete('Material');
+      await txn.delete('TimeEntry');
+      await txn.delete('Profile');
+      await txn.delete('Expense');
+      await txn.delete('Project');
+    });
+  }
 }

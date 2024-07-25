@@ -39,7 +39,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
     }
 
     void handleBack() {
-      Navigator.pop(
+      Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );

@@ -31,16 +31,39 @@ class Project extends DefaultModel {
   }) : super(id: id, name: name);
 
   factory Project.fromMap(Map<String, dynamic> json) {
-    return Project(
+    try {
+      DateTime? startDate = json['startDate'] is String
+          ? Utils.parseDateTime(json['startDate'])
+          : json['startDate'];
+
+      DateTime? endDate = json['endDate'] is String
+          ? Utils.parseDateTime(json['endDate'])
+          : json['endDate'];
+
+      if (startDate == null) {
+        throw FormatException("Invalid startDate format: ${json['startDate']}");
+      }
+      if (endDate == null) {
+        throw FormatException("Invalid endDate format: ${json['endDate']}");
+      }
+
+      return Project(
         id: json['id'],
         name: json['name'],
         description: json['description'],
-        startDate: DateTime.parse(json['startDate'].toString()),
-        endDate: DateTime.parse(json['endDate'].toString()),
-        estCost: json['estCost'],
+        startDate: startDate,
+        endDate: endDate,
+        estCost: json['estCost'] is String
+            ? double.tryParse(json['estCost'])
+            : json['estCost'],
         profileId: json['profileId'],
-        image: json['image'] ?? '',
-        status: json['status'] ?? Project.getStatuses().first);
+        image: json['image'].trim() ?? '',
+        status: json['status'] ?? Project.getStatuses().first,
+      );
+    } catch (e) {
+      print('Error in Project.fromMap: $e');
+      rethrow;
+    }
   }
 
   Map<String, dynamic> toMap() {

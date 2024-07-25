@@ -21,8 +21,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     bool isNew = widget.project.id.isEmpty;
-    print(widget.project.startDate);
-    print(widget.project.toMap());
+
     void handleBack() {
       Navigator.pop(
         context,

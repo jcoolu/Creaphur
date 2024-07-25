@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 class OutlinedFilePicker extends StatelessWidget {
   final Function onChange;
   final Widget childWidget;
+  final FileType type;
 
   const OutlinedFilePicker({
     super.key,
     required this.onChange,
     required this.childWidget,
+    required this.type,
   });
 
   @override
@@ -21,13 +23,23 @@ class OutlinedFilePicker extends StatelessWidget {
         width: double.infinity,
         child: OutlinedButton(
           onPressed: () async {
-            FilePickerResult? result =
-                await FilePicker.platform.pickFiles(type: FileType.image);
+            if (type != FileType.custom) {
+              FilePickerResult? result =
+                  await FilePicker.platform.pickFiles(type: type);
 
-            if (result != null) {
-              File file = File(result.files.single.path!);
-              Uint8List bytes = await file.readAsBytes();
-              onChange('image', base64.encode(bytes));
+              if (result != null && type == FileType.image) {
+                File file = File(result.files.single.path!);
+                Uint8List bytes = await file.readAsBytes();
+                onChange('image', base64.encode(bytes));
+              }
+            } else {
+              FilePickerResult? result = await FilePicker.platform
+                  .pickFiles(type: type, allowedExtensions: ['txt', 'json']);
+              if (result != null) {
+                File file = File(result.files.single.path!);
+                String data = await file.readAsString();
+                onChange(data);
+              }
             }
           },
           child: childWidget,

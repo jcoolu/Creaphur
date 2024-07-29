@@ -48,16 +48,16 @@ class Project extends DefaultModel {
       }
 
       return Project(
-        id: json['id'],
-        name: json['name'],
-        description: json['description'],
+        id: json['id'].trim(),
+        name: Utils.removeQuotes(json['name']).trim(),
+        description: Utils.removeQuotes(json['description']).trim(),
         startDate: startDate,
         endDate: endDate,
         estCost: json['estCost'] is String
-            ? double.tryParse(json['estCost'])
+            ? double.tryParse(Utils.removeQuotes(json['estCost']))
             : json['estCost'],
-        profileId: json['profileId'],
-        image: json['image'].trim() ?? '',
+        profileId: json['profileId'].trim(),
+        image: Utils.removeQuotes(json['image'].toString().trim()),
         status: json['status'] ?? Project.getStatuses().first,
       );
     } catch (e) {
@@ -70,7 +70,7 @@ class Project extends DefaultModel {
     return {
       'id': id,
       'name': name,
-      'description': description,
+      'description': description ?? '',
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
       'estCost': estCost,

@@ -1,3 +1,4 @@
+import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/expense_list.dart';
 import 'package:creaphur/models/material.dart';
 import 'package:creaphur/models/material_list.dart';
@@ -22,14 +23,14 @@ class Expense extends DefaultModel {
 
   factory Expense.fromMap(Map<String, dynamic> json) {
     return Expense(
-      id: json['id'],
-      name: json['name'],
-      materialId: json['materialId'],
-      projectId: json['projectId'],
+      id: json['id'].trim(),
+      name: Utils.removeQuotes(json['name']).trim(),
+      materialId: json['materialId'].trim(),
+      projectId: json['projectId'].trim(),
       quantity: json['quantity'] is String
           ? double.tryParse(json['quantity'])
           : json['quantity'],
-      profileId: json['profileId'],
+      profileId: json['profileId'].trim(),
     );
   }
 

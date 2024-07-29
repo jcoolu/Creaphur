@@ -1,3 +1,4 @@
+import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/default_model.dart';
 
 class Material extends DefaultModel {
@@ -21,18 +22,18 @@ class Material extends DefaultModel {
 
   factory Material.fromMap(Map<String, dynamic> json) {
     return Material(
-        id: json['id'],
-        name: json['name'],
-        image: json['image'].trim() ?? '',
-        profileId: json['profileId'],
+        id: json['id'].trim(),
+        name: Utils.removeQuotes(json['name']).trim(),
+        image: Utils.removeQuotes(json['image'].toString().trim()),
+        profileId: json['profileId'].trim(),
         quantity: json['quantity'] is String
             ? double.tryParse(json['quantity'])
             : json['quantity'],
-        quantityType: json['quantityType'],
+        quantityType: Utils.removeQuotes(json['quantityType']).trim(),
         costPer: json['costPer'] is String
             ? double.tryParse(json['costPer'])
             : json['costPer'],
-        retailer: json['retailer']);
+        retailer: Utils.removeQuotes(json['retailer']).trim());
   }
 
   Map<String, dynamic> toMap() {

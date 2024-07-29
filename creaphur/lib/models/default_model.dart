@@ -1,3 +1,4 @@
+import 'package:creaphur/common/utils.dart';
 import 'package:flutter/material.dart';
 
 class DefaultModel extends ChangeNotifier {
@@ -7,6 +8,6 @@ class DefaultModel extends ChangeNotifier {
   DefaultModel({required this.id, required this.name});
 
   DefaultModel.fromMap(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'];
+      : id = json['id'].trim(),
+        name = Utils.removeQuotes(json['name']).trim();
 }

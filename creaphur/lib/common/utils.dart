@@ -117,6 +117,10 @@ class Utils {
   }
 
   static String escapeCommas(String input) {
-    return input.replaceAll(',', '\\,');
+    return '"$input"';
+  }
+
+  static String removeQuotes(String input) {
+    return input.replaceAll('"', '');
   }
 }

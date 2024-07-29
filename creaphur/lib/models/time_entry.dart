@@ -36,12 +36,12 @@ class TimeEntry extends DefaultModel {
       }
 
       return TimeEntry(
-          id: json['id'],
-          name: json['name'],
+          id: json['id'].trim(),
+          name: Utils.removeQuotes(json['name']).trim(),
           startDate: startDate,
           endDate: endDate,
           costOfServices: json['costOfServices'] is String
-              ? double.tryParse(json['costOfServices'])
+              ? double.tryParse(Utils.removeQuotes(json['costOfServices']))
               : json['costOfServices'],
           projectId: json['projectId'],
           profileId: json['profileId']);

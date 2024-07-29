@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:creaphur/common/utils.dart';
@@ -169,7 +170,7 @@ class SettingsScreen extends StatelessWidget {
 
               for (material_model.Material material in materials.items) {
                 materialData +=
-                    'material, ${material.id}, , ${material.costPer}, , , , ${material.image}, , ${Utils.escapeCommas(material.name)}, ${material.quantity}, ${material.quantityType}, ${material.profileId}, , ${Utils.escapeCommas(material.retailer)}, , \n';
+                    'material, ${material.id}, , ${material.costPer}, , , , ${"\"${material.image}\""}, , ${Utils.escapeCommas(material.name)}, ${material.quantity}, ${material.quantityType}, ${material.profileId}, , ${Utils.escapeCommas(material.retailer)}, , \n';
               }
 
               for (Expense expense in expenses.items) {
@@ -179,12 +180,12 @@ class SettingsScreen extends StatelessWidget {
 
               for (TimeEntry timeEntry in timeEntries.items) {
                 timeEntryData +=
-                    'timeEntry, ${timeEntry.id}, ${timeEntry.costOfServices}, , , ${timeEntry.endDate}, , , , ${Utils.escapeCommas(timeEntry.name)}, , , ${timeEntry.profileId}, ${timeEntry.projectId}, , ${timeEntry.startDate}, \n';
+                    'timeEntry, ${timeEntry.id}, ${Utils.escapeCommas(timeEntry.costOfServices.toString())}, , , ${timeEntry.endDate}, , , , ${Utils.escapeCommas(timeEntry.name)}, , , ${timeEntry.profileId}, ${timeEntry.projectId}, , ${timeEntry.startDate}, \n';
               }
 
               for (Project project in projects.items) {
                 projectData +=
-                    'project, ${project.id}, , , ${Utils.escapeCommas(project.description ?? '')}, ${project.endDate}, ${project.estCost}, ${project.image}, , ${Utils.escapeCommas(project.name)}, , , ${project.profileId}, , , ${project.startDate}, ${project.status} \n';
+                    'project, ${project.id}, , , ${Utils.escapeCommas(project.description ?? '')}, ${project.endDate}, ${Utils.escapeCommas(project.estCost.toString())}, ${project.image}, , ${Utils.escapeCommas(project.name)}, , , ${project.profileId}, , , ${project.startDate}, ${project.status} \n';
               }
 
               final directory = await getTemporaryDirectory();

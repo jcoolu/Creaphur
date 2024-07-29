@@ -19,12 +19,6 @@ class TimeEntriesScreen extends StatelessWidget {
             .where((time) => time.projectId == project.id)
             .toList();
 
-    print(Provider.of<TimeEntryList>(context, listen: true)
-        .items
-        .map((t) => t.projectId));
-
-    print(project.id);
-
     void selectTimeEntry(TimeEntry timeEntry) {
       Navigator.push(
         context,

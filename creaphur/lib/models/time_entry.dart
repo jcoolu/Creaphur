@@ -43,10 +43,10 @@ class TimeEntry extends DefaultModel {
           costOfServices: json['costOfServices'] is String
               ? double.tryParse(Utils.removeQuotes(json['costOfServices']))
               : json['costOfServices'],
-          projectId: json['projectId'],
-          profileId: json['profileId']);
+          projectId: json['projectId'].trim(),
+          profileId: json['profileId'].trim());
     } catch (e) {
-      print('Error in Project.fromMap: $e');
+      print('Error in TimeEntry.fromMap: $e');
       rethrow;
     }
   }

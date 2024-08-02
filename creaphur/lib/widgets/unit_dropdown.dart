@@ -1,3 +1,4 @@
+import 'package:creaphur/widgets/outlined_dropdown.dart';
 import 'package:flutter/material.dart';
 
 final Map<String, List<String>> items = {
@@ -30,7 +31,7 @@ final Map<String, List<String>> items = {
 
 class UnitDropdown extends StatelessWidget {
   final String? initialValue;
-  final void Function(String?)? onChange;
+  final void Function(dynamic)? onChange;
 
   const UnitDropdown({
     super.key,
@@ -69,9 +70,12 @@ class UnitDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-        value: initialValue ?? 'Each',
-        items: returnDropdownItems(),
-        onChanged: onChange);
+    return OutlinedDropdown(
+      initialValue: initialValue ?? 'Each',
+      width: 150,
+      height: 56,
+      items: returnDropdownItems(),
+      onChange: onChange,
+    );
   }
 }

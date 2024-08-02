@@ -2,6 +2,7 @@ import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
+import 'package:creaphur/widgets/outlined_dropdown.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:file_picker/file_picker.dart';
@@ -82,10 +83,11 @@ class ProjectFormState extends State<ProjectForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: DropdownButton<String>(
+                  child: OutlinedDropdown(
                       hint: const Text('Status of Project'),
-                      isExpanded: true,
-                      value:
+                      width: double.infinity,
+                      height: 56,
+                      initialValue:
                           widget.project?.status ?? Project.getStatuses().first,
                       items: Project.getStatuses()
                           .map((status) => DropdownMenuItem<String>(
@@ -93,7 +95,7 @@ class ProjectFormState extends State<ProjectForm> {
                                 child: Text(status),
                               ))
                           .toList(),
-                      onChanged: (value) => widget.onChange('status', value)),
+                      onChange: (value) => widget.onChange('status', value)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),

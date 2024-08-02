@@ -122,6 +122,9 @@ class ExpenseFormState extends State<ExpenseForm> {
                             labelText: "Material",
                             hintText:
                                 "Material related to expense for project.",
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12.0, vertical: 8.0),
                           ),
                         ),
                         onChanged: (String? val) => widget.onChange(

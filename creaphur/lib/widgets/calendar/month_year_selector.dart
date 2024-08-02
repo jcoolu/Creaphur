@@ -1,3 +1,4 @@
+import 'package:creaphur/widgets/outlined_dropdown.dart';
 import 'package:flutter/material.dart';
 
 class MonthYearSelector extends StatelessWidget {
@@ -39,8 +40,8 @@ class MonthYearSelector extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: DropdownButton<int>(
-              value: month,
+            child: OutlinedDropdown(
+              initialValue: month,
               items: _months.asMap().entries.map((entry) {
                 int index = entry.key;
                 String month = entry.value;
@@ -50,28 +51,29 @@ class MonthYearSelector extends StatelessWidget {
                       Text(month, style: const TextStyle(color: Colors.black)),
                 );
               }).toList(),
-              onChanged: (int? newIndex) {
+              onChange: (newIndex) {
                 onChanged(newIndex!, year);
               },
-              isExpanded: true,
+              width: double.infinity,
+              height: 56,
             ),
           ),
           const SizedBox(width: 16),
           Expanded(
-            child: DropdownButton<int>(
-              value: year,
-              items: _getYears().map((year) {
-                return DropdownMenuItem<int>(
-                  value: year,
-                  child: Text(year.toString(),
-                      style: const TextStyle(color: Colors.black)),
-                );
-              }).toList(),
-              onChanged: (int? newYear) {
-                onChanged(month, newYear!);
-              },
-              isExpanded: true,
-            ),
+            child: OutlinedDropdown(
+                initialValue: year,
+                items: _getYears().map((year) {
+                  return DropdownMenuItem<int>(
+                    value: year,
+                    child: Text(year.toString(),
+                        style: const TextStyle(color: Colors.black)),
+                  );
+                }).toList(),
+                onChange: (newYear) {
+                  onChanged(month, newYear!);
+                },
+                width: double.infinity,
+                height: 56),
           ),
         ],
       ),

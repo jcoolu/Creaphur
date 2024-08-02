@@ -3,6 +3,7 @@ import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/material.dart' as material_model;
 import 'package:creaphur/models/material_list.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
+import 'package:creaphur/widgets/outlined_dropdown.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:creaphur/widgets/unit_dropdown.dart';
@@ -69,9 +70,9 @@ class MaterialFormState extends State<MaterialForm> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: DropdownButton<String>(
-                    value: retailers.contains(widget.material?.retailer)
+                  padding: const EdgeInsets.only(bottom: 15),
+                  child: OutlinedDropdown(
+                    initialValue: retailers.contains(widget.material?.retailer)
                         ? widget.material?.retailer
                         : 'Other',
                     items: retailers
@@ -80,7 +81,9 @@ class MaterialFormState extends State<MaterialForm> {
                               child: Text(retailer),
                             ))
                         .toList(),
-                    onChanged: (value) => widget.onChange('retailer', value),
+                    width: double.infinity,
+                    height: 56,
+                    onChange: (value) => widget.onChange('retailer', value),
                   ),
                 ),
                 (widget.material?.retailer == 'Other' ||
@@ -126,11 +129,11 @@ class MaterialFormState extends State<MaterialForm> {
                     },
                   ),
                 ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    children: [
+                      Flexible(
                         child: OutlinedTextField(
                           initialValue:
                               widget.material?.costPer.toStringAsFixed(2) ??
@@ -156,13 +159,15 @@ class MaterialFormState extends State<MaterialForm> {
                           },
                         ),
                       ),
-                    ),
-                    const Text('Per'),
-                    UnitDropdown(
-                        initialValue: widget.material?.quantityType,
-                        onChange: (value) =>
-                            widget.onChange('quantityType', value)),
-                  ],
+                      const SizedBox(width: 5),
+                      const Text('Per'),
+                      const SizedBox(width: 5),
+                      UnitDropdown(
+                          initialValue: widget.material?.quantityType,
+                          onChange: (value) =>
+                              widget.onChange('quantityType', value)),
+                    ],
+                  ),
                 ),
                 OutlinedFilePicker(
                   onChange: widget.onChange,

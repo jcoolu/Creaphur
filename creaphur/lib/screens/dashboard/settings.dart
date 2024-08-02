@@ -48,16 +48,26 @@ class SettingsScreen extends StatelessWidget {
               dropdownDecoratorProps: const DropDownDecoratorProps(
                 dropdownSearchDecoration: InputDecoration(
                   labelText: "Current Profile",
-                  hintText: "Current Profile Selected",
+                  hintText: "Current profile selected.",
+                  border: OutlineInputBorder(),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                 ),
               ),
               onChanged: (String? val) => selectProfile(val!)),
           const SizedBox(
-            height: 16,
+            height: 12,
           ),
           FilledActionButton(
             buttonText: 'Add Profile',
             onPressed: goToProfile,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          const Divider(),
+          const SizedBox(
+            height: 15,
           ),
           OutlinedFilePicker(
             onChange: (contents) async =>

@@ -178,7 +178,7 @@ class _DashboardState extends State<Dashboard> {
             ],
           ),
         ),
-        body: handleScreen(),
+        body: SafeArea(child: handleScreen()),
         floatingActionButton: ['home', 'materials', ''].contains(selectedScreen)
             ? FilledFloatingActionButton(onPressed: handleCreate)
             : null);

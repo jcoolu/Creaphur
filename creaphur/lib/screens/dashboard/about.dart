@@ -8,8 +8,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
           Center(
             child: Image.asset(
@@ -99,7 +98,7 @@ class BulletPoint extends StatelessWidget {
         children: [
           const Icon(Icons.check_circle, size: 20, color: Color(0xffad99ff)),
           const SizedBox(width: 10),
-          Expanded(
+          Flexible(
             child: Text(
               text,
               style: const TextStyle(fontSize: 16),

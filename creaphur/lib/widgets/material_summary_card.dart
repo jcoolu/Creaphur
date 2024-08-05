@@ -40,8 +40,8 @@ class MaterialSummaryCard extends StatelessWidget {
               title: Text(material.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),
-              subtitle: Text(
-                  'Available Qty: ${material.quantity} ${material.quantityType}'),
+              subtitle:
+                  Text('\$${material.costPer} per ${material.quantityType}'),
             ),
           ],
         ),

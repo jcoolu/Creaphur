@@ -163,7 +163,7 @@ class Utils {
 
     for (Material material in materials.items) {
       materialData +=
-          'material, ${material.id}, , ${material.costPer}, , , , ${"\"${material.image}\""}, , ${Utils.escapeCommas(material.name)}, ${material.quantity}, ${material.quantityType}, ${material.profileId}, , ${Utils.escapeCommas(material.retailer)}, , \n';
+          'material, ${material.id}, , ${material.costPer}, , , , ${"\"${material.image}\""}, , ${Utils.escapeCommas(material.name)}, , ${material.quantityType}, ${material.profileId}, , ${Utils.escapeCommas(material.retailer)}, , \n';
     }
 
     for (Expense expense in expenses.items) {

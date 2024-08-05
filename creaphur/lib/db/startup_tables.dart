@@ -26,7 +26,6 @@ class SchemaBuilder {
       image TEXT,
       profileId TEXT,
       quantityType TEXT,
-      quantity DOUBLE,
       costPer DOUBLE,
       retailer TEXT
     )
@@ -135,6 +134,12 @@ class SchemaBuilder {
   static handleUpdateForProjectv10(Database db) async {
     Batch batch = db.batch();
     batch.execute("ALTER TABLE Material DROP COLUMN singleQuantity");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv11(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Material DROP COLUMN quantity");
     await batch.commit();
   }
 }

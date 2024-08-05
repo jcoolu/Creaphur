@@ -109,28 +109,6 @@ class MaterialFormState extends State<MaterialForm> {
                     : Container(),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedTextField(
-                    initialValue:
-                        widget.material?.quantity.toStringAsFixed(2) ?? '0.00',
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    maxLines: 1,
-                    hintText: 'Available Quantity of Material',
-                    labelText: 'Available Quantity *',
-                    onValidate: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a quantity for your material';
-                      }
-                      if (!Utils.isQuantityValid(value)) {
-                        return 'Please enter a valid format for quantity of material.';
-                      }
-                      widget.onChange('quantity', double.parse(value));
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
                   child: Row(
                     children: [
                       Flexible(

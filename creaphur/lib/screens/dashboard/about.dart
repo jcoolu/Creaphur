@@ -1,8 +1,21 @@
 import 'package:creaphur/widgets/ko_fi.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
+
+  void launchMailClient(String targetEmail) async {
+    String mailUrl = 'mailto:$targetEmail';
+    try {
+      await launchUrlString(mailUrl);
+    } catch (e) {
+      await Clipboard.setData(ClipboardData(text: targetEmail));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +46,32 @@ class AboutScreen extends StatelessWidget {
             ),
           ),
           const Divider(height: 30, thickness: 1),
-          const Text(
-            'Creaphur is a versatile project management app designed to help you efficiently track and manage your projects. With Creaphur, you can easily log project materials, track time spent, manage expenses, and monitor progress.',
-            style: TextStyle(
-              fontSize: 16,
-              height: 1.5,
+          RichText(
+            text: TextSpan(
+              style: const TextStyle(
+                fontSize: 16,
+                height: 1.5,
+                color: Colors.black,
+              ),
+              children: [
+                const TextSpan(
+                  text:
+                      'Creaphur is a versatile project management app designed to help you efficiently track and manage your projects. With Creaphur, you can easily log project materials, track time spent, manage expenses, and monitor progress. New features will be added for Creaphur and this page will be updated as new versions come out.\nIf you have any issues or any new ideas while using Creaphur, please do not hesitate to reach out to my email at ',
+                ),
+                TextSpan(
+                  text: 'gjellygrump@gmail.com',
+                  style: const TextStyle(
+                    color: Colors.blue,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      launchMailClient('gjellygrump@gmail.com');
+                    },
+                ),
+                const TextSpan(
+                  text: '.',
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 20),

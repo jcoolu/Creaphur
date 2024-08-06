@@ -56,28 +56,41 @@ class SettingsScreen extends StatelessWidget {
               ),
               onChanged: (String? val) => selectProfile(val!)),
           const SizedBox(
-            height: 12,
+            height: 22,
           ),
-          FilledActionButton(
-            buttonText: 'Add Profile',
-            onPressed: goToProfile,
+          SizedBox(
+            width: 800,
+            height: 40,
+            child: FilledActionButton(
+              buttonText: 'Add Profile',
+              onPressed: goToProfile,
+            ),
           ),
           const SizedBox(
-            height: 15,
+            height: 39,
           ),
           const Divider(),
           const SizedBox(
-            height: 15,
+            height: 39,
           ),
-          OutlinedFilePicker(
-            onChange: (contents) async =>
-                Utils.importSaveData(contents, context),
-            type: FileType.custom,
-            childWidget: const Text('Import Save Data'),
+          SizedBox(
+            width: 800,
+            height: 50,
+            child: OutlinedFilePicker(
+              onChange: (contents) async =>
+                  Utils.importSaveData(contents, context),
+              type: FileType.custom,
+              childWidget: const Text('Import Save Data'),
+            ),
           ),
-          FilledActionButton(
-            onPressed: () async => Utils.exportSaveData(context),
-            buttonText: 'Export Save Data',
+          SizedBox(height: 20),
+          SizedBox(
+            width: 800.0,
+            height: 50.0,
+            child: FilledActionButton(
+              onPressed: () async => Utils.exportSaveData(context),
+              buttonText: 'Export All Save Data',
+            ),
           ),
         ],
       ),

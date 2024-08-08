@@ -1,5 +1,5 @@
+import 'package:creaphur/common/form_utils.dart';
 import 'package:creaphur/common/retailers.dart';
-import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/material.dart' as material_model;
 import 'package:creaphur/models/material_list.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
@@ -54,19 +54,8 @@ class MaterialFormState extends State<MaterialForm> {
                     labelText: 'Name *',
                     maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
-                    onValidate: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a name for your material';
-                      }
-
-                      if (Provider.of<MaterialList>(context, listen: false)
-                              .isDuplicate(value) &&
-                          widget.isNew) {
-                        return 'Duplicate name';
-                      }
-
-                      return null;
-                    },
+                    onValidate: (value) => FormUtils.onValidateMaterial(
+                        value, context, widget.isNew),
                   ),
                 ),
                 Padding(
@@ -97,13 +86,9 @@ class MaterialFormState extends State<MaterialForm> {
                           maxLines: 1,
                           onChange: (value) =>
                               widget.onChange('retailer', value),
-                          onValidate: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a retailer name';
-                            }
-
-                            return null;
-                          },
+                          onValidate: (String? value) =>
+                              FormUtils.onValidateBasicString(
+                                  value, 'Please enter a retailer name'),
                         ),
                       )
                     : Container(),
@@ -125,16 +110,12 @@ class MaterialFormState extends State<MaterialForm> {
                           hintText: 'Cost for Material Per Unit',
                           labelText: 'Cost *',
                           maxLines: 1,
-                          onValidate: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a cost for your material';
-                            }
-                            if (!Utils.isCurrencyValid(value)) {
-                              return 'Please enter a valid format for material cost.';
-                            }
-                            widget.onChange('costPer', double.parse(value));
-                            return null;
-                          },
+                          onValidate: (value) => FormUtils.onValidateCurrency(
+                              value,
+                              'cost',
+                              'material',
+                              widget.onChange,
+                              'costPer'),
                         ),
                       ),
                       const SizedBox(width: 5),

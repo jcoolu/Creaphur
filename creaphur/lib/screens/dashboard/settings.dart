@@ -9,6 +9,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+var button_width = double.infinity;
+var button_height = 50.0;
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
@@ -56,28 +59,41 @@ class SettingsScreen extends StatelessWidget {
               ),
               onChanged: (String? val) => selectProfile(val!)),
           const SizedBox(
-            height: 12,
+            height: 22,
           ),
-          FilledActionButton(
-            buttonText: 'Add Profile',
-            onPressed: goToProfile,
+          SizedBox(
+            width: button_width,
+            height: button_height * 0.8,
+            child: FilledActionButton(
+              buttonText: 'Add Profile',
+              onPressed: goToProfile,
+            ),
           ),
           const SizedBox(
-            height: 15,
+            height: 35,
           ),
           const Divider(),
           const SizedBox(
-            height: 15,
+            height: 35,
           ),
-          OutlinedFilePicker(
-            onChange: (contents) async =>
-                Utils.importSaveData(contents, context),
-            type: FileType.custom,
-            childWidget: const Text('Import Save Data'),
+          SizedBox(
+            width: button_width,
+            height: button_height,
+            child: OutlinedFilePicker(
+              onChange: (contents) async =>
+                  Utils.importSaveData(contents, context),
+              type: FileType.custom,
+              childWidget: const Text('Import Save Data'),
+            ),
           ),
-          FilledActionButton(
-            onPressed: () async => Utils.exportSaveData(context),
-            buttonText: 'Export Save Data',
+          SizedBox(height: 20),
+          SizedBox(
+            width: button_width,
+            height: button_height,
+            child: FilledActionButton(
+              onPressed: () async => Utils.exportSaveData(context),
+              buttonText: 'Export All Save Data',
+            ),
           ),
         ],
       ),

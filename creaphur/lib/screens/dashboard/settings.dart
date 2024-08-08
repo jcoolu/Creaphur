@@ -9,6 +9,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+var button_width = double.infinity;
+var button_height = 50.0;
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
@@ -59,23 +62,23 @@ class SettingsScreen extends StatelessWidget {
             height: 22,
           ),
           SizedBox(
-            width: 800,
-            height: 40,
+            width: button_width,
+            height: button_height * 0.8,
             child: FilledActionButton(
               buttonText: 'Add Profile',
               onPressed: goToProfile,
             ),
           ),
           const SizedBox(
-            height: 39,
+            height: 35,
           ),
           const Divider(),
           const SizedBox(
-            height: 39,
+            height: 35,
           ),
           SizedBox(
-            width: 800,
-            height: 50,
+            width: button_width,
+            height: button_height,
             child: OutlinedFilePicker(
               onChange: (contents) async =>
                   Utils.importSaveData(contents, context),
@@ -85,8 +88,8 @@ class SettingsScreen extends StatelessWidget {
           ),
           SizedBox(height: 20),
           SizedBox(
-            width: 800.0,
-            height: 50.0,
+            width: button_width,
+            height: button_height,
             child: FilledActionButton(
               onPressed: () async => Utils.exportSaveData(context),
               buttonText: 'Export All Save Data',

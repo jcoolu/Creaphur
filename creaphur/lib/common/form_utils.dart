@@ -1,5 +1,6 @@
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/material_list.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FormUtils {
@@ -22,8 +23,8 @@ class FormUtils {
     return null;
   }
 
-  static String? onValidateQuantity(
-      value, field, object, Function onChange, String variable) {
+  static String? onValidateQuantity(String? value, String field, String object,
+      Function onChange, String variable) {
     if (value == null || value.trim().isEmpty) {
       return 'Please enter a $field for your $object';
     }
@@ -34,7 +35,8 @@ class FormUtils {
     return null;
   }
 
-  static String? onValidateMaterial(value, context, isNew) {
+  static String? onValidateMaterial(
+      String? value, BuildContext context, bool isNew) {
     if (value == null || value.trim().isEmpty) {
       return 'Please enter a name for your material';
     }

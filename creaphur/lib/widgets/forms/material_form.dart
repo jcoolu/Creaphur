@@ -54,19 +54,8 @@ class MaterialFormState extends State<MaterialForm> {
                     labelText: 'Name *',
                     maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
-                    onValidate: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Please enter a name for your material';
-                      }
-
-                      if (Provider.of<MaterialList>(context, listen: false)
-                              .isDuplicate(value) &&
-                          widget.isNew) {
-                        return 'Duplicate name';
-                      }
-
-                      return null;
-                    },
+                    onValidate: (value) => FormUtils.onValidateMaterial(
+                        value, context, widget.isNew),
                   ),
                 ),
                 Padding(

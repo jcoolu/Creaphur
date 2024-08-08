@@ -42,8 +42,7 @@ class SettingsScreen extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: ListView(
         children: <Widget>[
           DropdownSearch<String>(
               items: profiles.map((p) => p.name).toList(),

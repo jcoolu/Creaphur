@@ -65,7 +65,7 @@ class NameFormState extends State<NameForm> {
                   labelText: 'Name *',
                   maxLines: 1,
                   onValidate: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return 'Please enter your name';
                     }
                     widget.setName(value);

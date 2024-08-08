@@ -1,4 +1,4 @@
-import 'package:creaphur/common/utils.dart';
+import 'package:creaphur/common/form_utils.dart';
 import 'package:creaphur/models/time_entry.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
@@ -60,12 +60,9 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                     labelText: 'Name *',
                     maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
-                    onValidate: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a name for your time entry';
-                      }
-                      return null;
-                    },
+                    onValidate: (String? value) =>
+                        FormUtils.onValidateBasicString(
+                            value, 'Please enter a name for your time entry'),
                   ),
                 ),
                 Padding(
@@ -106,16 +103,12 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                         const TextInputType.numberWithOptions(decimal: true),
                     hintText: 'Time Entry Cost of Service',
                     labelText: 'Cost of Services *',
-                    onValidate: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a projected cost for your project';
-                      }
-                      if (!Utils.isCurrencyValid(value)) {
-                        return 'Please enter a valid format for Projected Cost.';
-                      }
-                      widget.onChange('costOfServices', double.parse(value));
-                      return null;
-                    },
+                    onValidate: (value) => FormUtils.onValidateCurrency(
+                        value,
+                        'projected cost',
+                        'time entry',
+                        widget.onChange,
+                        'costOfServices'),
                   ),
                 ),
                 Padding(

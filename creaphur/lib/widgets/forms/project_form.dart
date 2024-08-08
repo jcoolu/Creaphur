@@ -1,4 +1,4 @@
-import 'package:creaphur/common/utils.dart';
+import 'package:creaphur/common/form_utils.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
@@ -63,12 +63,9 @@ class ProjectFormState extends State<ProjectForm> {
                     labelText: 'Name *',
                     maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
-                    onValidate: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a name for your project';
-                      }
-                      return null;
-                    },
+                    onValidate: (String? value) =>
+                        FormUtils.onValidateBasicString(
+                            value, 'Please enter a name for your project'),
                   ),
                 ),
                 Padding(
@@ -136,16 +133,12 @@ class ProjectFormState extends State<ProjectForm> {
                     maxLines: 1,
                     hintText: 'Projected Cost for Project',
                     labelText: 'Projected Cost *',
-                    onValidate: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a projected cost for your project';
-                      }
-                      if (!Utils.isCurrencyValid(value)) {
-                        return 'Please enter a valid format for Projected Cost.';
-                      }
-                      widget.onChange('estCost', double.parse(value));
-                      return null;
-                    },
+                    onValidate: (value) => FormUtils.onValidateCurrency(
+                        value,
+                        'projected cost',
+                        'project',
+                        widget.onChange,
+                        'estCost'),
                   ),
                 ),
                 OutlinedFilePicker(

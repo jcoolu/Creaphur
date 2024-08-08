@@ -1,8 +1,7 @@
-import 'package:creaphur/common/utils.dart';
+import 'package:creaphur/common/form_utils.dart';
 import 'package:creaphur/models/expense.dart';
 import 'package:creaphur/models/material_list.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
-import 'package:creaphur/screens/dashboard/materials.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -51,12 +50,9 @@ class ExpenseFormState extends State<ExpenseForm> {
                     labelText: 'Name *',
                     maxLines: 1,
                     onChange: (value) => widget.onChange('name', value),
-                    onValidate: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a name for your expense';
-                      }
-                      return null;
-                    },
+                    onValidate: (String? value) =>
+                        FormUtils.onValidateBasicString(
+                            value, 'Please enter a name for your expense'),
                   ),
                 ),
                 Padding(
@@ -69,16 +65,8 @@ class ExpenseFormState extends State<ExpenseForm> {
                     maxLines: 1,
                     hintText: 'Quantity of Expense',
                     labelText: 'Quantity *',
-                    onValidate: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a quantity for your expense';
-                      }
-                      if (!Utils.isQuantityValid(value)) {
-                        return 'Please enter a valid format for quantity of expense.';
-                      }
-                      widget.onChange('quantity', double.parse(value));
-                      return null;
-                    },
+                    onValidate: (value) => FormUtils.onValidateQuantity(value,
+                        'quantity', 'expense', widget.onChange, 'quantity'),
                   ),
                 ),
                 list.items.isEmpty

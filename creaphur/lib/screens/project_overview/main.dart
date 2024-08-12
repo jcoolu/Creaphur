@@ -30,13 +30,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
   int screenIndex = 0;
   int selectedMonth = DateTime.now().month;
   int selectedYear = DateTime.now().year;
-  late String randomText;
-
-  @override
-  void initState() {
-    super.initState();
-    randomText = QuoteList.getRandomText();
-  }
+  String randomText = QuoteList.getRandomText();
 
   @override
   Widget build(BuildContext context) {

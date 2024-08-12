@@ -58,7 +58,10 @@ class _MaterialScreenState extends State<MaterialScreen> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (currentContext) => const Dashboard()),
+        MaterialPageRoute(
+            builder: (currentContext) => const Dashboard(
+                  previousState: 'materials',
+                )),
       );
     }
 

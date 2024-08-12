@@ -16,8 +16,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProjectOverviewScreen extends StatefulWidget {
+  final int? previousState;
   final Project project;
-  const ProjectOverviewScreen({super.key, required this.project});
+  const ProjectOverviewScreen(
+      {super.key, required this.project, this.previousState});
 
   @override
   State<ProjectOverviewScreen> createState() => _ProjectOverviewScreenState();
@@ -26,9 +28,17 @@ class ProjectOverviewScreen extends StatefulWidget {
 class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
   String name = '';
   late Project? newProject = widget.project;
+  late int selectedScreen;
   int screenIndex = 0;
   int selectedMonth = DateTime.now().month;
   int selectedYear = DateTime.now().year;
+
+  @override
+  void initState() {
+    selectedScreen = widget.previousState ?? 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Profile currentProfile = Provider.of<Profile>(context, listen: true);

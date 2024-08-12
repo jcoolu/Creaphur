@@ -8,8 +8,8 @@ import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:confetti/confetti.dart';
 
-// Define a custom Form widget.
 class ProjectForm extends StatefulWidget {
   final Function onChange;
   final Project? project;
@@ -29,6 +29,22 @@ class ProjectForm extends StatefulWidget {
 
 class ProjectFormState extends State<ProjectForm> {
   final _formKey = GlobalKey<FormState>();
+  late ConfettiController _confettiController;
+  late String selectedStatus;
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 3));
+    selectedStatus = widget.project?.status ?? Project.getStatuses().first;
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,125 +61,164 @@ class ProjectFormState extends State<ProjectForm> {
           ));
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 12),
-                  child: OutlinedTextField(
-                    initialValue: widget.project?.name ?? '',
-                    hintText: 'Project Name',
-                    labelText: 'Name *',
-                    maxLines: 1,
-                    onChange: (value) => widget.onChange('name', value),
-                    onValidate: (String? value) =>
-                        FormUtils.onValidateBasicString(
-                            value, 'Please enter a name for your project'),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedTextField(
-                    initialValue: widget.project?.description ?? '',
-                    hintText: 'Project Description',
-                    labelText: 'Description',
-                    inputFormatters: [LengthLimitingTextInputFormatter(320)],
-                    onChange: (value) => widget.onChange('description', value),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedDropdown(
-                      hint: const Text('Status of Project'),
-                      width: double.infinity,
-                      height: 56,
-                      initialValue:
-                          widget.project?.status ?? Project.getStatuses().first,
-                      items: Project.getStatuses()
-                          .map((status) => DropdownMenuItem<String>(
-                                value: status,
-                                child: Text(status),
-                              ))
-                          .toList(),
-                      onChange: (value) => widget.onChange('status', value)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: DateTimePicker(
-                      type: 'startDate',
-                      dateTime: widget.project?.startDate ?? DateTime.now(),
-                      onChange: handleChangeDate,
-                      buttonText: 'Projected Start',
-                      conditional: 'isBefore',
-                      showTime: false,
-                      compareDate: widget.project?.endDate ??
-                          DateTime.now().add(const Duration(days: 1))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: DateTimePicker(
-                      type: 'endDate',
-                      dateTime: widget.project?.endDate ??
-                          DateTime.now().add(const Duration(days: 1)),
-                      onChange: handleChangeDate,
-                      conditional: 'isAfter',
-                      showTime: false,
-                      compareDate: widget.project?.startDate ??
-                          DateTime.now().add(const Duration(days: 1)),
-                      buttonText: 'Projected End'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedTextField(
-                    initialValue:
-                        widget.project?.estCost.toStringAsFixed(2) ?? '0.00',
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                          RegExp(r'^\d+\.?\d{0,2}')),
-                    ],
-                    maxLines: 1,
-                    hintText: 'Projected Cost for Project',
-                    labelText: 'Projected Cost *',
-                    onValidate: (value) => FormUtils.onValidateCurrency(
-                        value,
-                        'projected cost',
-                        'project',
-                        widget.onChange,
-                        'estCost'),
-                  ),
-                ),
-                OutlinedFilePicker(
-                  onChange: widget.onChange,
-                  type: FileType.image,
-                  childWidget: Text(
-                      (widget.project == null || widget.project!.image.isEmpty)
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12, bottom: 12),
+                      child: OutlinedTextField(
+                        initialValue: widget.project?.name ?? '',
+                        hintText: 'Project Name',
+                        labelText: 'Name *',
+                        maxLines: 1,
+                        onChange: (value) => widget.onChange('name', value),
+                        onValidate: (String? value) =>
+                            FormUtils.onValidateBasicString(
+                                value, 'Please enter a name for your project'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: OutlinedTextField(
+                        initialValue: widget.project?.description ?? '',
+                        hintText: 'Project Description',
+                        labelText: 'Description',
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(320)
+                        ],
+                        onChange: (value) =>
+                            widget.onChange('description', value),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: OutlinedDropdown(
+                          hint: const Text('Status of Project'),
+                          width: double.infinity,
+                          height: 56,
+                          initialValue: selectedStatus,
+                          items: Project.getStatuses()
+                              .map((status) => DropdownMenuItem<String>(
+                                    value: status,
+                                    child: Text(status),
+                                  ))
+                              .toList(),
+                          onChange: (value) {
+                            setState(() {
+                              selectedStatus = value;
+                            });
+                            widget.onChange('status', value);
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: DateTimePicker(
+                          type: 'startDate',
+                          dateTime: widget.project?.startDate ?? DateTime.now(),
+                          onChange: handleChangeDate,
+                          buttonText: 'Projected Start',
+                          conditional: 'isBefore',
+                          showTime: false,
+                          compareDate: widget.project?.endDate ??
+                              DateTime.now().add(const Duration(days: 1))),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: DateTimePicker(
+                          type: 'endDate',
+                          dateTime: widget.project?.endDate ??
+                              DateTime.now().add(const Duration(days: 1)),
+                          onChange: handleChangeDate,
+                          conditional: 'isAfter',
+                          showTime: false,
+                          compareDate: widget.project?.startDate ??
+                              DateTime.now().add(const Duration(days: 1)),
+                          buttonText: 'Projected End'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: OutlinedTextField(
+                        initialValue:
+                            widget.project?.estCost.toStringAsFixed(2) ??
+                                '0.00',
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        maxLines: 1,
+                        hintText: 'Projected Cost for Project',
+                        labelText: 'Projected Cost *',
+                        onValidate: (value) => FormUtils.onValidateCurrency(
+                            value,
+                            'projected cost',
+                            'project',
+                            widget.onChange,
+                            'estCost'),
+                      ),
+                    ),
+                    OutlinedFilePicker(
+                      onChange: widget.onChange,
+                      type: FileType.image,
+                      childWidget: Text((widget.project == null ||
+                              widget.project!.image.isEmpty)
                           ? 'Select File'
                           : 'Image Selected'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: FilledActionButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              // Check if the status is "Completed"
+                              if (selectedStatus == 'Completed') {
+                                // Play confetti first
+                                _confettiController.play();
+
+                                // Delay to let the confetti start before navigating
+                                Future.delayed(const Duration(seconds: 2), () {
+                                  widget.onSave();
+                                });
+                              } else {
+                                widget
+                                    .onSave(); // Save immediately if status is not "Complete"
+                              }
+                            }
+                          },
+                          buttonText: 'Save'),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: FilledActionButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          widget.onSave();
-                        }
-                      },
-                      buttonText: 'Save'),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConfettiWidget(
+            confettiController: _confettiController,
+            numberOfParticles: 50,
+            blastDirectionality: BlastDirectionality.explosive,
+            shouldLoop: false,
+            colors: const [
+              Colors.blue,
+              Colors.pink,
+              Colors.orange,
+              Colors.purple
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

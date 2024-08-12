@@ -14,7 +14,7 @@ import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'quote_list.dart'; // Import the new file
+import 'quote_list.dart';
 
 class ProjectOverviewScreen extends StatefulWidget {
   final Project project;
@@ -35,7 +35,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
   @override
   void initState() {
     super.initState();
-    randomText = QuoteList.getRandomText(); // Get a random text from the list
+    randomText = QuoteList.getRandomText();
   }
 
   @override
@@ -161,8 +161,11 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                randomText,
-                style: const TextStyle(fontSize: 16, color: Colors.black54),
+                '"$randomText"',
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.black54,
+                    fontStyle: FontStyle.italic),
               ),
             ),
           ],

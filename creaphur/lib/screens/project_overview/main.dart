@@ -14,6 +14,7 @@ import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'quote_list.dart'; // Import the new file
 
 class ProjectOverviewScreen extends StatefulWidget {
   final Project project;
@@ -29,6 +30,14 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
   int screenIndex = 0;
   int selectedMonth = DateTime.now().month;
   int selectedYear = DateTime.now().year;
+  late String randomText;
+
+  @override
+  void initState() {
+    super.initState();
+    randomText = QuoteList.getRandomText(); // Get a random text from the list
+  }
+
   @override
   Widget build(BuildContext context) {
     Profile currentProfile = Provider.of<Profile>(context, listen: true);
@@ -146,7 +155,18 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
       ),
       body: SafeArea(
-        child: handleScreen(),
+        child: Column(
+          children: [
+            Expanded(child: handleScreen()), // Existing screen content
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                randomText,
+                style: const TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: NavigationBar(
           selectedIndex: screenIndex,

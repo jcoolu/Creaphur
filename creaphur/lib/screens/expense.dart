@@ -60,8 +60,10 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
       Navigator.push(
         currentContext,
         MaterialPageRoute(
-            builder: (context) =>
-                ProjectOverviewScreen(project: widget.project)),
+            builder: (context) => ProjectOverviewScreen(
+                  project: widget.project,
+                  previousState: 1,
+                )),
       );
     }
 

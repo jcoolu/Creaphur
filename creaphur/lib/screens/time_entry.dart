@@ -60,8 +60,10 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
       Navigator.push(
         currentContext,
         MaterialPageRoute(
-            builder: (context) =>
-                ProjectOverviewScreen(project: widget.project)),
+            builder: (context) => ProjectOverviewScreen(
+                  project: widget.project,
+                  previousState: 2,
+                )),
       );
     }
 

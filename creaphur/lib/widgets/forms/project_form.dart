@@ -31,12 +31,13 @@ class ProjectFormState extends State<ProjectForm> {
   final _formKey = GlobalKey<FormState>();
   late ConfettiController _confettiController;
   late String selectedStatus;
+  static const int confettiDelay = 1;
 
   @override
   void initState() {
     super.initState();
     _confettiController =
-        ConfettiController(duration: const Duration(seconds: 3));
+        ConfettiController(duration: const Duration(seconds: confettiDelay));
     selectedStatus = widget.project?.status ?? Project.getStatuses().first;
   }
 
@@ -182,11 +183,12 @@ class ProjectFormState extends State<ProjectForm> {
                             if (_formKey.currentState!.validate()) {
                               // Check if the status is "Completed"
                               if (selectedStatus == 'Completed') {
-                                // Play confetti first
+                                // Start confetti
                                 _confettiController.play();
-
-                                // Delay to let the confetti start before navigating
-                                Future.delayed(const Duration(seconds: 2), () {
+                                // Delay to let the confetti finish.
+                                Future.delayed(
+                                    const Duration(seconds: confettiDelay + 1),
+                                    () {
                                   widget.onSave();
                                 });
                               } else {

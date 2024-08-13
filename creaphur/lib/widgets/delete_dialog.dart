@@ -30,35 +30,56 @@ class DeleteDialog extends StatelessWidget {
             backgroundColor: const Color(0xffad99ff),
             titleTextStyle: const TextStyle(color: Colors.white),
             contentTextStyle: const TextStyle(color: Colors.white),
-            icon: const Icon(Icons.warning, color: Color(0xff2900cc)),
-            title: const Text('Are you sure?'),
+            icon: const Icon(
+              Icons.warning,
+              color: Color.fromARGB(255, 204, 0, 0),
+              size: 90,
+            ),
+            title:
+                const Text('Are you sure?', textScaler: TextScaler.linear(1.5)),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Are you sure you would like to delete this $model?'),
-                  const Text('This action cannot be undone.'),
+                  Text(
+                    'Are you sure you would like to delete this $model?\n\nThis action cannot be undone!',
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),
             actions: <Widget>[
-              TextButton(
-                child: const Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FilledActionButton(
-                buttonText: 'Confirm',
-                onPressed: () {
-                  if (onDelete != null) {
-                    onDelete!();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => confirmedWidgetPath),
-                    );
-                  }
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    child: const Text('Cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      elevatedButtonTheme: ElevatedButtonThemeData(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red),
+                      ),
+                    ),
+                    child: FilledActionButton(
+                      buttonText: 'Confirm',
+                      onPressed: () {
+                        if (onDelete != null) {
+                          onDelete!();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => confirmedWidgetPath,
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           );
@@ -68,8 +89,9 @@ class DeleteDialog extends StatelessWidget {
 
     if (isIconButton) {
       return IconButton(
-          onPressed: isDeleteDisabled ? null : showDeleteDialog,
-          icon: const Icon(Icons.delete, color: Colors.white));
+        onPressed: isDeleteDisabled ? null : showDeleteDialog,
+        icon: const Icon(Icons.delete, color: Colors.white),
+      );
     }
     return TextButton(onPressed: showDeleteDialog, child: Text(buttonText));
   }

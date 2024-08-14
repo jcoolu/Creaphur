@@ -72,10 +72,6 @@ class ExpenseFormState extends State<ExpenseForm> {
                       FilteringTextInputFormatter.allow(
                           RegExp(r'^\d*\.?\d{0,2}')),
                     ],
-                    onChange: (value) {
-                      // Ensure to update the value after filtering the input
-                      widget.onChange('quantity', value);
-                    },
                   ),
                 ),
                 list.items.isEmpty

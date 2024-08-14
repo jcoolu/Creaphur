@@ -58,7 +58,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       Navigator.push(
         currentContext,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
+        MaterialPageRoute(
+            builder: (context) => const Dashboard(
+                  previousState: "settings",
+                )),
       );
     }
 

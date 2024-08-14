@@ -29,15 +29,14 @@ class ProjectOverviewScreen extends StatefulWidget {
 class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
   String name = '';
   late Project? newProject = widget.project;
-  late int selectedScreen;
-  int screenIndex = 0;
+  late int screenIndex;
   int selectedMonth = DateTime.now().month;
   int selectedYear = DateTime.now().year;
   String randomText = QuoteList.getRandomText();
 
   @override
   void initState() {
-    selectedScreen = widget.previousState ?? 0;
+    screenIndex = widget.previousState ?? 0;
     super.initState();
   }
 

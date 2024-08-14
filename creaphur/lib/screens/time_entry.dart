@@ -99,8 +99,10 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
                 model: 'timeEntry',
                 onDelete: handleDelete,
                 buttonText: 'Delete Time Entry',
-                confirmedWidgetPath:
-                    ProjectOverviewScreen(project: widget.project))
+                confirmedWidgetPath: ProjectOverviewScreen(
+                  project: widget.project,
+                  previousState: 2,
+                ))
         ],
       ),
       body: SafeArea(

@@ -100,6 +100,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 onDelete: handleDelete,
                 confirmedWidgetPath: ProjectOverviewScreen(
                   project: widget.project,
+                  previousState: 1,
                 ),
                 buttonText: 'Delete Expense')
         ],

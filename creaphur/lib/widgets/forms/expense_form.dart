@@ -8,6 +8,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 class ExpenseForm extends StatefulWidget {
   final Function onChange;
@@ -67,6 +68,10 @@ class ExpenseFormState extends State<ExpenseForm> {
                     labelText: 'Quantity *',
                     onValidate: (value) => FormUtils.onValidateQuantity(value,
                         'quantity', 'expense', widget.onChange, 'quantity'),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d*\.?\d{0,2}')),
+                    ],
                   ),
                 ),
                 list.items.isEmpty

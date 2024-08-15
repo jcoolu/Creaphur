@@ -58,7 +58,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       Navigator.push(
         currentContext,
-        MaterialPageRoute(builder: (context) => const Dashboard()),
+        MaterialPageRoute(
+            builder: (context) => const Dashboard(
+                  previousState: "settings",
+                )),
       );
     }
 
@@ -109,7 +112,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 .length ==
                             1
                         ? const WelcomePage()
-                        : const Dashboard(),
+                        : const Dashboard(
+                            previousState: "settings",
+                          ),
                 onDelete: handleDelete,
                 buttonText: 'Delete Profile')
         ],

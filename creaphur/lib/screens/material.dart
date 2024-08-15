@@ -58,7 +58,10 @@ class _MaterialScreenState extends State<MaterialScreen> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (currentContext) => const Dashboard()),
+        MaterialPageRoute(
+            builder: (currentContext) => const Dashboard(
+                  previousState: 'materials',
+                )),
       );
     }
 
@@ -93,7 +96,9 @@ class _MaterialScreenState extends State<MaterialScreen> {
                 isIconButton: true,
                 model: 'material',
                 onDelete: handleDelete,
-                confirmedWidgetPath: const Dashboard(),
+                confirmedWidgetPath: const Dashboard(
+                  previousState: "materials",
+                ),
                 buttonText: 'Delete Material')
         ],
       ),

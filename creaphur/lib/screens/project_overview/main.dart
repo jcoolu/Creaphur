@@ -17,8 +17,10 @@ import 'package:provider/provider.dart';
 import 'quote_list.dart';
 
 class ProjectOverviewScreen extends StatefulWidget {
+  final int? previousState;
   final Project project;
-  const ProjectOverviewScreen({super.key, required this.project});
+  const ProjectOverviewScreen(
+      {super.key, required this.project, this.previousState});
 
   @override
   State<ProjectOverviewScreen> createState() => _ProjectOverviewScreenState();
@@ -27,10 +29,16 @@ class ProjectOverviewScreen extends StatefulWidget {
 class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
   String name = '';
   late Project? newProject = widget.project;
-  int screenIndex = 0;
+  late int screenIndex;
   int selectedMonth = DateTime.now().month;
   int selectedYear = DateTime.now().year;
   String randomText = QuoteList.getRandomText();
+
+  @override
+  void initState() {
+    screenIndex = widget.previousState ?? 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

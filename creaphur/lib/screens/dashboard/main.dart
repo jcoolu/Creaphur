@@ -21,11 +21,20 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   late String selectedScreen;
-  String title = 'Welcome';
+  late String title;
 
   @override
   void initState() {
     selectedScreen = widget.previousState ?? 'home';
+    if (selectedScreen == 'about') {
+      title = "About Creaphur";
+    } else if (selectedScreen == 'materials') {
+      title = "Materials";
+    } else if (selectedScreen == 'settings') {
+      title = "Settings";
+    } else {
+      title = "Welcome";
+    }
     super.initState();
   }
 

@@ -68,7 +68,8 @@ class AboutScreen extends StatelessWidget {
                     },
                 ),
                 const TextSpan(
-                  text: '.',
+                  text:
+                      '. \n\nOh, and don\'t mind Ginger at the bottom of your screen... She\'s just helping you work!',
                 ),
               ],
             ),

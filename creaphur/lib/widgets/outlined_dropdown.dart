@@ -27,7 +27,7 @@ class OutlinedDropdown extends StatelessWidget {
       child: InputDecorator(
         decoration: InputDecoration(
           labelText: labelText,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton(

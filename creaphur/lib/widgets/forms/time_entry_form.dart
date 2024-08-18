@@ -65,7 +65,7 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                             value, 'Please enter a name for your time entry'),
                   ),
                 ),
-                SizedBox(child: Text('Start Date/Time')),
+                const SizedBox(child: Text('Start Date/Time')),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: DateTimePicker(
@@ -77,7 +77,7 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                           DateTime.now().add(const Duration(days: 1)),
                       buttonText: ''),
                 ),
-                SizedBox(child: Text('End Date/Time')),
+                const SizedBox(child: Text('End Date/Time')),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: DateTimePicker(

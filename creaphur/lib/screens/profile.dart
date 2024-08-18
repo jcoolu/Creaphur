@@ -65,20 +65,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
 
-    void handleDelete() {
+    void handleDelete() async {
       Profile selectedProfile =
           Profile(id: widget.profile.id, name: widget.profile.name);
       ProfileService.deleteProfile(context, selectedProfile);
+      List<Profile> profiles =
+          Provider.of<ProfileList>(context, listen: false).items;
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Deleted Profile')),
       );
 
-      if (Provider.of<ProfileList>(context, listen: false).items.isNotEmpty) {
+      if (profiles.isNotEmpty) {
         Profile firstProfile =
             Provider.of<ProfileList>(context, listen: false).items.first;
 
         ProfileService.setCurrent(context, firstProfile);
+        await Utils.load(context, firstProfile);
       } else {
         ProfileService.setCurrent(context, Profile(id: '', name: ''));
       }

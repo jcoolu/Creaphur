@@ -5,11 +5,13 @@ class OutlinedDropdown extends StatelessWidget {
   final void Function(dynamic)? onChange;
   final List<DropdownMenuItem> items;
   final double width;
+  final String? labelText;
   final double height;
   final Widget? hint;
 
   const OutlinedDropdown(
       {super.key,
+      this.labelText,
       required this.initialValue,
       required this.onChange,
       required this.items,
@@ -23,7 +25,8 @@ class OutlinedDropdown extends StatelessWidget {
       width: width,
       height: height,
       child: InputDecorator(
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
+          labelText: labelText,
           border: OutlineInputBorder(),
         ),
         child: DropdownButtonHideUnderline(

@@ -59,6 +59,7 @@ class MaterialFormState extends State<MaterialForm> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15),
                   child: OutlinedDropdown(
+                    labelText: 'Vendor',
                     initialValue: retailers.contains(widget.material?.retailer)
                         ? widget.material?.retailer
                         : 'Other',

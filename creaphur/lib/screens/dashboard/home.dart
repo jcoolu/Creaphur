@@ -32,9 +32,9 @@ class HomeScreen extends StatelessWidget {
                 child: Text(
                     'No projects found. Please click (+) below to create a new project.'),
               )
-            : SingleChildScrollView(
-                child: Column(
-                  children: projects
+            : ListView(
+                children: [
+                  ...projects
                       .map(
                         (project) => ProjectSummaryCard(
                           project: project,
@@ -42,7 +42,14 @@ class HomeScreen extends StatelessWidget {
                         ),
                       )
                       .toList(),
-                ),
+                  SizedBox(height: 200),
+                  Center(
+                    child: Image.asset(
+                        'lib/common/assets/ginger_sewing_front.gif',
+                        height: 350,
+                        fit: BoxFit.fill),
+                  ),
+                ],
               ),
       ),
     );

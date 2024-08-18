@@ -76,6 +76,7 @@ flutter:
   assets: 
     - lib/common/assets/logo.png
     - lib/common/assets/kofi_button_blue.png
+    - lib/common/assets/ginger_sewing_front.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

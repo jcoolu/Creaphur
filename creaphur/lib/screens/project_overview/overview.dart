@@ -41,7 +41,7 @@ class OverviewScreen extends StatelessWidget {
                   Icons.assessment,
                   color: Color(0xff2900cc),
                 )
-              : Image.memory(base64Decode(project.image)),
+              : Image.memory(base64Decode(project.image), fit: BoxFit.cover),
           const SizedBox(height: 8),
           Text(
             project.description ?? '',

@@ -120,18 +120,20 @@ class ProjectFormState extends State<ProjectForm> {
                             widget.onChange('status', value);
                           }),
                     ),
+                    SizedBox(child: Text('Projected Start: *')),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: DateTimePicker(
                           type: 'startDate',
                           dateTime: widget.project?.startDate ?? DateTime.now(),
                           onChange: handleChangeDate,
-                          buttonText: 'Projected Start',
+                          buttonText: '',
                           conditional: 'isBefore',
                           showTime: false,
                           compareDate: widget.project?.endDate ??
                               DateTime.now().add(const Duration(days: 1))),
                     ),
+                    SizedBox(child: Text('Projected End: *')),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: DateTimePicker(
@@ -143,7 +145,7 @@ class ProjectFormState extends State<ProjectForm> {
                           showTime: false,
                           compareDate: widget.project?.startDate ??
                               DateTime.now().add(const Duration(days: 1)),
-                          buttonText: 'Projected End'),
+                          buttonText: ''),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),

@@ -128,7 +128,7 @@ class DateTimePicker extends StatelessWidget {
             child: OutlinedButton(
                 onPressed: chooseDate,
                 child: Text(
-                    '$buttonText Date *: ${DateFormat.yMMMMEEEEd().format(dateTime)}')),
+                    '$buttonText ${DateFormat.yMMMMEEEEd().format(dateTime)}')),
           ),
         ),
         if (showTime ?? true)
@@ -136,8 +136,7 @@ class DateTimePicker extends StatelessWidget {
             width: double.infinity,
             child: OutlinedButton(
                 onPressed: chooseTime,
-                child: Text(
-                    '$buttonText Time *: ${DateFormat.jm().format(dateTime)}')),
+                child: Text('$buttonText ${DateFormat.jm().format(dateTime)}')),
           )
       ],
     );

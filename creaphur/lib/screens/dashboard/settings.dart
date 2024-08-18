@@ -85,7 +85,7 @@ class SettingsScreen extends StatelessWidget {
               childWidget: const Text('Import Save Data'),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           SizedBox(
             width: button_width,
             height: button_height,

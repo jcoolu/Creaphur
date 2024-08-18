@@ -132,8 +132,8 @@ class MaterialFormState extends State<MaterialForm> {
                   type: FileType.image,
                   childWidget: Text((widget.material == null ||
                           widget.material!.image.isEmpty)
-                      ? 'Select File'
-                      : 'Image Selected'),
+                      ? 'Select Image'
+                      : 'Image Selected!'),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),

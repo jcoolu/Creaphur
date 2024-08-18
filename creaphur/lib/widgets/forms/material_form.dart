@@ -1,7 +1,6 @@
 import 'package:creaphur/common/form_utils.dart';
 import 'package:creaphur/common/retailers.dart';
 import 'package:creaphur/models/material.dart' as material_model;
-import 'package:creaphur/models/material_list.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_dropdown.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
@@ -10,7 +9,6 @@ import 'package:creaphur/widgets/unit_dropdown.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class MaterialForm extends StatefulWidget {
   final Function onChange;

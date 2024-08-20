@@ -17,7 +17,7 @@ class HotReload extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Widgetbook.material(
-      addons: [],
+      addons: const [],
       directories: [
         dateTimePicker,
         projectSummaryCard,

@@ -65,6 +65,7 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                             value, 'Please enter a name for your time entry'),
                   ),
                 ),
+                const SizedBox(child: Text('Start Date/Time')),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: DateTimePicker(
@@ -74,8 +75,9 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                       conditional: 'isBefore',
                       compareDate: widget.timeEntry?.endDate ??
                           DateTime.now().add(const Duration(days: 1)),
-                      buttonText: 'Time Start'),
+                      buttonText: ''),
                 ),
+                const SizedBox(child: Text('End Date/Time')),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: DateTimePicker(
@@ -86,7 +88,7 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                       compareDate:
                           widget.timeEntry?.startDate ?? DateTime.now(),
                       onChange: handleChangeDate,
-                      buttonText: 'Time End'),
+                      buttonText: ''),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),

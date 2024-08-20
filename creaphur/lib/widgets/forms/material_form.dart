@@ -1,7 +1,6 @@
 import 'package:creaphur/common/form_utils.dart';
 import 'package:creaphur/common/retailers.dart';
 import 'package:creaphur/models/material.dart' as material_model;
-import 'package:creaphur/models/material_list.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
 import 'package:creaphur/widgets/outlined_dropdown.dart';
 import 'package:creaphur/widgets/outlined_file_picker.dart';
@@ -10,7 +9,6 @@ import 'package:creaphur/widgets/unit_dropdown.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class MaterialForm extends StatefulWidget {
   final Function onChange;
@@ -61,6 +59,7 @@ class MaterialFormState extends State<MaterialForm> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15),
                   child: OutlinedDropdown(
+                    labelText: 'Vendor',
                     initialValue: retailers.contains(widget.material?.retailer)
                         ? widget.material?.retailer
                         : 'Other',
@@ -133,8 +132,8 @@ class MaterialFormState extends State<MaterialForm> {
                   type: FileType.image,
                   childWidget: Text((widget.material == null ||
                           widget.material!.image.isEmpty)
-                      ? 'Select File'
-                      : 'Image Selected'),
+                      ? 'Select Image'
+                      : 'Image Selected!'),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),

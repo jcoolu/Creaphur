@@ -97,25 +97,25 @@ class MaterialFormState extends State<MaterialForm> {
                     children: [
                       Flexible(
                         child: OutlinedTextField(
-                          initialValue:
-                              widget.material?.costPer.toStringAsFixed(2) ??
-                                  '0.00',
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d{0,2}')),
-                          ],
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true),
-                          hintText: 'Cost for Material Per Unit',
-                          labelText: 'Cost *',
-                          maxLines: 1,
-                          onValidate: (value) => FormUtils.onValidateCurrency(
-                              value,
-                              'cost',
-                              'material',
-                              widget.onChange,
-                              'costPer'),
-                        ),
+                            initialValue:
+                                widget.material?.costPer.toStringAsFixed(2) ??
+                                    '0.00',
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d+\.?\d{0,2}')),
+                            ],
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true),
+                            hintText: 'Cost for Material Per Unit',
+                            labelText: 'Cost *',
+                            maxLines: 1,
+                            onValidate: (value) => FormUtils.onValidateCurrency(
+                                value,
+                                'cost',
+                                'material',
+                                widget.onChange,
+                                'costPer'),
+                            prefix: '\$'),
                       ),
                       const SizedBox(width: 5),
                       const Text('Per'),

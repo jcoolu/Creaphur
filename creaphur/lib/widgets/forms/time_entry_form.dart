@@ -93,25 +93,25 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: OutlinedTextField(
-                    initialValue:
-                        widget.timeEntry?.costOfServices.toStringAsFixed(2) ??
-                            '0.00',
-                    maxLines: 1,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                          RegExp(r'^\d+\.?\d{0,2}')),
-                    ],
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    hintText: 'Time Entry Cost of Service',
-                    labelText: 'Cost of Services *',
-                    onValidate: (value) => FormUtils.onValidateCurrency(
-                        value,
-                        'projected cost',
-                        'time entry',
-                        widget.onChange,
-                        'costOfServices'),
-                  ),
+                      initialValue:
+                          widget.timeEntry?.costOfServices.toStringAsFixed(2) ??
+                              '0.00',
+                      maxLines: 1,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}')),
+                      ],
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      hintText: 'Time Entry Cost of Service',
+                      labelText: 'Cost of Services *',
+                      onValidate: (value) => FormUtils.onValidateCurrency(
+                          value,
+                          'projected cost',
+                          'time entry',
+                          widget.onChange,
+                          'costOfServices'),
+                      prefix: '\$'),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),

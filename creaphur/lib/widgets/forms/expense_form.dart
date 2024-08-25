@@ -118,6 +118,7 @@ class ExpenseFormState extends State<ExpenseForm> {
                       maxLines: 1,
                       onValidate: (value) => FormUtils.onValidateCurrency(value,
                           'cost', 'expense', widget.onChange, 'customCost'),
+                      prefix: '\$',
                     ),
                   ),
                 if (list.items.isEmpty)

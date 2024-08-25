@@ -9,6 +9,7 @@ class OutlinedTextField extends StatelessWidget {
   final String? Function(String?)? onValidate;
   final TextInputType? keyboardType;
   final String? suffix;
+  final String? prefix;
   final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -21,6 +22,7 @@ class OutlinedTextField extends StatelessWidget {
       this.onValidate,
       this.keyboardType,
       this.suffix,
+      this.prefix,
       this.maxLines,
       this.inputFormatters});
 
@@ -35,6 +37,7 @@ class OutlinedTextField extends StatelessWidget {
         hintText: hintText,
         labelText: labelText,
         suffixText: suffix,
+        prefixText: prefix,
       ),
       onChanged: onChange,
       validator: onValidate,

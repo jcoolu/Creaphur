@@ -150,25 +150,25 @@ class ProjectFormState extends State<ProjectForm> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: OutlinedTextField(
-                        initialValue:
-                            widget.project?.estCost.toStringAsFixed(2) ??
-                                '0.00',
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                              RegExp(r'^\d+\.?\d{0,2}')),
-                        ],
-                        maxLines: 1,
-                        hintText: 'Projected Cost for Project',
-                        labelText: 'Projected Cost *',
-                        onValidate: (value) => FormUtils.onValidateCurrency(
-                            value,
-                            'projected cost',
-                            'project',
-                            widget.onChange,
-                            'estCost'),
-                      ),
+                          initialValue:
+                              widget.project?.estCost.toStringAsFixed(2) ??
+                                  '0.00',
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d+\.?\d{0,2}')),
+                          ],
+                          maxLines: 1,
+                          hintText: 'Projected Cost for Project',
+                          labelText: 'Projected Cost *',
+                          onValidate: (value) => FormUtils.onValidateCurrency(
+                              value,
+                              'projected cost',
+                              'project',
+                              widget.onChange,
+                              'estCost'),
+                          prefix: '\$'),
                     ),
                     OutlinedFilePicker(
                       onChange: widget.onChange,

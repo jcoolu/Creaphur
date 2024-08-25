@@ -91,105 +91,109 @@ class _DashboardState extends State<Dashboard> {
       return createProject();
     }
 
-    return Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.white),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(4.0),
-            child: Container(
-              color: const Color(0xff1d874b),
-              height: 3.0,
-            ),
-          ),
-          title: Text(isInHome ? '$title, ${currentProfile.name}' : title),
-          backgroundColor: const Color(0xff2bca70),
-          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.person_2_rounded,
-                color: Colors.white,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+          appBar: AppBar(
+            iconTheme: const IconThemeData(color: Colors.white),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(4.0),
+              child: Container(
+                color: const Color(0xff1d874b),
+                height: 3.0,
               ),
-              onPressed: goToProfile,
             ),
-          ],
-        ),
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: ListView(
-                  children: [
-                    const DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Color(0xff89e6b1),
-                      ),
-                      child: Text(
-                        'Creaphur',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.home),
-                      title: const Text('Home'),
-                      selected: selectedScreen == 'home',
-                      onTap: () {
-                        setState(() {
-                          selectedScreen = 'home';
-                          title = 'Welcome';
-                        });
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.search),
-                      title: const Text('Materials'),
-                      selected: selectedScreen == 'materials',
-                      onTap: () {
-                        setState(() {
-                          selectedScreen = 'materials';
-                          title = 'Materials';
-                        });
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.person),
-                      title: const Text('Settings'),
-                      selected: selectedScreen == 'settings',
-                      onTap: () {
-                        setState(() {
-                          selectedScreen = 'settings';
-                          title = 'Settings';
-                        });
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
+            title: Text(isInHome ? '$title, ${currentProfile.name}' : title),
+            backgroundColor: const Color(0xff2bca70),
+            titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+            actions: [
+              IconButton(
+                icon: const Icon(
+                  Icons.person_2_rounded,
+                  color: Colors.white,
                 ),
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.info),
-                selected: selectedScreen == 'about',
-                title: const Text('About Creaphur'),
-                onTap: () {
-                  setState(() {
-                    selectedScreen = 'about';
-                    title = 'About Creaphur';
-                  });
-                  Navigator.of(context).pop();
-                },
+                onPressed: goToProfile,
               ),
             ],
           ),
-        ),
-        body: SafeArea(child: handleScreen()),
-        floatingActionButton: ['home', 'materials', ''].contains(selectedScreen)
-            ? FilledFloatingActionButton(onPressed: handleCreate)
-            : null);
+          drawer: Drawer(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView(
+                    children: [
+                      const DrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Color(0xff89e6b1),
+                        ),
+                        child: Text(
+                          'Creaphur',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.home),
+                        title: const Text('Home'),
+                        selected: selectedScreen == 'home',
+                        onTap: () {
+                          setState(() {
+                            selectedScreen = 'home';
+                            title = 'Welcome';
+                          });
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.search),
+                        title: const Text('Materials'),
+                        selected: selectedScreen == 'materials',
+                        onTap: () {
+                          setState(() {
+                            selectedScreen = 'materials';
+                            title = 'Materials';
+                          });
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.person),
+                        title: const Text('Settings'),
+                        selected: selectedScreen == 'settings',
+                        onTap: () {
+                          setState(() {
+                            selectedScreen = 'settings';
+                            title = 'Settings';
+                          });
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.info),
+                  selected: selectedScreen == 'about',
+                  title: const Text('About Creaphur'),
+                  onTap: () {
+                    setState(() {
+                      selectedScreen = 'about';
+                      title = 'About Creaphur';
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+          body: SafeArea(child: handleScreen()),
+          floatingActionButton:
+              ['home', 'materials', ''].contains(selectedScreen)
+                  ? FilledFloatingActionButton(onPressed: handleCreate)
+                  : null),
+    );
   }
 }

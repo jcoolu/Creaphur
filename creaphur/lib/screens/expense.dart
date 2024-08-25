@@ -79,36 +79,38 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Container(
-            color: const Color(0xff1d874b),
-            height: 3.0,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4.0),
+            child: Container(
+              color: const Color(0xff1d874b),
+              height: 3.0,
+            ),
           ),
+          leading: IconButton(
+            icon: const Icon(Icons.chevron_left, color: Colors.white),
+            onPressed: handleBack,
+          ),
+          title: const Text('New Expense'),
+          backgroundColor: const Color(0xff2bca70),
+          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+          actions: <Widget>[
+            if (!isNew)
+              DeleteDialog(
+                  isDeleteDisabled: false,
+                  isIconButton: true,
+                  model: 'expense',
+                  onDelete: handleDelete,
+                  confirmedWidgetPath: ProjectOverviewScreen(
+                    project: widget.project,
+                    previousState: 1,
+                  ),
+                  buttonText: 'Delete Expense')
+          ],
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.white),
-          onPressed: handleBack,
-        ),
-        title: Text(isNew ? 'New Expense' : 'Edit Expense'),
-        backgroundColor: const Color(0xff2bca70),
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-        actions: <Widget>[
-          if (!isNew)
-            DeleteDialog(
-                isDeleteDisabled: false,
-                isIconButton: true,
-                model: 'expense',
-                onDelete: handleDelete,
-                confirmedWidgetPath: ProjectOverviewScreen(
-                  project: widget.project,
-                  previousState: 1,
-                ),
-                buttonText: 'Delete Expense')
-        ],
-      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),

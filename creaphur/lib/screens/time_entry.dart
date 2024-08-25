@@ -75,44 +75,47 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Container(
-            color: const Color(0xff1d874b),
-            height: 3.0,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4.0),
+            child: Container(
+              color: const Color(0xff1d874b),
+              height: 3.0,
+            ),
           ),
+          leading: IconButton(
+            icon: const Icon(Icons.chevron_left, color: Colors.white),
+            onPressed: handleBack,
+          ),
+          title: const Text('New Time Entry'),
+          backgroundColor: const Color(0xff2bca70),
+          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+          actions: <Widget>[
+            if (!isNew)
+              DeleteDialog(
+                  isDeleteDisabled: false,
+                  isIconButton: true,
+                  model: 'timeEntry',
+                  onDelete: handleDelete,
+                  buttonText: 'Delete Time Entry',
+                  confirmedWidgetPath: ProjectOverviewScreen(
+                    project: widget.project,
+                    previousState: 2,
+                  ))
+          ],
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.white),
-          onPressed: handleBack,
-        ),
-        title: const Text('New Time Entry'),
-        backgroundColor: const Color(0xff2bca70),
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-        actions: <Widget>[
-          if (!isNew)
-            DeleteDialog(
-                isDeleteDisabled: false,
-                isIconButton: true,
-                model: 'timeEntry',
-                onDelete: handleDelete,
-                buttonText: 'Delete Time Entry',
-                confirmedWidgetPath: ProjectOverviewScreen(
-                  project: widget.project,
-                  previousState: 2,
-                ))
-        ],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: SingleChildScrollView(
-            child: TimeEntryForm(
-              onChange: handleChange,
-              onSave: handleSave,
-              timeEntry: newTimeEntry,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: SingleChildScrollView(
+              child: TimeEntryForm(
+                onChange: handleChange,
+                onSave: handleSave,
+                timeEntry: newTimeEntry,
+              ),
             ),
           ),
         ),

@@ -34,11 +34,14 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: NameForm(
-            setName: handleNext,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: NameForm(
+              setName: handleNext,
+            ),
           ),
         ),
       ),

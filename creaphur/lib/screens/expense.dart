@@ -111,14 +111,15 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   buttonText: 'Delete Expense')
           ],
         ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: SingleChildScrollView(
-            child: ExpenseForm(
-              onChange: handleChange,
-              onSave: handleSave,
-              expense: newExpense,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: SingleChildScrollView(
+              child: ExpenseForm(
+                onChange: handleChange,
+                onSave: handleSave,
+                expense: newExpense,
+              ),
             ),
           ),
         ),

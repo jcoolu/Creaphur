@@ -89,6 +89,7 @@ class ExpenseFormState extends State<ExpenseForm> {
                       keyboardType:
                           const TextInputType.numberWithOptions(decimal: true),
                       maxLines: 1,
+                      suffix: widget.expense!.getMaterialQuantityType(context),
                       hintText: 'Quantity of Expense',
                       labelText: 'Quantity *',
                       onValidate: (value) => FormUtils.onValidateQuantity(value,

@@ -41,6 +41,10 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
     }
 
     void handleSave() async {
+      if (newExpense!.materialId != 'None') {
+        handleChange(
+            'customCost', double.parse(newExpense!.getMaterialCost(context)));
+      }
       if (newExpense!.id.isEmpty) {
         handleChange('id', const Uuid().v4());
         await ExpenseService.addExpense(context, newExpense!);
@@ -107,15 +111,14 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   buttonText: 'Delete Expense')
           ],
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            child: SingleChildScrollView(
-              child: ExpenseForm(
-                onChange: handleChange,
-                onSave: handleSave,
-                expense: newExpense,
-              ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: SingleChildScrollView(
+            child: ExpenseForm(
+              onChange: handleChange,
+              onSave: handleSave,
+              expense: newExpense,
             ),
           ),
         ),

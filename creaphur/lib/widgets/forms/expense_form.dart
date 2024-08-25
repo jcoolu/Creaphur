@@ -58,70 +58,99 @@ class ExpenseFormState extends State<ExpenseForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedTextField(
-                    initialValue:
-                        widget.expense?.quantity.toStringAsFixed(2) ?? '0.00',
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    maxLines: 1,
-                    hintText: 'Quantity of Expense',
-                    labelText: 'Quantity *',
-                    onValidate: (value) => FormUtils.onValidateQuantity(value,
-                        'quantity', 'expense', widget.onChange, 'quantity'),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                          RegExp(r'^\d*\.?\d{0,2}')),
-                    ],
-                  ),
+                  child: DropdownSearch<String>(
+                      items: [
+                        ...list.items.map((mat) => mat.name).toList(),
+                        ...['None']
+                      ],
+                      selectedItem: widget.expense!.materialId == 'None'
+                          ? 'None'
+                          : list.getRelatedMaterialName(
+                              widget.expense!.materialId),
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          labelText: "Material",
+                          hintText: "Material related to expense for project.",
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 8.0),
+                        ),
+                      ),
+                      onChanged: (String? val) => widget.onChange(
+                          'materialId', list.getRelatedIdOfMaterial(val!))),
                 ),
-                list.items.isEmpty
-                    ? RichText(
-                        text: TextSpan(
-                          children: [
-                            const TextSpan(
-                              text:
-                                  'You have no materials listed in your account. Please go to the ',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            TextSpan(
-                              text: 'Materials screen',
-                              style: const TextStyle(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Dashboard(
-                                            previousState: 'materials')),
-                                  );
-                                },
-                            ),
-                            const TextSpan(
-                              text:
-                                  ' and create at least one material to assign to this expense.',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
+                if (widget.expense!.materialId.isNotEmpty &&
+                    widget.expense!.materialId != 'None')
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: OutlinedTextField(
+                      initialValue:
+                          widget.expense?.quantity.toStringAsFixed(2) ?? '0.00',
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      maxLines: 1,
+                      hintText: 'Quantity of Expense',
+                      labelText: 'Quantity *',
+                      onValidate: (value) => FormUtils.onValidateQuantity(value,
+                          'quantity', 'expense', widget.onChange, 'quantity'),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d*\.?\d{0,2}')),
+                      ],
+                    ),
+                  ),
+                if (widget.expense!.materialId == 'None')
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: OutlinedTextField(
+                      initialValue:
+                          widget.expense?.customCost.toStringAsFixed(2) ??
+                              '0.00',
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}')),
+                      ],
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      hintText: 'Total Cost for Expense',
+                      labelText: 'Cost *',
+                      maxLines: 1,
+                      onValidate: (value) => FormUtils.onValidateCurrency(value,
+                          'cost', 'expense', widget.onChange, 'customCost'),
+                    ),
+                  ),
+                if (list.items.isEmpty)
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text:
+                              'You have no materials listed in your account. Please go to the ',
+                          style: TextStyle(color: Colors.black),
                         ),
-                      )
-                    : DropdownSearch<String>(
-                        items: list.items.map((mat) => mat.name).toList(),
-                        selectedItem: list
-                            .getRelatedMaterialName(widget.expense!.materialId),
-                        dropdownDecoratorProps: const DropDownDecoratorProps(
-                          dropdownSearchDecoration: InputDecoration(
-                            labelText: "Material",
-                            hintText:
-                                "Material related to expense for project.",
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 8.0),
-                          ),
+                        TextSpan(
+                          text: 'Materials screen',
+                          style: const TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Dashboard(
+                                        previousState: 'materials')),
+                              );
+                            },
                         ),
-                        onChanged: (String? val) => widget.onChange(
-                            'materialId', list.getRelatedIdOfMaterial(val!))),
+                        const TextSpan(
+                          text:
+                              ' and create at least one material to assign to this expense.',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: FilledActionButton(

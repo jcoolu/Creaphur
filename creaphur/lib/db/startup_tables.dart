@@ -13,7 +13,8 @@ class SchemaBuilder {
       materialId TEXT,
       projectId TEXT,
       quantity DOUBLE,
-      profileId TEXT
+      profileId TEXT,
+      customCost DOUBLE
     )
   ''');
 
@@ -140,6 +141,12 @@ class SchemaBuilder {
   static handleUpdateForProjectv11(Database db) async {
     Batch batch = db.batch();
     batch.execute("ALTER TABLE Material DROP COLUMN quantity");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv12(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE Expense ADD COLUMN customCost");
     await batch.commit();
   }
 }

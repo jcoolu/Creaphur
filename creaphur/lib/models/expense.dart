@@ -11,6 +11,7 @@ class Expense extends DefaultModel {
   final String projectId;
   final double quantity;
   final String profileId;
+  final double customCost;
 
   Expense(
       {required String id,
@@ -18,20 +19,23 @@ class Expense extends DefaultModel {
       required this.materialId,
       required this.projectId,
       required this.quantity,
-      required this.profileId})
+      required this.profileId,
+      required this.customCost})
       : super(id: id, name: name);
 
   factory Expense.fromMap(Map<String, dynamic> json) {
     return Expense(
-      id: json['id'].trim(),
-      name: Utils.removeQuotes(json['name']).trim(),
-      materialId: json['materialId'].trim(),
-      projectId: json['projectId'].trim(),
-      quantity: json['quantity'] is String
-          ? double.tryParse(json['quantity'])
-          : json['quantity'],
-      profileId: json['profileId'].trim(),
-    );
+        id: json['id'].trim(),
+        name: Utils.removeQuotes(json['name']).trim(),
+        materialId: json['materialId'].trim(),
+        projectId: json['projectId'].trim(),
+        quantity: json['quantity'] is String
+            ? double.tryParse(json['quantity'])
+            : json['quantity'],
+        profileId: json['profileId'].trim(),
+        customCost: json['customCost'] is String
+            ? double.tryParse(json['customCost'])
+            : json['customCost']);
   }
 
   Map<String, dynamic> toMap() {
@@ -42,6 +46,7 @@ class Expense extends DefaultModel {
       'projectId': projectId,
       'quantity': quantity,
       'profileId': profileId,
+      'customCost': customCost
     };
   }
 
@@ -50,16 +55,17 @@ class Expense extends DefaultModel {
         name: '',
         projectId: projectId,
         quantity: 0.00,
-        materialId: '',
+        materialId: 'None',
         profileId: profileId,
+        customCost: 0.00,
       );
 
   String? getMaterialName(context) {
-    List<Expense> expenses =
-        Provider.of<ExpenseList>(context, listen: false).items;
+    List<Material> materials =
+        Provider.of<MaterialList>(context, listen: false).items;
 
-    List<Expense>? possibleMatches =
-        expenses.where((element) => element.materialId == materialId).toList();
+    List<Material>? possibleMatches =
+        materials.where((element) => element.id == materialId).toList();
 
     return possibleMatches.isEmpty ? 'None' : possibleMatches.first.name;
   }
@@ -72,7 +78,7 @@ class Expense extends DefaultModel {
         materials.where((element) => element.id == materialId).toList();
 
     return possibleMatches.isEmpty
-        ? ''
+        ? customCost.toStringAsFixed(2)
         : (possibleMatches.first.costPer * quantity).toStringAsFixed(2);
   }
 }

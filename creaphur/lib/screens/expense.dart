@@ -41,6 +41,10 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
     }
 
     void handleSave() async {
+      if (newExpense!.materialId != 'None') {
+        handleChange(
+            'customCost', double.parse(newExpense!.getMaterialCost(context)));
+      }
       if (newExpense!.id.isEmpty) {
         handleChange('id', const Uuid().v4());
         await ExpenseService.addExpense(context, newExpense!);
@@ -88,7 +92,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
           icon: const Icon(Icons.chevron_left, color: Colors.white),
           onPressed: handleBack,
         ),
-        title: const Text('New Expense'),
+        title: Text(isNew ? 'New Expense' : 'Edit Expense'),
         backgroundColor: const Color(0xff2bca70),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         actions: <Widget>[

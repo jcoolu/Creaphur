@@ -127,85 +127,90 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Container(
-            color: const Color(0xff1d874b),
-            height: 3.0,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4.0),
+            child: Container(
+              color: const Color(0xff1d874b),
+              height: 3.0,
+            ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.chevron_left, color: Colors.white),
+            onPressed: handleBack,
+          ),
+          actions: <Widget>[
+            IconButton(
+                icon: const Icon(Icons.edit, color: Colors.white),
+                onPressed: handleEdit),
+            DeleteDialog(
+                isDeleteDisabled: false,
+                isIconButton: true,
+                buttonText: 'Delete Project',
+                model: 'project',
+                confirmedWidgetPath: const Dashboard(),
+                onDelete: handleDelete)
+          ],
+          title: Text(widget.project.name),
+          backgroundColor: const Color(0xff2bca70),
+          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(child: handleScreen()), // Existing screen content
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  '"$randomText"',
+                  style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                      fontStyle: FontStyle.italic),
+                ),
+              ),
+            ],
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.white),
-          onPressed: handleBack,
-        ),
-        actions: <Widget>[
-          IconButton(
-              icon: const Icon(Icons.edit, color: Colors.white),
-              onPressed: handleEdit),
-          DeleteDialog(
-              isDeleteDisabled: false,
-              isIconButton: true,
-              buttonText: 'Delete Project',
-              model: 'project',
-              confirmedWidgetPath: const Dashboard(),
-              onDelete: handleDelete)
-        ],
-        title: Text(widget.project.name),
-        backgroundColor: const Color(0xff2bca70),
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(child: handleScreen()), // Existing screen content
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                '"$randomText"',
-                style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                    fontStyle: FontStyle.italic),
+        bottomNavigationBar: NavigationBar(
+            selectedIndex: screenIndex,
+            onDestinationSelected: (int index) {
+              setState(() {
+                screenIndex = index;
+              });
+            },
+            destinations: const [
+              NavigationDestination(
+                label: 'Overview',
+                icon:
+                    Icon(Icons.account_tree_outlined, color: Color(0xff2900cc)),
+                selectedIcon:
+                    Icon(Icons.account_tree, color: Color(0xff2900cc)),
+                tooltip: 'Overview',
               ),
-            ),
-          ],
-        ),
+              NavigationDestination(
+                label: 'Expenses',
+                icon: Icon(Icons.monetization_on_outlined,
+                    color: Color(0xff2900cc)),
+                selectedIcon:
+                    Icon(Icons.monetization_on, color: Color(0xff2900cc)),
+                tooltip: 'Expenses',
+              ),
+              NavigationDestination(
+                label: 'Time Log',
+                icon: Icon(Icons.access_time, color: Color(0xff2900cc)),
+                selectedIcon:
+                    Icon(Icons.access_time_filled, color: Color(0xff2900cc)),
+                tooltip: 'Time Log',
+              ),
+            ]),
+        floatingActionButton: screenIndex != 0
+            ? FilledFloatingActionButton(onPressed: handleCreate)
+            : null,
       ),
-      bottomNavigationBar: NavigationBar(
-          selectedIndex: screenIndex,
-          onDestinationSelected: (int index) {
-            setState(() {
-              screenIndex = index;
-            });
-          },
-          destinations: const [
-            NavigationDestination(
-              label: 'Overview',
-              icon: Icon(Icons.account_tree_outlined, color: Color(0xff2900cc)),
-              selectedIcon: Icon(Icons.account_tree, color: Color(0xff2900cc)),
-              tooltip: 'Overview',
-            ),
-            NavigationDestination(
-              label: 'Expenses',
-              icon: Icon(Icons.monetization_on_outlined,
-                  color: Color(0xff2900cc)),
-              selectedIcon:
-                  Icon(Icons.monetization_on, color: Color(0xff2900cc)),
-              tooltip: 'Expenses',
-            ),
-            NavigationDestination(
-              label: 'Time Log',
-              icon: Icon(Icons.access_time, color: Color(0xff2900cc)),
-              selectedIcon:
-                  Icon(Icons.access_time_filled, color: Color(0xff2900cc)),
-              tooltip: 'Time Log',
-            ),
-          ]),
-      floatingActionButton: screenIndex != 0
-          ? FilledFloatingActionButton(onPressed: handleCreate)
-          : null,
     );
   }
 }

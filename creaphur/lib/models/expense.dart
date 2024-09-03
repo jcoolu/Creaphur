@@ -80,6 +80,18 @@ class Expense extends DefaultModel {
     return possibleMatches.isEmpty ? '' : possibleMatches.first.quantityType;
   }
 
+  double getCost(context) {
+    List<Material> materials =
+        Provider.of<MaterialList>(context, listen: false).items;
+
+    List<Material>? possibleMatches =
+        materials.where((element) => element.id == materialId).toList();
+
+    return possibleMatches.isEmpty
+        ? customCost
+        : (possibleMatches.first.costPer * quantity);
+  }
+
   String getMaterialCost(context) {
     List<Material> materials =
         Provider.of<MaterialList>(context, listen: false).items;

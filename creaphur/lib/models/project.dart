@@ -178,4 +178,51 @@ class Project extends DefaultModel {
 
     return '\$${costSum.toString()}';
   }
+
+  String getCostOfMaterials(BuildContext context) {
+    List<Expense> expensesWithMaterials =
+        Provider.of<ExpenseList>(context, listen: false)
+            .items
+            .where((exp) => exp.projectId == id && exp.materialId != 'None')
+            .toList();
+    if (expensesWithMaterials.isEmpty) {
+      return '\$0.00';
+    }
+    double costSum = expensesWithMaterials
+        .map((exp) => exp.getCost(context))
+        .reduce((value, element) =>
+            double.parse((value + element).toStringAsFixed(2)));
+
+    return '\$${costSum.toString()}';
+  }
+
+  String getTotalCostOfProject(BuildContext context) {
+    List<TimeEntry> timeEntries =
+        Provider.of<TimeEntryList>(context, listen: false)
+            .items
+            .where((time) => time.projectId == id)
+            .toList();
+
+    double costSumForTime = timeEntries.isNotEmpty
+        ? timeEntries.map((time) => time.costOfServices).reduce(
+            (value, element) =>
+                double.parse((value + element).toStringAsFixed(2)))
+        : 0.00;
+
+    List<Expense> expensesWithMaterials =
+        Provider.of<ExpenseList>(context, listen: false)
+            .items
+            .where((exp) => exp.projectId == id && exp.materialId != 'None')
+            .toList();
+
+    double costSumForMaterials = expensesWithMaterials.isNotEmpty
+        ? expensesWithMaterials.map((exp) => exp.getCost(context)).reduce(
+            (value, element) =>
+                double.parse((value + element).toStringAsFixed(2)))
+        : 0.00;
+
+    double costSum = costSumForTime + costSumForMaterials;
+
+    return '\$${costSum.toString()}';
+  }
 }

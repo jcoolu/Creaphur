@@ -10,12 +10,13 @@ import 'package:creaphur/screens/expense.dart';
 import 'package:creaphur/screens/project.dart';
 import 'package:creaphur/screens/project_overview/expenses.dart';
 import 'package:creaphur/screens/project_overview/overview.dart';
+import 'package:creaphur/screens/project_overview/pdf.dart';
 import 'package:creaphur/screens/project_overview/time_log.dart';
 import 'package:creaphur/screens/time_entry.dart';
 import 'package:creaphur/services/project_service.dart';
 import 'package:creaphur/widgets/delete_dialog.dart';
 import 'package:creaphur/widgets/filled_floating_action_button.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
@@ -24,7 +25,6 @@ import 'package:share_plus/share_plus.dart';
 import 'quote_list.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:typed_data';
-import 'dart:ui';
 
 class ProjectOverviewScreen extends StatefulWidget {
   final int? previousState;
@@ -74,48 +74,15 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
       );
     }
 
-    Future<Uint8List> _generatePdf(PdfPageFormat format, String title) async {
-      final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
-      final font = await PdfGoogleFonts.nunitoExtraLight();
-
-      pdf.addPage(
-        pw.Page(
-          pageFormat: format,
-          build: (context) {
-            return pw.Column(
-              children: [
-                pw.Text(widget.project.name,
-                    style: const TextStyle(fontSize: 25)),
-                pw.SizedBox(
-                  width: double.infinity,
-                  child: pw.FittedBox(
-                    child: pw.Text(title, style: pw.TextStyle(font: font)),
-                  ),
-                ),
-                pw.SizedBox(height: 20),
-                pw.Flexible(child: pw.FlutterLogo()),
-              ],
-            );
-          },
-        ),
-      );
-
-      return pdf.save();
-    }
-
     void handlePDF() async {
       final directory = await getTemporaryDirectory();
       final tempFilePath = '${directory.path}/${Utils.saveDataFileName}';
 
       // Create and write to a temporary file
       final tempFile = File(tempFilePath);
-      final data = header +
-          profileData +
-          materialData +
-          expenseData +
-          timeEntryData +
-          projectData;
-      await tempFile.writeAsString(data);
+      Uint8List data = await ProjectPDF.generatePdf(PdfPageFormat.a4,
+          '${widget.project.name}_Story_', widget.project, context);
+      await tempFile.writeAsBytes(data);
 
       // Use the share plugin to let the user choose where to save the file
       await Share.shareXFiles([XFile(tempFilePath)], text: 'Save your file');

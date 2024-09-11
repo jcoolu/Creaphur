@@ -81,7 +81,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
             icon: const Icon(Icons.chevron_left, color: Colors.white),
             onPressed: handleBack,
           ),
-          title: const Text('New Project'),
+          title: Text(isNew ? 'New Project' : 'Edit Project'),
           backgroundColor: const Color(0xff2bca70),
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
           actions: <Widget>[

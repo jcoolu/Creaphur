@@ -90,7 +90,7 @@ class _TimeEntryScreenState extends State<TimeEntryScreen> {
             icon: const Icon(Icons.chevron_left, color: Colors.white),
             onPressed: handleBack,
           ),
-          title: const Text('New Time Entry'),
+          title: Text(isNew ? 'New Time Entry' : 'Edit Time Entry'),
           backgroundColor: const Color(0xff2bca70),
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
           actions: <Widget>[

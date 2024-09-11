@@ -29,17 +29,8 @@ class TimeEntryFormState extends State<TimeEntryForm> {
 
   @override
   Widget build(BuildContext context) {
-    void handleChangeDate(field, value) {
-      DateTime nextDate = value;
-      widget.onChange(
-          field,
-          DateTime(
-            nextDate.year,
-            nextDate.month,
-            nextDate.day,
-            nextDate.hour,
-            nextDate.minute,
-          ));
+    void handleChangeDate(String field, DateTime value) {
+      widget.onChange(field, value);
     }
 
     return Padding(

@@ -31,7 +31,6 @@ class Utils {
     'description',
     'endDate',
     'estCost',
-    'image',
     'materialId',
     'name',
     'quantity',
@@ -41,11 +40,15 @@ class Utils {
     'retailer',
     'startDate',
     'status',
+    'image'
   ];
   // ignore: prefer_interpolation_to_compose_strings
   static String csvHeader = Utils.fields.join(',') + ' \n';
 
   static const saveDataFileName = "creaphur_save_data.csv";
+
+  static String getStoryNameFile(String projectName) =>
+      "$projectName Story.pdf";
 
   static isCurrencyValid(String value) {
     RegExp regExp = RegExp(r'^\d+(\.\d{2})?$');
@@ -153,31 +156,31 @@ class Utils {
     String timeEntryData = '';
     String projectData = '';
 
-    // type, id, costOfServices, costPer, description, endDate, estCost, image, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status
+    // type, id, costOfServices, costPer, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
 
     for (Profile profile in profilesList.items) {
       profileData +=
-          'profile, ${profile.id}, , , , , , , , ${Utils.escapeCommas(profile.name)}, , , , , , , \n';
+          'profile, ${profile.id}, , , , , , , ${Utils.escapeCommas(profile.name)}, , , , , , , , \n';
     }
 
     for (Material material in materials.items) {
       materialData +=
-          'material, ${material.id}, , ${material.costPer}, , , , ${"\"${material.image}\""}, , ${Utils.escapeCommas(material.name)}, , ${material.quantityType}, ${material.profileId}, , ${Utils.escapeCommas(material.retailer)}, , \n';
+          'material, ${material.id}, , ${material.costPer}, , , , , ${Utils.escapeCommas(material.name)}, , ${material.quantityType}, ${material.profileId}, , ${Utils.escapeCommas(material.retailer)}, , ${"\"${material.image}\""} \n';
     }
 
     for (Expense expense in expenses.items) {
       expenseData +=
-          'expense, ${expense.id}, , , , , , , ${expense.materialId}, ${Utils.escapeCommas(expense.name)}, ${expense.quantity}, , ${expense.profileId}, ${expense.projectId}, , , \n';
+          'expense, ${expense.id}, , , , , , ${expense.materialId}, ${Utils.escapeCommas(expense.name)}, ${expense.quantity}, , ${expense.profileId}, ${expense.projectId}, , , , \n';
     }
 
     for (TimeEntry timeEntry in timeEntries.items) {
       timeEntryData +=
-          'timeEntry, ${timeEntry.id}, ${Utils.escapeCommas(timeEntry.costOfServices.toString())}, , , ${timeEntry.endDate}, , , , ${Utils.escapeCommas(timeEntry.name)}, , , ${timeEntry.profileId}, ${timeEntry.projectId}, , ${timeEntry.startDate}, \n';
+          'timeEntry, ${timeEntry.id}, ${Utils.escapeCommas(timeEntry.costOfServices.toString())}, , , ${timeEntry.endDate}, , , ${Utils.escapeCommas(timeEntry.name)}, , , ${timeEntry.profileId}, ${timeEntry.projectId}, , ${timeEntry.startDate}, , \n';
     }
 
     for (Project project in projects.items) {
       projectData +=
-          'project, ${project.id}, , , ${Utils.escapeCommas(project.description ?? '')}, ${project.endDate}, ${Utils.escapeCommas(project.estCost.toString())}, ${project.image}, , ${Utils.escapeCommas(project.name)}, , , ${project.profileId}, , , ${project.startDate}, ${project.status} \n';
+          'project, ${project.id}, , , ${Utils.escapeCommas(project.description ?? '')}, ${project.endDate}, ${Utils.escapeCommas(project.estCost.toString())}, , ${Utils.escapeCommas(project.name)}, , , ${project.profileId}, , , ${project.startDate}, ${project.status}, ${project.image} \n';
     }
 
     final directory = await getTemporaryDirectory();
@@ -194,7 +197,7 @@ class Utils {
     await tempFile.writeAsString(data);
 
     // Use the share plugin to let the user choose where to save the file
-    await Share.shareXFiles([XFile(tempFilePath)], text: 'Save your file');
+    await Share.shareXFiles([XFile(tempFilePath)]);
 
     // Clean up the temporary file
     await tempFile.delete();

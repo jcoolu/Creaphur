@@ -1,4 +1,5 @@
 import 'package:creaphur/models/project.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -66,6 +67,15 @@ class ProjectPDF {
   static Future<Uint8List> generatePdf(PdfPageFormat format, String title,
       Project project, BuildContext con) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
+    pw.TextStyle body = const pw.TextStyle(fontSize: 24);
+
+    PdfColor returnColor() {
+      return project.status == Project.inProgress
+          ? const PdfColor.fromInt(0xffad99ff)
+          : project.status == Project.finished
+              ? PdfColors.green
+              : PdfColors.red;
+    }
 
     pdf.addPage(
       pw.Page(
@@ -73,13 +83,28 @@ class ProjectPDF {
         build: (context) {
           return pw.Column(
             children: [
-              pw.Text(project.name, style: const pw.TextStyle(fontSize: 25)),
+              pw.Text("${project.name}'s Story",
+                  style: const pw.TextStyle(fontSize: 64)),
+              pw.Container(
+                width: 500,
+                height: 50,
+                decoration: pw.BoxDecoration(
+                  borderRadius:
+                      const pw.BorderRadius.all(pw.Radius.elliptical(40, 20)),
+                  color: returnColor(),
+                ),
+                child: pw.Center(child: pw.Text(project.status, style: body)),
+              ),
               pw.Text(
-                  'Total Cost of Project: ${project.getTotalCostOfProject(con)}'),
-              pw.Text('Total Hours Worked: ${project.getTotalHours(con)}'),
+                  'Total Cost of Project: ${project.getTotalCostOfProject(con)}',
+                  style: body),
+              pw.Text('Total Hours Worked: ${project.getTotalHours(con)}',
+                  style: body),
               pw.Text(
-                  'Total Cost of Materials: ${project.getCostOfMaterials(con)}'),
-              pw.Text('Total Cost of Time: ${project.getTotalCost(con)}'),
+                  'Total Cost of Materials: ${project.getCostOfMaterials(con)}',
+                  style: body),
+              pw.Text('Total Cost of Time: ${project.getTotalCost(con)}',
+                  style: body),
             ],
           );
         },

@@ -76,7 +76,8 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
 
     void handlePDF() async {
       final directory = await getTemporaryDirectory();
-      final tempFilePath = '${directory.path}/${Utils.saveDataFileName}';
+      final tempFilePath =
+          '${directory.path}/${Utils.getStoryNameFile(widget.project.name)}';
 
       // Create and write to a temporary file
       final tempFile = File(tempFilePath);
@@ -85,7 +86,7 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
       await tempFile.writeAsBytes(data);
 
       // Use the share plugin to let the user choose where to save the file
-      await Share.shareXFiles([XFile(tempFilePath)], text: 'Save your file');
+      await Share.shareXFiles([XFile(tempFilePath)]);
 
       // Clean up the temporary file
       await tempFile.delete();

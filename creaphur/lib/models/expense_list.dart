@@ -24,4 +24,55 @@ class ExpenseList extends DefaultModelList<Expense> {
     addAll(expenses);
     notifyListeners();
   }
+
+  List getDataTable(context) {
+    return items
+        .map((exp) => [
+              exp.getMaterialName(context) ?? exp.name,
+              "${exp.quantity} ${exp.getMaterialUnit(context)}",
+              exp.getMaterialCost(context),
+              exp.getMaterialRetailer(context)
+            ])
+        .toList();
+  }
+
+  List getDataTableForPieChart(context) {
+    return items
+        .map((exp) => [
+              exp.getMaterialName(context) ?? exp.name,
+              exp.getMaterialCost(context)
+            ])
+        .toList();
+  }
+
+  List getDataTableForPieChartMarterials(context) {
+    List<Expense> expensesWithMaterials = [];
+    for (Expense item in items) {
+      if (item.materialId != 'None') {
+        expensesWithMaterials.add(item);
+      }
+    }
+    return expensesWithMaterials
+        .map((Expense exp) =>
+            [exp.getMaterialName(context) ?? exp.name, exp.quantity])
+        .toList();
+  }
+
+  double getTotalCost(context) {
+    return items
+        .map((exp) => exp.getCost(context))
+        .reduce((value, element) => value + element);
+  }
+
+  double getTotalQuantityUse(context) {
+    List<Expense> expensesWithMaterials = [];
+    for (Expense item in items) {
+      if (item.materialId != 'None') {
+        expensesWithMaterials.add(item);
+      }
+    }
+    return expensesWithMaterials
+        .map((exp) => exp.quantity)
+        .reduce((value, element) => value + element);
+  }
 }

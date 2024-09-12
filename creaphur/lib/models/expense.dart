@@ -70,6 +70,30 @@ class Expense extends DefaultModel {
     return possibleMatches.isEmpty ? 'None' : possibleMatches.first.name;
   }
 
+  String? getMaterialUnit(context) {
+    List<Material> materials =
+        Provider.of<MaterialList>(context, listen: false).items;
+
+    List<Material>? possibleMatches =
+        materials.where((element) => element.id == materialId).toList();
+
+    return possibleMatches.isEmpty
+        ? 'Each'
+        : possibleMatches.first.quantityType;
+  }
+
+  String? getMaterialRetailer(context) {
+    List<Material> materials =
+        Provider.of<MaterialList>(context, listen: false).items;
+
+    List<Material>? possibleMatches =
+        materials.where((element) => element.id == materialId).toList();
+
+    return possibleMatches.isEmpty
+        ? 'None / Unknown'
+        : possibleMatches.first.retailer;
+  }
+
   String getMaterialQuantityType(context) {
     List<Material> materials =
         Provider.of<MaterialList>(context, listen: false).items;

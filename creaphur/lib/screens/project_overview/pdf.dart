@@ -1,73 +1,45 @@
+import 'dart:math';
+
+import 'package:creaphur/models/expense_list.dart';
 import 'package:creaphur/models/project.dart';
+import 'package:creaphur/models/time_entry_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:path/path.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:typed_data';
 
+import 'package:provider/provider.dart';
+
 class ProjectPDF {
-  //List materialCostTable() {}
+  static const materialHeaders = [
+    'Material Name',
+    'Quantity Used',
+    'Cost',
+    'Retailer'
+  ];
 
-  // pw.Widget _contentTable(pw.Context context) {
-  //   const tableHeaders = [
-  //     'SKU#',
-  //     'Item Description',
-  //     'Price',
-  //     'Quantity',
-  //     'Total'
-  //   ];
-
-  //   return pw.TableHelper.fromTextArray(
-  //     border: null,
-  //     cellAlignment: pw.Alignment.centerLeft,
-  //     headerDecoration: pw.BoxDecoration(
-  //       borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-  //       color: baseColor,
-  //     ),
-  //     headerHeight: 25,
-  //     cellHeight: 40,
-  //     cellAlignments: {
-  //       0: pw.Alignment.centerLeft,
-  //       1: pw.Alignment.centerLeft,
-  //       2: pw.Alignment.centerRight,
-  //       3: pw.Alignment.center,
-  //       4: pw.Alignment.centerRight,
-  //     },
-  //     headerStyle: pw.TextStyle(
-  //       color: _baseTextColor,
-  //       fontSize: 10,
-  //       fontWeight: pw.FontWeight.bold,
-  //     ),
-  //     cellStyle: const pw.TextStyle(
-  //       color: _darkColor,
-  //       fontSize: 10,
-  //     ),
-  //     rowDecoration: pw.BoxDecoration(
-  //       border: pw.Border(
-  //         bottom: pw.BorderSide(
-  //           color: accentColor,
-  //           width: .5,
-  //         ),
-  //       ),
-  //     ),
-  //     headers: List<String>.generate(
-  //       tableHeaders.length,
-  //       (col) => tableHeaders[col],
-  //     ),
-  //     data: List<List<String>>.generate(
-  //       products.length,
-  //       (row) => List<String>.generate(
-  //         tableHeaders.length,
-  //         (col) => products[row].getIndex(col),
-  //       ),
-  //     ),
-  //   );
-  // }
+  static const timeEntriesHeaders = [
+    'Action',
+    'Cost of Services',
+    'Duration',
+  ];
 
   static Future<Uint8List> generatePdf(PdfPageFormat format, String title,
       Project project, BuildContext con) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
     pw.TextStyle body = const pw.TextStyle(fontSize: 24);
+    List expenseDataTable = Provider.of<ExpenseList>(con, listen: false)
+        .getDataTableForPieChart(con);
+    List expenseMaterialUseDataTable =
+        Provider.of<ExpenseList>(con, listen: false)
+            .getDataTableForPieChartMarterials(con);
+    List materialDataTable =
+        Provider.of<ExpenseList>(con, listen: false).getDataTable(con);
+    List timeEntryDataTable =
+        Provider.of<TimeEntryList>(con, listen: false).getDataTable(con);
 
     PdfColor returnColor() {
       return project.status == Project.inProgress
@@ -85,6 +57,9 @@ class ProjectPDF {
             children: [
               pw.Text("${project.name}'s Story",
                   style: const pw.TextStyle(fontSize: 64)),
+              pw.Text(project.description ?? '', style: body),
+              pw.Divider(),
+              pw.Container(height: 100),
               pw.Container(
                 width: 500,
                 height: 50,
@@ -105,65 +80,162 @@ class ProjectPDF {
                   style: body),
               pw.Text('Total Cost of Time: ${project.getTotalCost(con)}',
                   style: body),
+              pw.Text(
+                  'Projected Start Date: ${DateFormat.MMMEd().format(project.startDate)}',
+                  style: body),
+              pw.Text(
+                  'Projected End Date: ${DateFormat.MMMEd().format(project.endDate)}',
+                  style: body),
             ],
           );
         },
       ),
     );
 
-    // pdf.addPage(pw.Page(
-    //     pageFormat: format,
-    //     build: (context) {
-    //       return pw.Chart(
-    //         title: pw.Text(
-    //           'Material Use Breakdown',
-    //           style: const pw.TextStyle(
-    //             color: PdfColors.purple200,
-    //             fontSize: 20,
-    //           ),
-    //         ),
-    //         grid: pw.PieGrid(),
-    //         datasets: List<pw.Dataset>.generate(dataTable.length, (index) {
-    //           final data = dataTable[index];
-    //           final color = chartColors[index % chartColors.length];
-    //           final value = (data[2] as num).toDouble();
-    //           final pct = (value / expense * 100).round();
-    //           return pw.PieDataSet(
-    //             legend: '${data[0]}\n$pct%',
-    //             value: value,
-    //             color: color,
-    //             legendStyle: const pw.TextStyle(fontSize: 10),
-    //           );
-    //         }),
-    //       );
-    //     }));
+    pdf.addPage(pw.Page(
+        pageFormat: format,
+        build: (context) {
+          return pw.Chart(
+            title: pw.Text(
+              'Material Use Breakdown',
+              style: const pw.TextStyle(
+                color: PdfColor.fromInt(0xffad99ff),
+                fontSize: 20,
+              ),
+            ),
+            grid: pw.PieGrid(),
+            datasets:
+                List<pw.Dataset>.generate(expenseDataTable.length, (index) {
+              final data = expenseMaterialUseDataTable[index];
+              final Random random = Random();
+              final color = PdfColor.fromInt(
+                random.nextInt(256),
+              );
+              final value = (data[1]);
+              final sumCost = Provider.of<ExpenseList>(con, listen: false)
+                  .getTotalQuantityUse(con);
+              final pct = (value / sumCost * 100).round();
+              return pw.PieDataSet(
+                legend: '${data[0]}\n$pct%',
+                value: value,
+                color: color,
+                legendStyle: const pw.TextStyle(fontSize: 10),
+              );
+            }),
+          );
+        }));
 
-    // pdf.addPage(pw.Page(
-    //     pageFormat: format,
-    //     build: (context) {
-    //       return pw.Chart(
-    //         title: pw.Text(
-    //           'Expense Breakdown',
-    //           style: const pw.TextStyle(
-    //             color: baseColor,
-    //             fontSize: 20,
-    //           ),
-    //         ),
-    //         grid: pw.PieGrid(),
-    //         datasets: List<pw.Dataset>.generate(dataTable.length, (index) {
-    //           final data = dataTable[index];
-    //           final color = chartColors[index % chartColors.length];
-    //           final value = (data[2] as num).toDouble();
-    //           final pct = (value / expense * 100).round();
-    //           return pw.PieDataSet(
-    //             legend: '${data[0]}\n$pct%',
-    //             value: value,
-    //             color: color,
-    //             legendStyle: const pw.TextStyle(fontSize: 10),
-    //           );
-    //         }),
-    //       );
-    //     }));
+    pdf.addPage(pw.Page(
+        pageFormat: format,
+        build: (context) {
+          return pw.Chart(
+            title: pw.Text(
+              'Expense Breakdown',
+              style: const pw.TextStyle(
+                color: PdfColor.fromInt(0xffad99ff),
+                fontSize: 20,
+              ),
+            ),
+            grid: pw.PieGrid(),
+            datasets:
+                List<pw.Dataset>.generate(expenseDataTable.length, (index) {
+              final data = expenseDataTable[index];
+              final Random random = Random();
+              final color = PdfColor.fromInt(
+                random.nextInt(256),
+              );
+              final value = (double.parse(data[1]));
+              final sumCost = Provider.of<ExpenseList>(con, listen: false)
+                  .getTotalCost(con);
+              final pct = (value / sumCost * 100).round();
+              return pw.PieDataSet(
+                legend: '${data[0]}\n$pct%',
+                value: value,
+                color: color,
+                legendStyle: const pw.TextStyle(fontSize: 10),
+              );
+            }),
+          );
+        }));
+
+    // Data table
+    pdf.addPage(pw.Page(
+        pageFormat: format,
+        build: (context) {
+          return pw.Column(children: [
+            pw.Text("List of Expenses",
+                style: const pw.TextStyle(fontSize: 34)),
+            pw.TableHelper.fromTextArray(
+              border: null,
+              headers: materialHeaders,
+              data: List<List<dynamic>>.generate(
+                materialDataTable.length,
+                (index) => <dynamic>[
+                  materialDataTable[index][0],
+                  materialDataTable[index][1],
+                  materialDataTable[index][2],
+                  materialDataTable[index][3],
+                ],
+              ),
+              headerStyle: pw.TextStyle(
+                color: PdfColors.white,
+                fontWeight: pw.FontWeight.bold,
+              ),
+              headerDecoration: const pw.BoxDecoration(
+                color: PdfColor.fromInt(0xffad99ff),
+              ),
+              rowDecoration: const pw.BoxDecoration(
+                border: pw.Border(
+                  bottom: pw.BorderSide(
+                    color: PdfColor.fromInt(0xffad99ff),
+                    width: .5,
+                  ),
+                ),
+              ),
+              cellAlignment: pw.Alignment.centerRight,
+              cellAlignments: {0: pw.Alignment.centerLeft},
+            )
+          ]);
+        }));
+
+    // Data table
+    pdf.addPage(pw.Page(
+        pageFormat: format,
+        build: (context) {
+          return pw.Column(children: [
+            pw.Text("List of Time Entries",
+                style: const pw.TextStyle(fontSize: 34)),
+            pw.TableHelper.fromTextArray(
+              border: null,
+              headers: timeEntriesHeaders,
+              data: List<List<dynamic>>.generate(
+                timeEntryDataTable.length,
+                (index) => <dynamic>[
+                  timeEntryDataTable[index][0],
+                  timeEntryDataTable[index][1],
+                  timeEntryDataTable[index][2],
+                ],
+              ),
+              headerStyle: pw.TextStyle(
+                color: PdfColors.white,
+                fontWeight: pw.FontWeight.bold,
+              ),
+              headerDecoration: const pw.BoxDecoration(
+                color: PdfColor.fromInt(0xffad99ff),
+              ),
+              rowDecoration: const pw.BoxDecoration(
+                border: pw.Border(
+                  bottom: pw.BorderSide(
+                    color: PdfColor.fromInt(0xffad99ff),
+                    width: .5,
+                  ),
+                ),
+              ),
+              cellAlignment: pw.Alignment.centerRight,
+              cellAlignments: {0: pw.Alignment.centerLeft},
+            )
+          ]);
+        }));
 
     return pdf.save();
   }

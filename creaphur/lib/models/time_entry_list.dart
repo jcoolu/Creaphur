@@ -24,4 +24,11 @@ class TimeEntryList extends DefaultModelList<TimeEntry> {
     addAll(timeEntries);
     notifyListeners();
   }
+
+  List getDataTable(context) {
+    return items
+        .map((time) =>
+            [time.name, "\$${time.costOfServices}", time.getDuration(context)])
+        .toList();
+  }
 }

@@ -27,6 +27,18 @@ class ProjectPDF {
     'Duration',
   ];
 
+  static String generateRandomHexColor() {
+    final Random random = Random();
+
+    // Generate random values for R, G, B
+    int red = random.nextInt(256);
+    int green = random.nextInt(256);
+    int blue = random.nextInt(256);
+
+    // Format the color as a hex string
+    return '#${red.toRadixString(16).padLeft(2, '0')}${green.toRadixString(16).padLeft(2, '0')}${blue.toRadixString(16).padLeft(2, '0')}';
+  }
+
   static Future<Uint8List> generatePdf(PdfPageFormat format, String title,
       Project project, BuildContext con) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
@@ -59,7 +71,7 @@ class ProjectPDF {
                   style: const pw.TextStyle(fontSize: 64)),
               pw.Text(project.description ?? '', style: body),
               pw.Divider(),
-              pw.Container(height: 100),
+              pw.Container(height: 50),
               pw.Container(
                 width: 500,
                 height: 50,
@@ -70,6 +82,7 @@ class ProjectPDF {
                 ),
                 child: pw.Center(child: pw.Text(project.status, style: body)),
               ),
+              pw.Container(height: 250),
               pw.Text(
                   'Total Cost of Project: ${project.getTotalCostOfProject(con)}',
                   style: body),
@@ -81,10 +94,10 @@ class ProjectPDF {
               pw.Text('Total Cost of Time: ${project.getTotalCost(con)}',
                   style: body),
               pw.Text(
-                  'Projected Start Date: ${DateFormat.MMMEd().format(project.startDate)}',
+                  'Projected Start Date: ${DateFormat.yMMMd().format(project.startDate)}',
                   style: body),
               pw.Text(
-                  'Projected End Date: ${DateFormat.MMMEd().format(project.endDate)}',
+                  'Projected End Date: ${DateFormat.yMMMd().format(project.endDate)}',
                   style: body),
             ],
           );
@@ -98,19 +111,13 @@ class ProjectPDF {
           return pw.Chart(
             title: pw.Text(
               'Material Use Breakdown',
-              style: const pw.TextStyle(
-                color: PdfColor.fromInt(0xffad99ff),
-                fontSize: 20,
-              ),
+              style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 34),
             ),
             grid: pw.PieGrid(),
             datasets:
                 List<pw.Dataset>.generate(expenseDataTable.length, (index) {
               final data = expenseMaterialUseDataTable[index];
-              final Random random = Random();
-              final color = PdfColor.fromInt(
-                random.nextInt(256),
-              );
+              final color = PdfColor.fromHex(generateRandomHexColor());
               final value = (data[1]);
               final sumCost = Provider.of<ExpenseList>(con, listen: false)
                   .getTotalQuantityUse(con);
@@ -129,21 +136,14 @@ class ProjectPDF {
         pageFormat: format,
         build: (context) {
           return pw.Chart(
-            title: pw.Text(
-              'Expense Breakdown',
-              style: const pw.TextStyle(
-                color: PdfColor.fromInt(0xffad99ff),
-                fontSize: 20,
-              ),
-            ),
+            title: pw.Text('Expense Breakdown',
+                style:
+                    pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 34)),
             grid: pw.PieGrid(),
             datasets:
                 List<pw.Dataset>.generate(expenseDataTable.length, (index) {
               final data = expenseDataTable[index];
-              final Random random = Random();
-              final color = PdfColor.fromInt(
-                random.nextInt(256),
-              );
+              final color = PdfColor.fromHex(generateRandomHexColor());
               final value = (double.parse(data[1]));
               final sumCost = Provider.of<ExpenseList>(con, listen: false)
                   .getTotalCost(con);
@@ -164,7 +164,8 @@ class ProjectPDF {
         build: (context) {
           return pw.Column(children: [
             pw.Text("List of Expenses",
-                style: const pw.TextStyle(fontSize: 34)),
+                style:
+                    pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 34)),
             pw.TableHelper.fromTextArray(
               border: null,
               headers: materialHeaders,
@@ -204,7 +205,8 @@ class ProjectPDF {
         build: (context) {
           return pw.Column(children: [
             pw.Text("List of Time Entries",
-                style: const pw.TextStyle(fontSize: 34)),
+                style:
+                    pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 34)),
             pw.TableHelper.fromTextArray(
               border: null,
               headers: timeEntriesHeaders,

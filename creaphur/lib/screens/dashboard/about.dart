@@ -88,6 +88,8 @@ class AboutScreen extends StatelessWidget {
           const BulletPoint(text: 'Manage project expenses'),
           const BulletPoint(text: 'Monitor project progress'),
           const BulletPoint(text: 'User-friendly interface'),
+          const BulletPoint(
+              text: 'Pdf Generator for Stories (Still a work in progress)'),
           const Spacer(),
           const Text(
             'Development Team:',

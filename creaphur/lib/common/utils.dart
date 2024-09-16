@@ -48,7 +48,7 @@ class Utils {
   static const saveDataFileName = "creaphur_save_data.csv";
 
   static String getStoryNameFile(String projectName) =>
-      "$projectName Story.pdf";
+      "$projectName's Story.pdf";
 
   static isCurrencyValid(String value) {
     RegExp regExp = RegExp(r'^\d+(\.\d{2})?$');

@@ -28,6 +28,7 @@ class Utils {
     'id',
     'costOfServices',
     'costPer',
+    'customCost',
     'description',
     'endDate',
     'estCost',
@@ -156,31 +157,34 @@ class Utils {
     String timeEntryData = '';
     String projectData = '';
 
-    // type, id, costOfServices, costPer, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
-
+    // type, id, costOfServices, costPer, customCost, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
     for (Profile profile in profilesList.items) {
       profileData +=
-          'profile, ${profile.id}, , , , , , , ${Utils.escapeCommas(profile.name)}, , , , , , , , \n';
+          'profile,${profile.id}, , , , , , , ,${Utils.escapeCommas(profile.name)}, , , , , , , , \n';
     }
 
+    // type, id, costOfServices, costPer, customCost, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
     for (Material material in materials.items) {
       materialData +=
-          'material, ${material.id}, , ${material.costPer}, , , , , ${Utils.escapeCommas(material.name)}, , ${material.quantityType}, ${material.profileId}, , ${Utils.escapeCommas(material.retailer)}, , ${"\"${material.image}\""} \n';
+          'material,${material.id}, ,${material.costPer}, , , , , ,${Utils.escapeCommas(material.name)}, ,${material.quantityType},${material.profileId}, ,${Utils.escapeCommas(material.retailer)}, , ,${"\"${material.image}\""} \n';
     }
 
+    // type, id, costOfServices, costPer, customCost, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
     for (Expense expense in expenses.items) {
       expenseData +=
-          'expense, ${expense.id}, , , , , , ${expense.materialId}, ${Utils.escapeCommas(expense.name)}, ${expense.quantity}, , ${expense.profileId}, ${expense.projectId}, , , , \n';
+          'expense,${expense.id}, , ,${expense.customCost} , , , ,${expense.materialId},${Utils.escapeCommas(expense.name)},${expense.quantity}, ,${expense.profileId},${expense.projectId}, , , , \n';
     }
 
+    // type, id, costOfServices, costPer, customCost, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
     for (TimeEntry timeEntry in timeEntries.items) {
       timeEntryData +=
-          'timeEntry, ${timeEntry.id}, ${Utils.escapeCommas(timeEntry.costOfServices.toString())}, , , ${timeEntry.endDate}, , , ${Utils.escapeCommas(timeEntry.name)}, , , ${timeEntry.profileId}, ${timeEntry.projectId}, , ${timeEntry.startDate}, , \n';
+          'timeEntry,${timeEntry.id},${Utils.escapeCommas(timeEntry.costOfServices.toString())}, , , ,${timeEntry.endDate}, , ,${Utils.escapeCommas(timeEntry.name)}, , ,${timeEntry.profileId},${timeEntry.projectId}, ,${timeEntry.startDate}, , \n';
     }
 
+    // type, id, costOfServices, costPer, customCost, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
     for (Project project in projects.items) {
       projectData +=
-          'project, ${project.id}, , , ${Utils.escapeCommas(project.description ?? '')}, ${project.endDate}, ${Utils.escapeCommas(project.estCost.toString())}, , ${Utils.escapeCommas(project.name)}, , , ${project.profileId}, , , ${project.startDate}, ${project.status}, ${project.image} \n';
+          'project,${project.id}, , , ,${Utils.escapeCommas(project.description ?? '')}, ${project.endDate},${Utils.escapeCommas(project.estCost.toString())}, ,${Utils.escapeCommas(project.name)}, , ,${project.profileId}, , ,${project.startDate},${project.status},${project.image} \n';
     }
 
     final directory = await getTemporaryDirectory();
@@ -203,6 +207,15 @@ class Utils {
     await tempFile.delete();
   }
 
+  static List<String> splitCSVLine(String input) {
+    // Regular expression to match quoted strings and non-quoted values
+    RegExp regExp = RegExp(r'(".*?"|[^",]+)(?=\s*,|\s*$)');
+    Iterable<Match> matches = regExp.allMatches(input);
+
+    // Convert matches to a list of strings
+    return matches.map((match) => match.group(0)?.trim() ?? '').toList();
+  }
+
   static void importSaveData(contents, context) async {
     try {
       // Split the content into lines
@@ -212,11 +225,12 @@ class Utils {
       lines.removeWhere((line) => line.trim().isEmpty);
 
       // Extract the header
-      List<String> headers = lines.first.split(',');
+      List<String> headers =
+          lines.first.split(',').map((header) => header.trim()).toList();
 
       // Process each line into a map
       List<Map<String, String>> rows = lines.skip(1).map((line) {
-        List<String> values = line.split(',');
+        List<String> values = Utils.splitCSVLine(line);
         Map<String, String> row = {};
         for (int i = 0; i < headers.length; i++) {
           row[headers[i]] = values[i];

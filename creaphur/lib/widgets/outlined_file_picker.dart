@@ -34,7 +34,7 @@ class OutlinedFilePicker extends StatelessWidget {
               }
             } else {
               FilePickerResult? result = await FilePicker.platform
-                  .pickFiles(type: type, allowedExtensions: ['txt', 'json']);
+                  .pickFiles(type: type, allowedExtensions: ['txt', 'csv']);
               if (result != null) {
                 File file = File(result.files.single.path!);
                 String data = await file.readAsString();

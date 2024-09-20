@@ -2,6 +2,7 @@ import 'package:creaphur/widgets/ko_fi.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class AboutScreen extends StatelessWidget {
               children: [
                 const TextSpan(
                   text:
-                      'Creaphur is a versatile project management app designed to help you efficiently track and manage your projects. With Creaphur, you can easily log project materials, track time spent, manage expenses, and monitor progress. New features will be added for Creaphur and this page will be updated as new versions come out.\nIf you have any issues or any new ideas while using Creaphur, please do not hesitate to reach out to my email at ',
+                      'Creaphur is a versatile project management app designed to help you efficiently track and manage your projects. With Creaphur, you can easily log project materials, track time spent, manage expenses, and monitor progress.\n\nNew features will be added for Creaphur and this page will be updated as new versions come out.\n\nIf you have any issues or any new ideas while using Creaphur, please do not hesitate to reach out to my email at ',
                 ),
                 TextSpan(
                   text: 'gjellygrump@gmail.com',
@@ -66,6 +67,18 @@ class AboutScreen extends StatelessWidget {
                     ..onTap = () {
                       launchMailClient('gjellygrump@gmail.com');
                     },
+                ),
+                const TextSpan(
+                    text:
+                        "\n\nPlease check out my website for Creaphur's Privacy Policy, my Social Media Accounts, Fursuits, and Q&A's / Tips.\n"),
+                TextSpan(
+                  text: 'https://devless.co/ginger-jellygrump-den',
+                  style: const TextStyle(
+                    color: Colors.blue,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => launchUrl(
+                        Uri.parse('https://devless.co/ginger-jellygrump-den')),
                 ),
                 const TextSpan(
                   text:

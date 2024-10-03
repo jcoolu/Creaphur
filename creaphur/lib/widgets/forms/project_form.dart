@@ -1,14 +1,16 @@
+import 'dart:convert';
+
 import 'package:creaphur/common/form_utils.dart';
 import 'package:creaphur/models/project.dart';
 import 'package:creaphur/widgets/date_time_picker.dart';
 import 'package:creaphur/widgets/filled_action_button.dart';
+import 'package:creaphur/widgets/image_file_picker.dart';
 import 'package:creaphur/widgets/outlined_dropdown.dart';
-import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:confetti/confetti.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class ProjectForm extends StatefulWidget {
   final Function onChange;
@@ -31,6 +33,7 @@ class ProjectFormState extends State<ProjectForm> {
   final _formKey = GlobalKey<FormState>();
   late ConfettiController _confettiController;
   late String selectedStatus;
+  late String shownImage;
   static const int confettiDelay = 1;
 
   @override
@@ -39,6 +42,7 @@ class ProjectFormState extends State<ProjectForm> {
     _confettiController =
         ConfettiController(duration: const Duration(seconds: confettiDelay));
     selectedStatus = widget.project?.status ?? Project.getStatuses().first;
+    shownImage = widget.project?.image ?? '';
   }
 
   @override
@@ -62,6 +66,14 @@ class ProjectFormState extends State<ProjectForm> {
           ));
     }
 
+    void handleRotateImage() async {
+      Uint8List bytes = base64Decode(widget.project!.image);
+      List<int> result = await FlutterImageCompress.compressWithList(bytes,
+          quality: 100, rotate: 90);
+      setState(() => shownImage = base64Encode(result));
+      widget.onChange('image', base64Encode(result));
+    }
+
     return Stack(
       children: [
         Padding(
@@ -74,6 +86,19 @@ class ProjectFormState extends State<ProjectForm> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    shownImage.isEmpty
+                        ? const Center(
+                            child: Icon(
+                              size: 150,
+                              Icons.assessment,
+                              color: Color(0xff2900cc),
+                            ),
+                          )
+                        : Center(
+                            child: Image.memory(base64Decode(shownImage),
+                                width: MediaQuery.of(context).size.width / 2,
+                                fit: BoxFit.cover),
+                          ),
                     Padding(
                       padding: const EdgeInsets.only(top: 12, bottom: 12),
                       child: OutlinedTextField(
@@ -170,14 +195,19 @@ class ProjectFormState extends State<ProjectForm> {
                               'estCost'),
                           prefix: '\$'),
                     ),
-                    OutlinedFilePicker(
-                      onChange: widget.onChange,
-                      type: FileType.image,
-                      childWidget: Text((widget.project == null ||
-                              widget.project!.image.isEmpty)
-                          ? 'Select Image'
-                          : 'Image Selected!'),
-                    ),
+                    ImageFilePicker(
+                        onFileChange: (String field, String value) {
+                          widget.onChange(field, value);
+                          setState(() => shownImage = value);
+                        },
+                        childWidget: Text((widget.project == null &&
+                                widget.project!.image.isEmpty)
+                            ? 'Select Image'
+                            : 'Image Selected!'),
+                        onRotateImage: handleRotateImage,
+                        icon: Icons.rotate_90_degrees_cw_outlined,
+                        isFilePicked: widget.project?.image != null &&
+                            widget.project!.image.isNotEmpty),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: FilledActionButton(

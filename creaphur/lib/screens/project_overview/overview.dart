@@ -36,12 +36,18 @@ class OverviewScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         children: [
           project.image.isEmpty
-              ? const Icon(
-                  size: 150,
-                  Icons.assessment,
-                  color: Color(0xff2900cc),
+              ? const Center(
+                  child: Icon(
+                    size: 150,
+                    Icons.assessment,
+                    color: Color(0xff2900cc),
+                  ),
                 )
-              : Image.memory(base64Decode(project.image), fit: BoxFit.cover),
+              : Center(
+                  child: Image.memory(base64Decode(project.image),
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width / 2),
+                ),
           const SizedBox(height: 8),
           Text(
             project.description ?? '',

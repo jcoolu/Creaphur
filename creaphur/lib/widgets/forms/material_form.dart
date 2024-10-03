@@ -1,14 +1,16 @@
+import 'dart:convert';
+
 import 'package:creaphur/common/form_utils.dart';
 import 'package:creaphur/common/retailers.dart';
 import 'package:creaphur/models/material.dart' as material_model;
 import 'package:creaphur/widgets/filled_action_button.dart';
+import 'package:creaphur/widgets/image_file_picker.dart';
 import 'package:creaphur/widgets/outlined_dropdown.dart';
-import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:creaphur/widgets/outlined_text_field.dart';
 import 'package:creaphur/widgets/unit_dropdown.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class MaterialForm extends StatefulWidget {
   final Function onChange;
@@ -31,6 +33,21 @@ class MaterialForm extends StatefulWidget {
 
 class MaterialFormState extends State<MaterialForm> {
   final _formKey = GlobalKey<FormState>();
+  late String shownImage;
+
+  @override
+  void initState() {
+    super.initState();
+    shownImage = widget.material?.image ?? '';
+  }
+
+  void handleRotateImage() async {
+    Uint8List bytes = base64Decode(widget.material!.image);
+    List<int> result = await FlutterImageCompress.compressWithList(bytes,
+        quality: 100, rotate: 90);
+    setState(() => shownImage = base64Encode(result));
+    widget.onChange('image', base64Encode(result));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +61,19 @@ class MaterialFormState extends State<MaterialForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                shownImage.isEmpty
+                    ? const Center(
+                        child: Icon(
+                          size: 150,
+                          Icons.assessment,
+                          color: Color(0xff2900cc),
+                        ),
+                      )
+                    : Center(
+                        child: Image.memory(base64Decode(shownImage),
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width / 2),
+                      ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 12),
                   child: OutlinedTextField(
@@ -127,14 +157,19 @@ class MaterialFormState extends State<MaterialForm> {
                     ],
                   ),
                 ),
-                OutlinedFilePicker(
-                  onChange: widget.onChange,
-                  type: FileType.image,
-                  childWidget: Text((widget.material == null ||
-                          widget.material!.image.isEmpty)
-                      ? 'Select Image'
-                      : 'Image Selected!'),
-                ),
+                ImageFilePicker(
+                    onFileChange: (String field, String value) {
+                      widget.onChange(field, value);
+                      setState(() => shownImage = value);
+                    },
+                    childWidget: Text((widget.material == null ||
+                            widget.material!.image.isEmpty)
+                        ? 'Select Image'
+                        : 'Image Selected!'),
+                    onRotateImage: handleRotateImage,
+                    icon: Icons.rotate_90_degrees_cw_outlined,
+                    isFilePicked: widget.material?.image != null ||
+                        widget.material!.image.isNotEmpty),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: FilledActionButton(

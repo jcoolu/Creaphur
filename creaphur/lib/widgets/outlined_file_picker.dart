@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -24,13 +23,15 @@ class OutlinedFilePicker extends StatelessWidget {
         child: OutlinedButton(
           onPressed: () async {
             if (type != FileType.custom) {
-              FilePickerResult? result =
-                  await FilePicker.platform.pickFiles(type: type);
+              FilePickerResult? result = await FilePicker.platform
+                  .pickFiles(type: type, withReadStream: true);
+
+              sleep(Durations.long1);
 
               if (result != null && type == FileType.image) {
                 File file = File(result.files.single.path!);
                 Uint8List bytes = await file.readAsBytes();
-                onChange('image', base64.encode(bytes));
+                onChange('image', base64Encode(bytes));
               }
             } else {
               FilePickerResult? result = await FilePicker.platform

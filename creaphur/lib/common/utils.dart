@@ -183,8 +183,9 @@ class Utils {
 
     // type, id, costOfServices, costPer, customCost, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
     for (Project project in projects.items) {
+      debugPrint(project.image);
       projectData +=
-          'project,${project.id}, , , ,${Utils.escapeCommas(project.description ?? '')}, ${project.endDate},${Utils.escapeCommas(project.estCost.toString())}, ,${Utils.escapeCommas(project.name)}, , ,${project.profileId}, , ,${project.startDate},${project.status},${project.image} \n';
+          'project,${project.id}, , , ,${Utils.escapeCommas(project.description ?? '')}, ${project.endDate},${Utils.escapeCommas(project.estCost.toString())}, ,${Utils.escapeCommas(project.name)}, , ,${project.profileId}, , ,${project.startDate},${project.status},${project.image.toString()} \n';
     }
 
     final directory = await getTemporaryDirectory();

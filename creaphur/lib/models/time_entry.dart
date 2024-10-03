@@ -8,16 +8,18 @@ class TimeEntry extends DefaultModel {
   final double costOfServices;
   final String projectId;
   final String profileId;
+  final String image;
 
-  TimeEntry(
-      {required String id,
-      required String name,
-      required this.startDate,
-      required this.endDate,
-      required this.costOfServices,
-      required this.projectId,
-      required this.profileId})
-      : super(id: id, name: name);
+  TimeEntry({
+    required String id,
+    required String name,
+    required this.startDate,
+    required this.endDate,
+    required this.costOfServices,
+    required this.projectId,
+    required this.profileId,
+    required this.image,
+  }) : super(id: id, name: name);
 
   factory TimeEntry.fromMap(Map<String, dynamic> json) {
     try {
@@ -36,15 +38,19 @@ class TimeEntry extends DefaultModel {
       }
 
       return TimeEntry(
-          id: json['id'].trim(),
-          name: Utils.removeQuotes(json['name']).trim(),
-          startDate: startDate,
-          endDate: endDate,
-          costOfServices: json['costOfServices'] is String
-              ? double.tryParse(Utils.removeQuotes(json['costOfServices']))
-              : json['costOfServices'],
-          projectId: json['projectId'].trim(),
-          profileId: json['profileId'].trim());
+        id: json['id'].trim(),
+        name: Utils.removeQuotes(json['name']).trim(),
+        startDate: startDate,
+        endDate: endDate,
+        costOfServices: json['costOfServices'] is String
+            ? double.tryParse(Utils.removeQuotes(json['costOfServices']))
+            : json['costOfServices'],
+        projectId: json['projectId'].trim(),
+        profileId: json['profileId'].trim(),
+        image: json['image'] != null
+            ? Utils.removeQuotes(json['image'].toString().trim())
+            : '',
+      );
     } catch (e) {
       print('Error in TimeEntry.fromMap: $e');
       rethrow;
@@ -60,6 +66,7 @@ class TimeEntry extends DefaultModel {
       'costOfServices': costOfServices,
       'projectId': projectId,
       'profileId': profileId,
+      'image': image,
     };
   }
 
@@ -72,6 +79,7 @@ class TimeEntry extends DefaultModel {
         startDate: DateTime.now().subtract(const Duration(hours: 3)),
         endDate: DateTime.now(),
         profileId: profileId,
+        image: '',
       );
 
   int getTimeInSeconds() => endDate.difference(startDate).inSeconds;

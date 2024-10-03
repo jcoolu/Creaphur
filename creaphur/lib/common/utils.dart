@@ -178,7 +178,7 @@ class Utils {
     // type, id, costOfServices, costPer, customCost, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image
     for (TimeEntry timeEntry in timeEntries.items) {
       timeEntryData +=
-          'timeEntry,${timeEntry.id},${Utils.escapeCommas(timeEntry.costOfServices.toString())}, , , ,${timeEntry.endDate}, , ,${Utils.escapeCommas(timeEntry.name)}, , ,${timeEntry.profileId},${timeEntry.projectId}, ,${timeEntry.startDate}, , \n';
+          'timeEntry,${timeEntry.id},${Utils.escapeCommas(timeEntry.costOfServices.toString())}, , , ,${timeEntry.endDate}, , ,${Utils.escapeCommas(timeEntry.name)}, , ,${timeEntry.profileId},${timeEntry.projectId}, ,${timeEntry.startDate}, ,${timeEntry.image.toString()} \n';
     }
 
     // type, id, costOfServices, costPer, customCost, description, endDate, estCost, materialId, name, quantity, quantityType, profileId, projectId, retailer, startDate, status, image

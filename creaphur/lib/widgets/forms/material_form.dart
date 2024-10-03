@@ -163,6 +163,7 @@ class MaterialFormState extends State<MaterialForm> {
                       setState(() => shownImage = value);
                     },
                     childWidget: Text((widget.material == null ||
+                            widget.material?.image != null ||
                             widget.material!.image.isEmpty)
                         ? 'Select Image'
                         : 'Image Selected!'),

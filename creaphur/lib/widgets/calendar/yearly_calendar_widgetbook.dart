@@ -34,6 +34,7 @@ WidgetbookComponent yearlyCalendarComponent = WidgetbookComponent(
               endDate: DateTime(2024, 1, 1, 19),
               costOfServices: 60.50,
               projectId: '1',
+              image: '',
               profileId: 'profileId')
         ],
       ),

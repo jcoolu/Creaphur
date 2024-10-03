@@ -68,7 +68,8 @@ class SchemaBuilder {
       duration INT,
       costOfServices DOUBLE,
       projectId TEXT,
-      profileId TEXT
+      profileId TEXT,
+      image TEXT
     )
   ''');
 
@@ -147,6 +148,12 @@ class SchemaBuilder {
   static handleUpdateForProjectv12(Database db) async {
     Batch batch = db.batch();
     batch.execute("ALTER TABLE Expense ADD COLUMN customCost");
+    await batch.commit();
+  }
+
+  static handleUpdateForProjectv13(Database db) async {
+    Batch batch = db.batch();
+    batch.execute("ALTER TABLE TimeEntry ADD COLUMN image");
     await batch.commit();
   }
 }

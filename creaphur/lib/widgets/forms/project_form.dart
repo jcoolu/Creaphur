@@ -200,7 +200,8 @@ class ProjectFormState extends State<ProjectForm> {
                           widget.onChange(field, value);
                           setState(() => shownImage = value);
                         },
-                        childWidget: Text((widget.project == null &&
+                        childWidget: Text((widget.project == null ||
+                                widget.project?.image != null ||
                                 widget.project!.image.isEmpty)
                             ? 'Select Image'
                             : 'Image Selected!'),

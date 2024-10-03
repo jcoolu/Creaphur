@@ -19,11 +19,9 @@ import 'package:creaphur/widgets/filled_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'quote_list.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'dart:typed_data';
 
 class ProjectOverviewScreen extends StatefulWidget {

@@ -13,6 +13,13 @@ class ExpenseSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String handleSubText() {
+      if (expense.materialId.isNotEmpty) {
+        return '(\$${expense.getSingleMaterialCost(context)} @ ${expense.quantity} per ${expense.getMaterialUnit(context)})';
+      }
+      return '';
+    }
+
     return Card(
       elevation: 1,
       clipBehavior: Clip.antiAlias,
@@ -36,7 +43,8 @@ class ExpenseSummaryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Material: ${expense.getMaterialName(context)}'),
-                  Text('Cost: \$${expense.getMaterialCost(context)}')
+                  Text(
+                      'Cost: \$${expense.getMaterialCost(context)} ${handleSubText()}')
                 ],
               ),
             ),

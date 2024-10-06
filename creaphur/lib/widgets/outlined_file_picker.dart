@@ -64,7 +64,7 @@ class _OutlinedFilePickerState extends State<OutlinedFilePicker> {
             child: widget.childWidget,
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         SizedBox(
           width: double.infinity,
           child: Text(errorText, style: const TextStyle(color: Colors.red)),

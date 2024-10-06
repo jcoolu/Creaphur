@@ -126,4 +126,19 @@ class Expense extends DefaultModel {
         ? customCost.toStringAsFixed(2)
         : (possibleMatches.first.costPer * quantity).toStringAsFixed(2);
   }
+
+  String getSingleMaterialCost(context) {
+    List<Material> materials =
+        Provider.of<MaterialList>(context, listen: false).items;
+
+    List<Material>? possibleMatches =
+        materials.where((element) => element.id == materialId).toList();
+
+    return possibleMatches.isEmpty
+        ? ''
+        : (quantity < 1
+                ? (possibleMatches.first.costPer * quantity) * quantity
+                : possibleMatches.first.costPer)
+            .toStringAsFixed(2);
+  }
 }

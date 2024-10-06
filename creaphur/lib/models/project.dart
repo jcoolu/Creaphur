@@ -61,7 +61,7 @@ class Project extends DefaultModel {
         status: json['status'] ?? Project.getStatuses().first,
       );
     } catch (e) {
-      print('Error in Project.fromMap: $e');
+      // to-do add logging for error in fromMap
       rethrow;
     }
   }

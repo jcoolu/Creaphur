@@ -44,8 +44,6 @@ class TimeEntryFormState extends State<TimeEntryForm> {
       widget.onChange(field, value);
     }
 
-    print(widget.timeEntry!.image.toString());
-
     void handleRotateImage() async {
       Uint8List bytes = base64Decode(widget.timeEntry!.image);
       List<int> result = await FlutterImageCompress.compressWithList(bytes,

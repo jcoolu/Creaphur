@@ -52,7 +52,7 @@ class TimeEntry extends DefaultModel {
             : '',
       );
     } catch (e) {
-      print('Error in TimeEntry.fromMap: $e');
+      // to-do add logging for error in fromMap
       rethrow;
     }
   }

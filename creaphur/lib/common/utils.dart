@@ -270,10 +270,8 @@ class Utils {
       if (profilesList.items.isNotEmpty) {
         ProfileService.setCurrent(context, profilesList.items.first);
       }
-    } on Exception catch (_, e) {
-      // to-do add text to screen to say that import failed
-      print(e);
-      print("Error happened while importing Save Data");
+    } on Exception catch (_) {
+      // to-do add logging for import failure
     }
   }
 }

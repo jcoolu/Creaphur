@@ -173,10 +173,13 @@ class Project extends DefaultModel {
     if (timeEntries.isEmpty) {
       return '\$0.00';
     }
-    double costSum = timeEntries.map((time) => time.costOfServices).reduce(
-        (value, element) => double.parse((value + element).toStringAsFixed(2)));
+    String costSum = timeEntries
+        .map((time) => time.costOfServices)
+        .reduce((value, element) =>
+            double.parse((value + element).toStringAsFixed(2)))
+        .toStringAsFixed(2);
 
-    return '\$${costSum.toString()}';
+    return '\$$costSum';
   }
 
   String getCostOfMaterials(BuildContext context) {
@@ -223,6 +226,6 @@ class Project extends DefaultModel {
 
     double costSum = costSumForTime + costSumForMaterials;
 
-    return '\$${costSum.toString()}';
+    return '\$${costSum.toStringAsFixed(2)}';
   }
 }

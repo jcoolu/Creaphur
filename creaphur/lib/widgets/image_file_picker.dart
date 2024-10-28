@@ -50,8 +50,8 @@ class ImageFilePicker extends StatelessWidget {
                 childWidget: const Text('Select Image'),
                 type: FileType.image,
               ),
-              Text('Or'),
-              SizedBox(height: 30),
+              const Text('Or'),
+              const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(

@@ -141,10 +141,6 @@ class TimeEntryFormState extends State<TimeEntryForm> {
                       widget.onChange(field, value);
                       setState(() => shownImage = value);
                     },
-                    childWidget: Text((widget.timeEntry?.image == null ||
-                            widget.timeEntry!.image.isEmpty)
-                        ? 'Select Image'
-                        : 'Image Selected'),
                     onRotateImage: handleRotateImage,
                     icon: Icons.rotate_90_degrees_cw_outlined,
                     isFilePicked: widget.timeEntry?.image != null &&

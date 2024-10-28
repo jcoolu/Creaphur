@@ -162,10 +162,6 @@ class MaterialFormState extends State<MaterialForm> {
                       widget.onChange(field, value);
                       setState(() => shownImage = value);
                     },
-                    childWidget: Text((widget.material?.image == null ||
-                            widget.material!.image.isEmpty)
-                        ? 'Select Image'
-                        : 'Image Selected'),
                     onRotateImage: handleRotateImage,
                     icon: Icons.rotate_90_degrees_cw_outlined,
                     isFilePicked: widget.material?.image != null ||

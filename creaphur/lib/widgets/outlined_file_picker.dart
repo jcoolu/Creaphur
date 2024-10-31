@@ -40,6 +40,7 @@ class _OutlinedFilePickerState extends State<OutlinedFilePicker> {
                   File file = File(result.files.single.path!);
                   Uint8List bytes = await file.readAsBytes();
                   widget.onChange('image', base64Encode(bytes));
+                  Navigator.of(context).pop();
                   setState(() => errorText = "");
                 }
               } else {

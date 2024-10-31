@@ -30,6 +30,7 @@ class ImageFilePicker extends StatelessWidget {
       final file = File(image.path);
       Uint8List bytes = file.readAsBytesSync();
       onFileChange('image', base64Encode(bytes));
+      Navigator.of(context).pop();
     }
   }
 

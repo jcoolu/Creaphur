@@ -37,7 +37,7 @@ class ProjectSummaryCard extends StatelessWidget {
                       Icons.assessment,
                       color: Color(0xff2900cc),
                     )
-                  : Image.memory(base64Decode(project.image)),
+                  : Image.memory(base64.decode(project.image)),
               title: Text(project.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),

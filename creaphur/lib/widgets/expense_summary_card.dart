@@ -14,7 +14,7 @@ class ExpenseSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String handleSubText() {
-      if (expense.materialId.isNotEmpty) {
+      if (expense.materialId.isNotEmpty || expense.materialId != 'None') {
         return '(\$${expense.getSingleMaterialCost(context)} @ ${expense.quantity} per ${expense.getMaterialUnit(context)})';
       }
       return '';

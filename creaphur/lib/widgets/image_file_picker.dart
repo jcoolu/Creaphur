@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:creaphur/widgets/outlined_file_picker.dart';
 import 'package:file_picker/file_picker.dart';
@@ -26,13 +27,9 @@ class ImageFilePicker extends StatelessWidget {
 
     if (image != null) {
       // Read the file as bytes
-      final bytes = await File(image.path).readAsBytes();
-
-      // Convert the bytes to base64 string
-      final base64String = base64Encode(bytes);
-
-      // Pass the base64 string to onFileChange
-      onFileChange('image', base64String);
+      final file = File(image.path);
+      Uint8List bytes = file.readAsBytesSync();
+      onFileChange('image', base64Encode(bytes));
     }
   }
 
@@ -55,7 +52,7 @@ class ImageFilePicker extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () => _pickImageFromCamera(context),
+                  onPressed: () async => await _pickImageFromCamera(context),
                   child: const Text('Take Photo With Camera'),
                 ),
               ),

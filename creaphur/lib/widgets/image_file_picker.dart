@@ -80,7 +80,8 @@ class ImageFilePicker extends StatelessWidget {
             child: const Text('Upload Image'),
           ),
         ),
-        if (isFilePicked)
+        if (isFilePicked) ...[
+          const SizedBox(width: 10),
           OutlinedButton(
             onPressed: onRotateImage,
             child: Row(
@@ -92,6 +93,7 @@ class ImageFilePicker extends StatelessWidget {
               ],
             ),
           ),
+        ]
       ],
     );
   }

@@ -25,8 +25,9 @@ class ExpenseList extends DefaultModelList<Expense> {
     notifyListeners();
   }
 
-  List getDataTable(context) {
+  List getDataTable(context, String projectId) {
     return items
+        .where((exp) => exp.projectId == projectId)
         .map((exp) => [
               exp.getMaterialName(context) ?? exp.name,
               "${exp.quantity} ${exp.getMaterialUnit(context)}",
@@ -36,8 +37,9 @@ class ExpenseList extends DefaultModelList<Expense> {
         .toList();
   }
 
-  List getDataTableForPieChart(context) {
+  List getDataTableForPieChart(context, String projectId) {
     return items
+        .where((exp) => exp.projectId == projectId)
         .map((exp) => [
               exp.getMaterialName(context) ?? exp.name,
               exp.getMaterialCost(context)
@@ -45,7 +47,7 @@ class ExpenseList extends DefaultModelList<Expense> {
         .toList();
   }
 
-  List getDataTableForPieChartMarterials(context) {
+  List getDataTableForPieChartMarterials(context, String projectId) {
     List<Expense> expensesWithMaterials = [];
     for (Expense item in items) {
       if (item.materialId != 'None') {
@@ -53,6 +55,7 @@ class ExpenseList extends DefaultModelList<Expense> {
       }
     }
     return expensesWithMaterials
+        .where((exp) => exp.projectId == projectId)
         .map((Expense exp) =>
             [exp.getMaterialName(context) ?? exp.name, exp.quantity])
         .toList();

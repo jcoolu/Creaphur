@@ -43,14 +43,14 @@ class ProjectPDF {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
     pw.TextStyle body = const pw.TextStyle(fontSize: 24);
     List expenseDataTable = Provider.of<ExpenseList>(con, listen: false)
-        .getDataTableForPieChart(con);
+        .getDataTableForPieChart(con, project.id);
     List expenseMaterialUseDataTable =
         Provider.of<ExpenseList>(con, listen: false)
-            .getDataTableForPieChartMarterials(con);
-    List materialDataTable =
-        Provider.of<ExpenseList>(con, listen: false).getDataTable(con);
-    List timeEntryDataTable =
-        Provider.of<TimeEntryList>(con, listen: false).getDataTable(con);
+            .getDataTableForPieChartMarterials(con, project.id);
+    List materialDataTable = Provider.of<ExpenseList>(con, listen: false)
+        .getDataTable(con, project.id);
+    List timeEntryDataTable = Provider.of<TimeEntryList>(con, listen: false)
+        .getDataTable(con, project.id);
 
     PdfColor returnColor() {
       return project.status == Project.inProgress
@@ -113,8 +113,8 @@ class ProjectPDF {
               style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 34),
             ),
             grid: pw.PieGrid(),
-            datasets:
-                List<pw.Dataset>.generate(expenseDataTable.length, (index) {
+            datasets: List<pw.Dataset>.generate(
+                expenseMaterialUseDataTable.length, (index) {
               final data = expenseMaterialUseDataTable[index];
               final color = PdfColor.fromHex(generateRandomHexColor());
               final value = (data[1]);

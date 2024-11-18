@@ -25,10 +25,14 @@ class TimeEntryList extends DefaultModelList<TimeEntry> {
     notifyListeners();
   }
 
-  List getDataTable(context) {
+  List getDataTable(context, String projectId) {
     return items
-        .map((time) =>
-            [time.name, "\$${time.costOfServices}", time.getDuration(context)])
+        .where((time) => time.projectId == projectId)
+        .map((time) => [
+              time.name,
+              "\$${time.costOfServices.toStringAsFixed(2)}",
+              time.getDuration(context)
+            ])
         .toList();
   }
 }

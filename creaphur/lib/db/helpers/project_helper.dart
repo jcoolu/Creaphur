@@ -33,7 +33,6 @@ class ProjectHelper {
 
     final List<Map<String, dynamic>> maps =
         await db.query("Project", where: 'profileId = ?', whereArgs: [profile]);
-
     if (maps.isEmpty) {
       return [];
     }

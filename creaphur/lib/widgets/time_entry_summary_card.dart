@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:creaphur/models/time_entry.dart';
+import 'package:creaphur/widgets/image_display.dart';
 import 'package:flutter/material.dart';
 
 class TimeEntrySummaryCard extends StatelessWidget {
@@ -31,12 +30,8 @@ class TimeEntrySummaryCard extends StatelessWidget {
               tileColor: const Color(0xffad99ff),
               textColor: Colors.white,
               splashColor: const Color(0xff2900cc),
-              leading: timeEntry.image.isEmpty
-                  ? const Icon(
-                      Icons.access_time_outlined,
-                      color: Color(0xff2900cc),
-                    )
-                  : Image.memory(base64Decode(timeEntry.image)),
+              leading: SummaryImage(
+                  icon: Icons.access_time_outlined, image: timeEntry.image),
               title: Text(timeEntry.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),

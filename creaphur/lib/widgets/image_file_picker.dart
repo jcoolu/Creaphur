@@ -1,3 +1,5 @@
+// ignore_for_file: await_only_futures
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -28,8 +30,9 @@ class ImageFilePicker extends StatelessWidget {
     if (image != null) {
       // Read the file as bytes
       final file = File(image.path);
-      Uint8List bytes = file.readAsBytesSync();
-      onFileChange('image', base64Encode(bytes));
+      // note: do NOT remove await, or else bytes will be lost and set to "null"
+      Uint8List bytes = await file.readAsBytesSync();
+      onFileChange('image', await base64Encode(bytes));
       Navigator.of(context).pop();
     }
   }

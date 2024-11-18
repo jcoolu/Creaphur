@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:creaphur/common/utils.dart';
 import 'package:creaphur/models/project.dart';
+import 'package:creaphur/widgets/image_display.dart';
 import 'package:flutter/material.dart';
 
 class ProjectSummaryCard extends StatelessWidget {
@@ -32,12 +31,8 @@ class ProjectSummaryCard extends StatelessWidget {
               tileColor: const Color(0xffad99ff),
               textColor: Colors.white,
               splashColor: const Color(0xff2900cc),
-              leading: project.image.isEmpty
-                  ? const Icon(
-                      Icons.assessment,
-                      color: Color(0xff2900cc),
-                    )
-                  : Image.memory(base64.decode(project.image)),
+              leading:
+                  SummaryImage(icon: Icons.assessment, image: project.image),
               title: Text(project.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),

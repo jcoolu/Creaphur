@@ -30,8 +30,8 @@ class MaterialSummaryCard extends StatelessWidget {
               tileColor: const Color(0xffad99ff),
               textColor: Colors.white,
               splashColor: const Color(0xff2900cc),
-              leading:
-                  SummaryImage(icon: Icons.assessment, image: material.image),
+              leading: SummaryImage(
+                  icon: Icons.draw_outlined, image: material.image),
               title: Text(material.name,
                   softWrap: false,
                   style: const TextStyle(overflow: TextOverflow.ellipsis)),

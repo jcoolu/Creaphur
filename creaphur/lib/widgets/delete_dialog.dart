@@ -7,7 +7,7 @@ class DeleteDialog extends StatelessWidget {
   final String model;
   final void Function()? onDelete;
   final bool isDeleteDisabled;
-  final Widget confirmedWidgetPath;
+  final Widget? confirmedWidgetPath;
 
   const DeleteDialog({
     super.key,
@@ -69,12 +69,14 @@ class DeleteDialog extends StatelessWidget {
                       onPressed: () {
                         if (onDelete != null) {
                           onDelete!();
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => confirmedWidgetPath,
-                            ),
-                          );
+                          if (confirmedWidgetPath != null) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => confirmedWidgetPath!,
+                              ),
+                            );
+                          }
                         }
                       },
                     ),

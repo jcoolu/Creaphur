@@ -35,8 +35,8 @@ class UnitDropdown extends StatelessWidget {
 
   const UnitDropdown({
     super.key,
-    required this.initialValue,
-    required this.onChange,
+    this.initialValue,
+    this.onChange,
   });
 
   List<DropdownMenuItem<String>> returnDropdownItems() {

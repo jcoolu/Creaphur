@@ -46,18 +46,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         await ProfileService.updateProfile(context, profile);
       }
 
-      // Store the current context
-      BuildContext currentContext = context;
       // Check if the widget is still mounted before navigating
-      if (!mounted) return;
+      if (!context.mounted) return;
 
-      await Utils.load(currentContext, profile);
+      await Utils.load(context, profile);
 
       // Check if the widget is still mounted before navigating
-      if (!mounted) return;
+      if (!context.mounted) return;
 
       Navigator.push(
-        currentContext,
+        context,
         MaterialPageRoute(
             builder: (context) => const Dashboard(
                   previousState: "settings",

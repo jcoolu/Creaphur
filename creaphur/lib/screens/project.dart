@@ -44,17 +44,15 @@ class _ProjectScreenState extends State<ProjectScreen> {
         await ProjectService.updateProject(context, newProject!);
       }
 
-      // Store the current context
-      BuildContext currentContext = context;
       // Check if the widget is still mounted before navigating
-      if (!mounted) return;
+      if (!context.mounted) return;
 
-      ScaffoldMessenger.of(currentContext).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Saved Project')),
       );
 
       Navigator.pushReplacement(
-        currentContext,
+        context,
         MaterialPageRoute(builder: (context) => const Dashboard()),
       );
     }

@@ -40,6 +40,10 @@ class _OutlinedFilePickerState extends State<OutlinedFilePicker> {
                   File file = File(result.files.single.path!);
                   Uint8List bytes = await file.readAsBytes();
                   widget.onChange('image', base64Encode(bytes));
+
+                  // Check if the widget is still mounted before navigating
+                  if (!context.mounted) return;
+
                   Navigator.of(context).pop();
                   setState(() => errorText = "");
                 }

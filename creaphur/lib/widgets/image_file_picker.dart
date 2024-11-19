@@ -33,6 +33,10 @@ class ImageFilePicker extends StatelessWidget {
       // note: do NOT remove await, or else bytes will be lost and set to "null"
       Uint8List bytes = await file.readAsBytesSync();
       onFileChange('image', await base64Encode(bytes));
+
+      // Check if the widget is still mounted before navigating
+      if (!context.mounted) return;
+
       Navigator.of(context).pop();
     }
   }

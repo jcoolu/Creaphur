@@ -77,6 +77,9 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
       final tempFilePath =
           '${directory.path}/${Utils.getStoryNameFile(widget.project.name)}';
 
+      // Check if the widget is still mounted before navigating
+      if (!context.mounted) return;
+
       // Create and write to a temporary file
       final tempFile = File(tempFilePath);
       Uint8List data = await ProjectPDF.generatePdf(PdfPageFormat.a4,
@@ -93,12 +96,10 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
     void handleDelete() async {
       await ProjectService.deleteProject(context, widget.project);
 
-      // Store the current context
-      BuildContext currentContext = context;
       // Check if the widget is still mounted before navigating
-      if (!mounted) return;
+      if (!context.mounted) return;
 
-      ScaffoldMessenger.of(currentContext).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Deleted Project')),
       );
     }

@@ -95,6 +95,8 @@ class DeleteDialog extends StatelessWidget {
         icon: const Icon(Icons.delete, color: Colors.white),
       );
     }
-    return TextButton(onPressed: showDeleteDialog, child: Text(buttonText));
+    return TextButton(
+        onPressed: isDeleteDisabled ? null : showDeleteDialog,
+        child: Text(buttonText));
   }
 }

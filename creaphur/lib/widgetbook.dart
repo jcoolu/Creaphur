@@ -2,6 +2,7 @@
 import 'package:creaphur/widgets/calendar/calendar_widgetbook.dart';
 import 'package:creaphur/widgets/date_time_picker_widgetbook.dart';
 import 'package:creaphur/widgets/delete_dialog_widgetbook.dart';
+import 'package:creaphur/widgets/filled_action_button_widgetbook.dart';
 import 'package:creaphur/widgets/project_summary_card_widgetbook.dart';
 import 'package:creaphur/widgets/calendar/yearly_calendar_widgetbook.dart';
 import 'package:creaphur/widgets/unit_dropdown_widgetbook.dart';
@@ -23,6 +24,7 @@ class HotReload extends StatelessWidget {
       directories: [
         dateTimePicker,
         deleteDialog,
+        filledActionButton,
         projectSummaryCard,
         yearlyCalendarComponent,
         calendarComponent,

@@ -6,6 +6,7 @@ import 'package:creaphur/models/profile_list.dart';
 import 'package:creaphur/models/project_list.dart';
 import 'package:creaphur/models/time_entry_list.dart';
 import 'package:creaphur/screens/dashboard/main.dart';
+import 'package:creaphur/screens/splash_screen.dart';
 import 'package:creaphur/screens/welcome.dart';
 import 'package:creaphur/common/theme.dart';
 import 'package:creaphur/services/profile_service.dart';
@@ -56,21 +57,29 @@ class _MyAppState extends State<MyApp> {
     return profiles.isNotEmpty;
   }
 
+  Future<bool> _initializeApp() async {
+    // Simulate a 5-second delay for the splash screen
+    await Future.delayed(const Duration(seconds: 5));
+    // Then resolve your _hasProfilesFuture logic here
+    return await _hasProfilesFuture;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Creaphur',
       theme: appTheme(context),
       home: FutureBuilder<bool>(
-        future: _hasProfilesFuture,
+        future: _initializeApp(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // Show a loading indicator while the Future is in progress
-            return const Center(child: CircularProgressIndicator());
+            // Show the splash screen while the Future is in progress
+            return const SplashScreen();
           } else if (snapshot.hasError) {
             // Show an error message if the Future completes with an error
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
+            // Navigate to the appropriate screen based on snapshot.data
             if (snapshot.data == true) {
               return const Dashboard();
             }

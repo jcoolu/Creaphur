@@ -8,10 +8,30 @@ WidgetbookComponent deleteDialog = WidgetbookComponent(
       name: 'Default',
       builder: (context) => DeleteDialog(
           isIconButton: false,
-          buttonText: '',
-          model: '',
+          buttonText: 'Delete',
+          model: 'item',
           onDelete: () {},
           isDeleteDisabled: false,
+          confirmedWidgetPath: null),
+    ),
+    WidgetbookUseCase(
+      name: 'Icon Button',
+      builder: (context) => DeleteDialog(
+          isIconButton: true,
+          buttonText: '',
+          model: 'icon button',
+          onDelete: () {},
+          isDeleteDisabled: false,
+          confirmedWidgetPath: null),
+    ),
+    WidgetbookUseCase(
+      name: 'Disabled',
+      builder: (context) => DeleteDialog(
+          isIconButton: true,
+          buttonText: 'Delete Disabled',
+          model: '',
+          onDelete: () {},
+          isDeleteDisabled: true,
           confirmedWidgetPath: null),
     ),
   ],

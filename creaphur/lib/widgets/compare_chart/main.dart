@@ -39,63 +39,61 @@ class CompareChartState extends State<CompareChart> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Stack(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                const Text(
-                  'Expected Vs. Current Cost',
-                  style: TextStyle(
-                    color: const Color(0xff6c47ff),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+    return Stack(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const Text(
+                'Expected Vs. Current Cost',
+                style: TextStyle(
+                  color: const Color(0xff6c47ff),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 38,
+              ),
+              SizedBox(
+                height: 350,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: BarChart(
+                    isPlaying ? randomData() : mainBarData(),
+                    swapAnimationDuration: animDuration,
                   ),
                 ),
-                const SizedBox(
-                  height: 38,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: BarChart(
-                      isPlaying ? randomData() : mainBarData(),
-                      swapAnimationDuration: animDuration,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-              ],
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: Icon(
+                isPlaying ? Icons.celebration : Icons.celebration_outlined,
+                color: const Color(0xffad99ff),
+              ),
+              onPressed: () {
+                setState(() {
+                  isPlaying = !isPlaying;
+                  if (isPlaying) {
+                    refreshState();
+                  }
+                });
+              },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(
-                  isPlaying ? Icons.celebration : Icons.celebration_outlined,
-                  color: const Color(0xffad99ff),
-                ),
-                onPressed: () {
-                  setState(() {
-                    isPlaying = !isPlaying;
-                    if (isPlaying) {
-                      refreshState();
-                    }
-                  });
-                },
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 

@@ -29,7 +29,7 @@ class ImageFilePicker extends StatelessWidget {
 
     if (image != null) {
       // Read the file as bytes
-      final file = File(image.path);
+      final file = await File(image.path);
       // note: do NOT remove await, or else bytes will be lost and set to "null"
       Uint8List bytes = await file.readAsBytesSync();
       onFileChange('image', await base64Encode(bytes));

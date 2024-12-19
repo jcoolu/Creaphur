@@ -228,4 +228,18 @@ class Project extends DefaultModel {
 
     return '\$${costSum.toStringAsFixed(2)}';
   }
+
+  String handleProjectCardStatus() {
+    bool isAfterEndDate = Utils.daysBetween(DateTime.now(), endDate) < 0;
+
+    if ((status != finished && isAfterEndDate)) {
+      return 'Project End Date Passed';
+    }
+
+    if (status == finished) {
+      return 'Project Completed';
+    }
+
+    return '${Utils.daysBetween(DateTime.now(), endDate).toString()} days left';
+  }
 }

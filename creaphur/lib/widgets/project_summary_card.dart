@@ -39,10 +39,7 @@ class ProjectSummaryCard extends StatelessWidget {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Utils.daysBetween(DateTime.now(), project.endDate) < 0
-                      ? const Text('Project End Date Passed')
-                      : Text(
-                          '${Utils.daysBetween(DateTime.now(), project.endDate).toString()} days left'),
+                  Text(project.handleProjectCardStatus()),
                   Text('Cost: ${project.getTotalCost(context)}')
                 ],
               ),
